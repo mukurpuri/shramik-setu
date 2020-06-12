@@ -1,13 +1,18 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 
-import useCachedResources from './hooks/useCachedResources';
-import BottomTabNavigator from './navigation/BottomTabNavigator';
-import LinkingConfiguration from './navigation/LinkingConfiguration';
+import { PersistGate } from 'redux-persist/es/integration/react'
+import { Provider } from 'react-redux';
 
-const Stack = createStackNavigator();
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, Layout, Text,Button, Icon, IconRegistry } from '@ui-kitten/components';
+import { default as theme } from './src/styles/theme.json'; // <-- Import app theme
+import { default as mapping } from './src/config/mapping.json'; // <-- Import app mapping
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { AppNavigator } from './AppNavigator';
+
+import useCachedResources from './hooks/useCachedResources';
+import { store, persistor } from './src/redux/store/store';
 
 export default function App(props) {
   const isLoadingComplete = useCachedResources();
@@ -16,21 +21,14 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
-        <NavigationContainer linking={LinkingConfiguration}>
-          <Stack.Navigator>
-            <Stack.Screen name="Root" component={BottomTabNavigator} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <IconRegistry icons={EvaIconsPack} />
+          <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }} customMapping={mapping}>
+            <AppNavigator/>
+          </ApplicationProvider>
+        </PersistGate>
+      </Provider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});

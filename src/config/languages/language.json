@@ -1,0 +1,170 @@
+[
+    {
+        "language": "en",
+        "common": {
+            "yes": "Yes",
+            "no": "No",
+            "select": "Select",
+            "ok": "ok"
+        },
+        "title": {
+            "setu": "Setu",
+            "name": "Shramik Setu",
+            "header": "Shramik Setu - Connecting 500 Million Workers in India",
+            "moto": "Find work for yourself and create your identity",
+            "postJob": "Need a worker? Do you want to get your work done?",
+            "postJobButton": "Search Workers"
+        },
+        "inputs": {
+            "searchJobs": "Search Jobs for you"
+        },
+        "links": {
+            "alreadyLogin": "Already have an account? Log in",
+            "createAccount": "Not a user? Create new Account"
+        },
+        "loginPage": {
+            "loginButton": "Login",
+            "title": "Welcome, Log in to your Account"
+        },
+        "otpPage": {
+            "title": "Enter Verification Code",
+            "subtitle": "We have send you a 4 digit OTP SMS on",
+            "placeholderInputText": "Please enter your 6 didits OTP",
+            "submitButton": "Submit",
+            "otpErrorNotreceived": "OTP is not correct",
+            "mobileNumberNotValid": "Mobile Number not valid",
+            "submitOTP": "Submit OTP"
+        },
+        "postjob": {
+            "title": "Post a job Ad",
+            "subtitle": "Get your work done"
+        },
+        "register": {
+            "nameExample": "Manoj Singh",
+            "errorModal": "Before submitting, please enter following details",
+            "name": "Full Name",
+            "dob": "Date of Brth",
+            "sex": "Sex",
+            "address": "Where do you live" ,
+            "maritialStatus": "Are you married?",
+            "education": "How much are you educated",
+            "workExperience": "What is your work experience",
+            "title": "Create your account",
+            "submitButton": "Submit",
+            "month": "Month",
+            "year": "Year",
+            "day": "Day",
+            "sexMale": "Male",
+            "sexFemale": "Female",
+            "sexOther": "Other",
+            "yes": "Yes",
+            "no": "No",
+            "location": "City/Town/Village",
+            "state": "State",
+            "whatWorkTitle": "What work can you do",
+            "submitButton2": "Create My Account"
+        },
+        "location": {
+            "title": "Set your Current Location",
+            "list": [
+                "Search Workers and Post Jobs",
+                "Get Work and Find Jobs near by",
+                "Connect to People in your Location"
+            ],
+            "button": "Set Current Location",
+            "buttonAddress": "Specify a particular address"
+        },
+        "listAdd": {
+            "title": "Ads near you"
+        },
+        "signin": {
+            "phoneNumber": "Enter your Mobile Number",
+            "submitPhoneNumber": "Create your Account",
+            "title": "Sign in with Shramik Setu"
+        }
+    },
+    {
+        "language": "hi",
+        "common": {
+            "yes": "हाँ",
+            "no": "नहीं",
+            "select": "चुनें",
+            "ok": "समझ गए"
+        },
+        "title": {
+            "setu": "सेतु ",
+            "name": "श्रमिक सेतु ",
+            "header": "श्रमिक सेतु | हमारा लक्ष्य - भारत में सभी श्रमिकों को जोड़ना",
+            "moto": "अपने लिए काम खोजें और अपनी पहचान बनाएं",
+            "postJob": "क्या आपको एक श्रमिक की आवश्यकता है?",
+            "postJobButton": "अपने आस-पास श्रमिक खोजें"
+        },
+        "inputs": {
+            "searchJobs": "अपने लिए पसंदीदा काम खोजें"
+        },
+        "links": {
+            "alreadyLogin": "क्या पहले से एक अकाउंट है? लॉग इन करें",
+            "createAccount": "यूजर नहीं है? नया अकाउंट बनाएँ"
+        },
+        "loginPage": {
+            "loginButton": "लॉग इन करें",
+            "title": "अपने अकाउंट में लॉग इन करें"
+        },
+        "otpPage": {
+            "title": "वेरिफिकेशन कोड डाले",
+            "subtitle": "हमने आपको 4 अंको का कोड SMS किया है ",
+            "placeholderInputText": "6 अंकों का ओटीपी दर्ज करें",
+            "submitButton": "अपने अकाउंट में प्रवेश करें",
+            "otpErrorNotreceived": "ओटीपी सही नहीं है",
+            "mobileNumberNotValid": "मोबाइल नंबर मान्य नहीं है",
+            "submitOTP": "सबमिट करें "
+        },
+        "postjob": {
+            "title": "विज्ञापन प्रकाशित करे",
+            "subtitle": "अपना काम सम्पन करे "
+        },
+        "register": {
+            "nameExample": "जैसे .. मनोज सिंह",
+            "errorModal": "आप निम्नलिखित जानकारी नहीं भर रहे हैं",
+            "name": "पूरा नाम",
+            "dob": "जन्म का दिन",
+            "sex": "लिंग",
+            "address": "आप कहाँ रहते हैं" ,
+            "maritialStatus": "क्या आप शादीशुदा हैं?",
+            "education": "आप कितने पढ़े-लिखे हैं",
+            "workExperience": "आपका कार्य अनुभव क्या है",
+            "title": "अपना अकाउंट बनाएं",
+            "submitButton": "आगे बढ़ें",
+            "month": "महीना",
+            "year": "साल",
+            "day": "दिन",
+            "sexMale": "पुरुष",
+            "sexFemale": "महिला",
+            "sexOther": "अन्य",
+            "yes": "हाँ",
+            "no": "नहीं",
+            "location": "शहर/कस्बा/गाँव",
+            "state": "राज्य",
+            "whatWorkTitle": "आप क्या क्या काम कर सकते हैं",
+            "submitButton2": "मेरा अकाउंट बनाएं"
+        },
+        "location": {
+            "title": "अपनी लोकेशन सेट करें",
+            "list": [
+                "श्रमिक खोजें और काम/जॉब पोस्ट करें",
+                "अपने आस-पास काम पाएं",
+                "अपने स्थान के लोगों से कनेक्ट करें"
+            ],
+            "button": "करंट लोकेशन सेट करें",
+            "buttonAddress": "या अपना पता डाले"
+        },
+        "listAdd": {
+            "title": "आस पास के विज्ञापन"
+        },
+        "signin": {
+            "phoneNumber": "यहां अपना मोबाइल नंबर डालें",
+            "submitPhoneNumber": "अपने अकाउंट पे जाएँ",
+            "title": "श्रमिक सेतु से जुड़े "
+        }
+    }
+]
