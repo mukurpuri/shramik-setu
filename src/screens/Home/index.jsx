@@ -20,7 +20,7 @@ class HomeScreen extends React.Component {
     }
 
     openSearchWorkerPage = () => {
-      this.props.navigation.navigate('SearchWorkers');
+      this.props.navigation.navigate('Signin');
     }
     
     render() {
@@ -42,7 +42,7 @@ class HomeScreen extends React.Component {
               </Button>
             </View> */}
             <View style={[Styles.alignments.row, Styles.spacings.mTopXSmall,  Styles.alignments.horizontalCenter]} >
-              <Button style={[Styles.alignments.full, LocalStyles.button]}  size='giant' status='primary' accessoryRight={SearchIcon}>
+              <Button onPress={() => this.openSearchWorkerPage()} style={[Styles.alignments.full, LocalStyles.button]}  size='giant' status='primary' accessoryRight={SearchIcon}>
                 {Language.get("inputs","searchJobs",currentLanguage)}
               </Button>
             </View>

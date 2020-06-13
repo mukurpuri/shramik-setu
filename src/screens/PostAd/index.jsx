@@ -43,7 +43,7 @@ class PostAdScreen extends React.Component {
                   placeholder='Example: I need a female cook for breakfast'
                 />
                 </Row>
-                <Row style={Styles.spacings.mTopSmall}>
+                {/* <Row style={Styles.spacings.mTopSmall}>
                 <Input
                   style={LocalStyles.input}
                   label="Description"
@@ -51,8 +51,20 @@ class PostAdScreen extends React.Component {
                   textStyle={{ minHeight: 70 }}
                   placeholder='I need to have a good and healthy breakfast before my way to office'
                 />
-                </Row>
-                <View style={Styles.spacings.mTopSmall}>
+                </Row> */}
+                <Divider style={Styles.spacings.mTopXSmall}/>
+                <View style={Styles.spacings.mTopXSmall}>
+                  <Grid>
+                  <Col size={30}>
+                    <Button style={Styles.spacings.d} size="tiny">SELECT TAGS</Button>
+                  </Col>
+                  <Col size={70}>
+
+                  </Col>
+                  </Grid>
+                </View>
+                <Divider style={Styles.spacings.mTopXSmall}/>
+                <View style={Styles.spacings.mTopXSmall}>
                   <Text style={LocalStyles.label} category="c1">Preferences</Text>
                   <Row  style={Styles.spacings.mTopXSmall}>
                     <Radio
@@ -70,7 +82,8 @@ class PostAdScreen extends React.Component {
                     </Radio>
                   </Row>
                 </View>
-                <View style={Styles.spacings.mTopSmall}>
+                <Divider style={Styles.spacings.mTopXSmall}/>
+                <View style={Styles.spacings.mTopXSmall}>
                   <Text style={LocalStyles.label} category="c1">Period of work</Text>
                   <Row  style={Styles.spacings.mTopXSmall}>
                     <Radio
@@ -88,7 +101,8 @@ class PostAdScreen extends React.Component {
                     </Radio>
                   </Row>
                 </View>
-                <View style={Styles.spacings.mTopSmall}>
+                <Divider style={Styles.spacings.mTopXSmall}/>
+                <View style={Styles.spacings.mTopXSmall}>
                   <Text style={LocalStyles.label} category="c1">Amount/Salary in INR</Text>
                   <Row  style={Styles.spacings.mTopXSmall}>
                     <Grid>
@@ -116,11 +130,12 @@ class PostAdScreen extends React.Component {
                     </Grid>
                   </Row>
                 </View>
-                <View style={Styles.spacings.mTopSmall}>
+                <Divider style={Styles.spacings.mTopXSmall}/>
+                <View style={Styles.spacings.mTopXSmall}>
                   <Text style={LocalStyles.label} category="c1">Set Location of Job</Text>
                   <Row style={Styles.spacings.mTopXSmall}>
                     <Col size={50}>
-                      <Button accessoryRight={PlaneIcon}  accessoryRight={PinIcon} size='tiny'>SET CURRENT LOCATION</Button>
+                      <Button accessoryRight={PinIcon} size='tiny'>SET CURRENT LOCATION</Button>
                     </Col>
                     <Col size={10}>
                       <View style={Styles.alignments.verticalCenter}>

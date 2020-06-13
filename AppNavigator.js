@@ -14,13 +14,15 @@ const { Navigator, Screen } = createStackNavigator();
 
 export const AppNavigator = () => (
   <NavigationContainer>
-    <Navigator headerMode='none'>
+      <Navigator headerMode='none'>
+      <Screen name='Signin' component={Signin}/>
+      <Screen name='Home' component={HomeScreen}/>
+
       <Screen name='ListAd' component={ListAdScreen}/>
       <Screen name='PostAd' component={PostAdScreen}/>
       <Screen name='SetLocation' component={SetLocationScreen}/>
       <Screen name='OTP' component={OTP}/>
-      <Screen name='Signin' component={Signin}/>
-      <Screen name='Home' component={HomeScreen}/>
+      
       <Screen name='SearchWorkers' component={SearcWorkersScreen}/>
       <Screen name='Details' component={DetailsScreen}/>
       

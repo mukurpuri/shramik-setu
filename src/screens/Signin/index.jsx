@@ -4,7 +4,7 @@ import { SafeAreaView, Layout, View, StyleSheet, Image } from 'react-native';
 
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-import { Text, Input, Button, Icon } from '@ui-kitten/components';
+import { Text, Input, Button, Icon, Spinner } from '@ui-kitten/components';
 
 import  Wrapper from '../../component/Wrapper';
 import Language from '../../config/languages/Language';
@@ -16,7 +16,33 @@ import { Keys } from '../../config/Images';
 
 class Signin extends React.Component {
     constructor(props) {
-        super(props);
+      super(props);  
+      this.state = {
+          phoneNumber: "",
+          spinner: false,
+        }
+    }
+
+    setPhoneNumber = number => {
+      const { phoneNumber } = this.state;
+      if(number.length <= 10) {
+        this.setState({
+          phoneNumber: number
+        })
+      }
+    }
+
+    showOTPPage = () => {
+      let currentLanguage = this.props.settings.language;
+      if(this.state.phoneNumber.length === 10) {
+        this.setState({
+          spinner: true
+        }, () => {
+          this.props.navigation.navigate('OTP');
+        });
+      } else {
+        alert(Language.get("otpPage","mobileNumberNotValid",currentLanguage))
+      }
     }
     
     render() {
@@ -30,6 +56,8 @@ class Signin extends React.Component {
                     <Text style={[Styles.typograhy.strong, Styles.spacings.mTopMedium]} category="h3">{Language.get("signin", "title", currentLanguage)}</Text>
                         <View style={[Styles.alignments.row, Styles.spacings.mTopMedium,  Styles.alignments.horizontalCenter]} >
                             <Input
+                                value={this.state.phoneNumber}
+                                onChangeText={this.setPhoneNumber}
                                 style={[Styles.alignments.full]}
                                 textStyle={[Styles.alignments.full, LocalStyles.inputFile]}
                                 keyboardType='numeric'
@@ -38,10 +66,16 @@ class Signin extends React.Component {
                         />
                         </View>
                         <View style={[Styles.alignments.row, Styles.spacings.mTopXSmall,  Styles.alignments.horizontalCenter]} >
-                            <Button style={[Styles.alignments.full, LocalStyles.button]}  size='giant' status='primary' accessoryRight={RightIcon}>
+                        {
+                          this.state.spinner ? 
+                          <Spinner size='giant'/> :
+                          
+                            <Button onPress={() => this.showOTPPage()} style={[Styles.alignments.full, LocalStyles.button]}  size='giant' status='primary' accessoryRight={RightIcon}>
                                 {Language.get("signin","submitPhoneNumber",currentLanguage)}
                             </Button>
-                        </View>
+
+                        }
+                      </View>
                 </View>
               </View>
             </View>

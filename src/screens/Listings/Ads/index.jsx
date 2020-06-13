@@ -14,6 +14,8 @@ import Styles from '../../../styles';
 import Footer from '../../../component/Footer';
 import { Otp } from '../../../config/Images';
 
+import AdItem from './AdItem';
+
 class ListAdScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -34,10 +36,9 @@ class ListAdScreen extends React.Component {
                   accessoryLeft={this.renderBackAction}
               />
               <Divider/>
-              <View>
-                <Grid>
-                </Grid>
-              </View>
+              <AdItem/>
+              
+              
               <Footer/>
             </Wrapper>
         );   

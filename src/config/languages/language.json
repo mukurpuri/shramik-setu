@@ -32,7 +32,7 @@
             "placeholderInputText": "Please enter your 6 didits OTP",
             "submitButton": "Submit",
             "otpErrorNotreceived": "OTP is not correct",
-            "mobileNumberNotValid": "Mobile Number not valid",
+            "mobileNumberNotValid": "Not valid 10 digit Mobile Number",
             "submitOTP": "Submit OTP"
         },
         "postjob": {
@@ -112,11 +112,11 @@
         },
         "otpPage": {
             "title": "वेरिफिकेशन कोड डाले",
-            "subtitle": "हमने आपको 4 अंको का कोड SMS किया है ",
+            "subtitle": "हमने आपको 4 अंको का कोड SMS भेजा है ",
             "placeholderInputText": "6 अंकों का ओटीपी दर्ज करें",
             "submitButton": "अपने अकाउंट में प्रवेश करें",
             "otpErrorNotreceived": "ओटीपी सही नहीं है",
-            "mobileNumberNotValid": "मोबाइल नंबर मान्य नहीं है",
+            "mobileNumberNotValid": "मोबाइल नंबर मान्य नहीं है, 10 अंको का मोबाइल नंबर डाले |",
             "submitOTP": "सबमिट करें "
         },
         "postjob": {

@@ -28,5 +28,9 @@
     "web": {
       "favicon": "./assets/images/favicon.png"
     }
+  },
+  "android": {
+    "package": "com.pugos.shramiksetu",
+    "versionCode": 1
   }
 }
