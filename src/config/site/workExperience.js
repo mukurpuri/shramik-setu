@@ -1,4 +1,4 @@
-const workExperienceList = {
+const WorkExperienceList = {
     "hi": [
         "कोई अनुभव नहीं",
         "0 - 1 वर्ष",
@@ -14,4 +14,4 @@ const workExperienceList = {
         "10+ Years Expert", 
     ]
 }
-export { workExperienceList };
+export { WorkExperienceList };

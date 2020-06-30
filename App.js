@@ -9,7 +9,7 @@ import { ApplicationProvider, Layout, Text,Button, Icon, IconRegistry } from '@u
 import { default as theme } from './src/styles/theme.json'; // <-- Import app theme
 import { default as mapping } from './src/config/mapping.json'; // <-- Import app mapping
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import { AppNavigator } from './AppNavigator';
+import AppNavigator from './AppNavigator';
 
 import useCachedResources from './hooks/useCachedResources';
 import { store, persistor } from './src/redux/store/store';

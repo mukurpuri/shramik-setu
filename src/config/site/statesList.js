@@ -1,4 +1,4 @@
-const statesList = {
+const StatesList = {
     "hi": ["आंध्र प्रदेश",
     "अरुणाचल प्रदेश",
     "असम",
@@ -74,4 +74,4 @@ const statesList = {
     "Puducherry"
     ]
 }
-export { statesList };
+export { StatesList };

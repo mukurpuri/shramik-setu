@@ -2,10 +2,7 @@ import decode from 'jwt-decode';
 
 export const userService = {
     loggedIn:loggedIn,
-    setToken:setToken,
-    isTokenExpired:isTokenExpired,
-    getToken:getToken,
-    logout:logout,
+    isTokenExpired:isTokenExpired
 };
 
 function loggedIn() {
@@ -29,14 +26,14 @@ function isTokenExpired(token) {
         }
     }
 
-function setToken(idToken) {
-    localStorage.setItem('id_token', idToken)
-}
+// function setToken(idToken) {
+//     localStorage.setItem('id_token', idToken)
+// }
 
-function getToken() {
-    return localStorage.getItem('id_token')
-}
+// function getToken() {
+//     return localStorage.getItem('id_token')
+// }
 
-function logout() {
-    localStorage.removeItem('id_token');
-}
+// function logout() {
+//     localStorage.removeItem('id_token');
+// }

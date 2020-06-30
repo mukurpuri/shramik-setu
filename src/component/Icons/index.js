@@ -32,3 +32,28 @@ export const PlaneIcon = (props) => (
 export const PinIcon = (props) => (
     <Icon {...props} name='radio-button-on'/>
 );
+
+export const CrossIcon = (props) => (
+    <Icon {...props} name='close-outline'/>
+);
+export const CheckIcon = (props) => (
+    <Icon {...props} name='checkmark-outline'/>
+);
+export const ForwardArrowIcon = (props) => (
+    <Icon {...props} name='arrow-forward-outline'/>
+);
+export const PictureIcon = (props) => (
+    <Icon {...props} name='image-outline'/>
+);
+export const ProfileIcon = (props) => (
+    <Icon {...props} name='person-outline'/>
+);
+export const GlobeIcon = (props) => (
+    <Icon {...props} name='globe-outline'/>
+);
+export const CircularCheckIconFull = (props) => (
+    <Icon {...props} name='checkmark-circle-2'/>
+);
+export const AwardIcon = (props) => (
+    <Icon {...props} name='award'/>
+);

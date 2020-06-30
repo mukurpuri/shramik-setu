@@ -2,58 +2,93 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { SafeAreaView, Layout, View, StyleSheet } from 'react-native';
 
-//import { Col, Row, Grid } from "react-native-easy-grid";
+import { Col, Row, Grid } from "react-native-easy-grid";
 
-import { Text, Input, Button, Divider } from '@ui-kitten/components';
+import { Text, Input, Button, Divider, Spinner } from '@ui-kitten/components';
 
 import  Wrapper from '../../component/Wrapper';
 import Language from '../../config/languages/Language';
-import { RightIcon, SearchIcon, UserIcon } from '../../component/Icons';
+import { RightIcon, ForwardArrowIcon, UserIcon } from '../../component/Icons';
 import Styles from '../../styles';
 
 import Hero from './Hero';
 import Footer from '../../component/Footer';
 
-class HomeScreen extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+import { SendOTPToLogin } from '../../services/api.service';
+import { OTPStatus, SubmitMobileNumberStatus } from '../../redux/actions/user';
 
-    openSearchWorkerPage = () => {
-      this.props.navigation.navigate('Signin');
+class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);  
+    this.state = {
+        phoneNumber: "",
+        spinner: false,
+      }
+  }
+
+  setPhoneNumber = number => {
+    const { phoneNumber } = this.state;
+    this.setState({
+      phoneNumber: number
+    })
+  }
+
+  showOTPPage = () => {
+    let currentLanguage = this.props.settings.language;
+    if(this.state.phoneNumber.length === 10) {
+      this.setState({
+        spinner: true
+      }, async () => {
+        await SendOTPToLogin(this.state.phoneNumber).then( res => {
+          if(res && res.data && res.data.status === "pass" && res.status === 200) {
+            this.setState({
+              spinner: false
+            }, () => {
+              this.props.SubmitMobileNumberStatus(res.data.phoneNumber)
+              this.props.navigation.navigate('OTP');
+            });
+          } else {
+            this.setState({
+              spinner: false
+            }, () => {
+              alert(Language.get("otpPage","error",currentLanguage));
+            })
+          }
+        })
+      });
+    } else {
+      alert(Language.get("otpPage","mobileNumberNotValid",currentLanguage))
     }
-    
+  }
+
     render() {
         let currentLanguage = this.props.settings.language;
+        const { user } = this.props;
         return (
-          <Wrapper>
+          <Wrapper paddRight={15} paddLeft={15}>
             <Hero data={{currentLanguage}} />
-            {/* <View style={[Styles.alignments.row, Styles.spacings.mTopMedium,  Styles.alignments.horizontalCenter]} >
-              <Input
-                  style={[Styles.alignments.full, {color: "red !important"}]}
-                  keyboardType='numeric'
-                  size='large'
-                  placeholder={Language.get("inputs","phoneNumber",currentLanguage)}
+            {
+              !this.state.spinner ?
+              <Grid>
+              <Row style={[Styles.alignments.row, Styles.spacings.mTopMedium,  Styles.alignments.horizontalCenter]} >
+                  <Input
+                      value={this.state.phoneNumber}
+                      onChangeText={this.setPhoneNumber}
+                      textStyle={[LocalStyles.inputText, Styles.typograhy.nunito, { fontFamily: this.state.phoneNumber.length === 0 ? "nunito" : "nunito-bold"} ,{ letterSpacing: this.state.phoneNumber.length === 0 ? 0 : 5}]}
+                      keyboardType='numeric'
+                      maxLength={10}
+                      size='large'
+                      status='danger'
+                      placeholder={Language.get("signin","phoneNumber",currentLanguage)}
               />
-            </View>
-            <View style={[Styles.alignments.row, Styles.spacings.mTopXSmall,  Styles.alignments.horizontalCenter]} >
-              <Button style={[Styles.alignments.full, LocalStyles.button]}  size='giant' status='primary' accessoryRight={RightIcon}>
-                {Language.get("inputs","submitPhoneNumber",currentLanguage)}
-              </Button>
-            </View> */}
-            <View style={[Styles.alignments.row, Styles.spacings.mTopXSmall,  Styles.alignments.horizontalCenter]} >
-              <Button onPress={() => this.openSearchWorkerPage()} style={[Styles.alignments.full, LocalStyles.button]}  size='giant' status='primary' accessoryRight={SearchIcon}>
-                {Language.get("inputs","searchJobs",currentLanguage)}
-              </Button>
-            </View>
-            <View style={[Styles.alignments.row, Styles.spacings.mTopMedium,  Styles.alignments.horizontalCenter]} >
-                    <Text style={[Styles.typograhy.strong,Styles.typograhy.center, Styles.alignments.horizontalCenter]} category='h6'>{Language.get("title","postJob",currentLanguage)}</Text>
-                </View>
-            <View style={[Styles.alignments.row, Styles.spacings.mTopXSmall,  Styles.alignments.horizontalCenter]} >
-              <Button onPress={() => this.openSearchWorkerPage()} style={[Styles.alignments.full, LocalStyles.button]}  size='giant' status='danger' accessoryRight={UserIcon}>
-                {Language.get("title","postJobButton",currentLanguage)}
-              </Button>
-            </View>
+              </Row>
+              <Row style={[Styles.alignments.row, Styles.spacings.mTopXSmall,  Styles.alignments.horizontalCenter]} >
+                <Button onPress={() => this.showOTPPage()} style={[Styles.alignments.full, LocalStyles.button]}  size='giant' status='danger' accessoryRight={ForwardArrowIcon}>
+                  {Language.get("signin","title",currentLanguage)}
+                </Button>
+              </Row></Grid>
+             : <Grid><Row style={[Styles.alignments.row, Styles.spacings.mTopMedium,  Styles.alignments.horizontalCenter]}><Spinner status='danger' size='giant'/></Row></Grid>
+            }
             <Footer/>
           </Wrapper>
         );   
@@ -62,19 +97,19 @@ class HomeScreen extends React.Component {
 
 
 const LocalStyles = StyleSheet.create({
-  phoneNumber: { fontSize: 123 },
-  button: { fontSize: 432423}
+  inputText: {fontSize: 22, textAlign: "center", width: "94%"},
 });
 
 const mapStateToProps = state => {
   return {
-    settings: state.settingsReducer.settings
+    settings: state.settingsReducer.settings,
+    user: state.userReducer.user
   };
 };
   
 const mapDispatchToProps = (dispatch) => {
     return {
-
+      SubmitMobileNumberStatus: (phoneNumber) => dispatch(SubmitMobileNumberStatus(phoneNumber)),
     };
 };
   

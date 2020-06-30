@@ -1,7 +1,7 @@
 import _ from 'lodash';
 const initialState = {
     settings: {
-        language: "hi",
+        language: "en",
         screenloading: false
     }
 };

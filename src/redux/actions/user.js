@@ -9,18 +9,34 @@ export const OTPStatus = status => ({
 });
 
 
-export const SubmitMobileNumberStatus = (status, phoneNumber) => ({
+export const SubmitMobileNumberStatus = phoneNumber => ({
     type: 'SEND_OTP_STATUS',
-    status: status,
     phoneNumber: phoneNumber
 });
 
-export const SetUser = (token, id, isRegistered) => ({
+export const SetUser = data => ({
     type: 'SET_USER',
-    params: {
-        token,
-        id,
-        isRegistered
-    }
+    data: data
 });
+
+export const setUserName = name => {
+    return ({
+        type: 'SET_USER_NAME',
+        name: name
+    })
+}
+
+export const setUserImage = id => {
+    return ({
+        type: 'SET_USER_IMAGE',
+        id: id
+    })
+}
+
+export const UserLogout = () => {
+    return ({
+        type: 'SET_USER_LOGOUT'
+    })
+    
+}
 

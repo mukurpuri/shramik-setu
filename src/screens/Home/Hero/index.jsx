@@ -4,7 +4,7 @@ import { Text, Input } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native';
 
 import Language from '../../../config/languages/Language';
-import Images, { SetuCover } from '../../../config/Images';
+import Images, { SetuCover, SetuTextLogo } from '../../../config/Images';
 
 import Styles from '../../../styles';
 
@@ -16,15 +16,15 @@ class Hero extends React.Component {
     render() {
         let { currentLanguage } = this.props.data;
         return (
-            <View>
+            <View style={{marginTop: 50}}>
                 <View style={[Styles.alignments.row, Styles.alignments.horizontalCenter]} >
-                    <Text style={Styles.typograhy.superText} category='h1'>{Language.get("title","name",currentLanguage)}</Text>
+                    <Image style = {[HeroStyles.textImage]} source={SetuTextLogo}/>
                 </View>
                 <View style={[Styles.alignments.row, Styles.alignments.horizontalCenter, Styles.spacings.mTopMedium]} >
                     <Image style = {[HeroStyles.image]} source={SetuCover}/>
                 </View>
                 <View style={[Styles.alignments.row, Styles.spacings.mTopMedium,  Styles.alignments.horizontalCenter]} >
-                    <Text style={[HeroStyles.moto,Styles.typograhy.strong,Styles.typograhy.center, Styles.alignments.horizontalCenter]} category='h5'>{Language.get("title","moto",currentLanguage)}</Text>
+                    <Text style={[HeroStyles.moto,Styles.typograhy.center, Styles.alignments.horizontalCenter]} category='h5'>{Language.get("title","moto",currentLanguage)}</Text>
                 </View>
             </View>
         );   
@@ -32,9 +32,10 @@ class Hero extends React.Component {
 }
 
 const HeroStyles = StyleSheet.create({
-    moto: { width: "70%"},
+    moto: { width: "90%", fontFamily: "nunito-bold", fontSize: 19},
     phoneNumber: { fontSize: 40 },
-    image: { width: 200, height: 120 }
+    image: { width: 250, height: 170 },
+    textImage: { width: 200, height: 170 }
 });
   
   

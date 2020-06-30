@@ -63,6 +63,17 @@ const Spacings = StyleSheet.create({
     mBottomXLarge: {
         marginBottom: 90
     },
+    mXSmall: {
+        margin: 10
+    },
+    mSmall: {
+        margin: 20
+    },
+    mMedium: {
+        margin: 40
+    },mLarge: {
+        margin: 60
+    },
     pTopXSmall: {
         paddingTop: 10
     },

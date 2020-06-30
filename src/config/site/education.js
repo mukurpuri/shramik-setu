@@ -1,4 +1,4 @@
-const educationList = {
+const EducationList = {
     "hi": [
         "अनपढ़/कोई शिक्षा नहीं",
         "5 वीं कक्षा तक",
@@ -16,4 +16,4 @@ const educationList = {
         "Graduate"
     ]
 }
-export { educationList };
+export { EducationList };

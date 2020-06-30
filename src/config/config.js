@@ -1,14 +1,13 @@
 const pipes = {
-    local: "http://localhost:1923",
-    production: ""
+    local: "http://192.168.1.102:8080",
+    production: "https://boiling-temple-64575.herokuapp.com"
 }
 
 export const getBackendAPI = () => {
-    let url = pipes.local;
-    let currentURL = window.location.href;
-    // if(!(currentURL.indexOf("localhost:") >= 0)) {
-    //     url = pipes.production;
-    // }
+    let url = pipes.production;
+    if(__DEV__) {
+        url = pipes.local
+    }
     return url;
 }
 

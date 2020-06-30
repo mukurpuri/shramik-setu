@@ -5,13 +5,15 @@
             "yes": "Yes",
             "no": "No",
             "select": "Select",
-            "ok": "ok"
+            "ok": "ok",
+            "continue": "Continue",
+            "or": "OR"
         },
         "title": {
             "setu": "Setu",
             "name": "Shramik Setu",
             "header": "Shramik Setu - Connecting 500 Million Workers in India",
-            "moto": "Find work for yourself and create your identity",
+            "moto": "Connect to People, Shops and Services in your Locality",
             "postJob": "Need a worker? Do you want to get your work done?",
             "postJobButton": "Search Workers"
         },
@@ -27,6 +29,7 @@
             "title": "Welcome, Log in to your Account"
         },
         "otpPage": {
+            "error": "Something is wrong, try again",
             "title": "Enter Verification Code",
             "subtitle": "We have send you a 4 digit OTP SMS on",
             "placeholderInputText": "Please enter your 6 didits OTP",
@@ -42,6 +45,7 @@
         "register": {
             "nameExample": "Manoj Singh",
             "errorModal": "Before submitting, please enter following details",
+            "placeholderName": "Enter your full name",
             "name": "Full Name",
             "dob": "Date of Brth",
             "sex": "Sex",
@@ -52,6 +56,8 @@
             "title": "Create your account",
             "submitButton": "Submit",
             "month": "Month",
+            "age": "How old are you",
+            "agePlaceholder": "Age",
             "year": "Year",
             "day": "Day",
             "sexMale": "Male",
@@ -62,17 +68,22 @@
             "location": "City/Town/Village",
             "state": "State",
             "whatWorkTitle": "What work can you do",
-            "submitButton2": "Create My Account"
+            "submitButton2": "Create My Account",
+            "stateQuestion": "Where do you live",
+            "uploadPicture": "Upload a Profile Picture",
+            "uploadfromGallery": "Upload photo from gallery",
+            "registrationComplete": "Complete Registration"
         },
         "location": {
             "title": "Set your Current Location",
             "list": [
-                "Search Workers and Post Jobs",
-                "Get Work and Find Jobs near by",
-                "Connect to People in your Location"
+                "Get Latest Updates of your City",
+                "Find what's new happening in Jaipur",
+                "Connect to People in your Location",
+                "Get Latest Updates about Companies and Factories"
             ],
             "button": "Set Current Location",
-            "buttonAddress": "Specify a particular address"
+            "buttonAddress": "Continue to Setu"
         },
         "listAdd": {
             "title": "Ads near you"
@@ -80,7 +91,12 @@
         "signin": {
             "phoneNumber": "Enter your Mobile Number",
             "submitPhoneNumber": "Create your Account",
-            "title": "Sign in with Shramik Setu"
+            "createAccount": "Create account on Setu",
+            "title": "Sign in for Free"
+        },
+        "welcome": {
+            "title": "Welcome",
+            "subtitle": "Are you a company?"
         }
     },
     {
@@ -89,7 +105,9 @@
             "yes": "हाँ",
             "no": "नहीं",
             "select": "चुनें",
-            "ok": "समझ गए"
+            "ok": "समझ गए",
+            "continue": "आगे बड़े",
+            "or": "या फिर"
         },
         "title": {
             "setu": "सेतु ",
@@ -111,6 +129,7 @@
             "title": "अपने अकाउंट में लॉग इन करें"
         },
         "otpPage": {
+            "error": "कुछ गड़बड़ हुई है, कृपया फिर से नंबर डाले",
             "title": "वेरिफिकेशन कोड डाले",
             "subtitle": "हमने आपको 4 अंको का कोड SMS भेजा है ",
             "placeholderInputText": "6 अंकों का ओटीपी दर्ज करें",
@@ -126,9 +145,10 @@
         "register": {
             "nameExample": "जैसे .. मनोज सिंह",
             "errorModal": "आप निम्नलिखित जानकारी नहीं भर रहे हैं",
-            "name": "पूरा नाम",
+            "placeholderName": "अपना पूरा नाम बताये",
+            "name": "नाम",
             "dob": "जन्म का दिन",
-            "sex": "लिंग",
+            "sex": "अपना लिंग बताये",
             "address": "आप कहाँ रहते हैं" ,
             "maritialStatus": "क्या आप शादीशुदा हैं?",
             "education": "आप कितने पढ़े-लिखे हैं",
@@ -136,6 +156,8 @@
             "title": "अपना अकाउंट बनाएं",
             "submitButton": "आगे बढ़ें",
             "month": "महीना",
+            "age": "अपनी उम्र बताये",
+            "agePlaceholder": "उम्र",
             "year": "साल",
             "day": "दिन",
             "sexMale": "पुरुष",
@@ -145,18 +167,23 @@
             "no": "नहीं",
             "location": "शहर/कस्बा/गाँव",
             "state": "राज्य",
-            "whatWorkTitle": "आप क्या क्या काम कर सकते हैं",
-            "submitButton2": "मेरा अकाउंट बनाएं"
+            "whatWorkTitle": "आप क्या काम कर सकते हैं",
+            "submitButton2": "मेरा अकाउंट बनाएं",
+            "stateQuestion": "आप कहाँ में रहते है?",
+            "uploadPicture": "एक प्रोफाइल फोटो लगायें",
+            "uploadfromGallery": "मोबाइल गैलरी से फोटो चुनें",
+            "registrationComplete": "रजिस्ट्रेशन सम्पन करे"
+            
         },
         "location": {
             "title": "अपनी लोकेशन सेट करें",
             "list": [
-                "श्रमिक खोजें और काम/जॉब पोस्ट करें",
-                "अपने आस-पास काम पाएं",
+                "अपने शहर के नवीनतम अपडेट प्राप्त करें",
+                "जयपुर में क्या हो रहा है खोजें",
                 "अपने स्थान के लोगों से कनेक्ट करें"
             ],
             "button": "करंट लोकेशन सेट करें",
-            "buttonAddress": "या अपना पता डाले"
+            "buttonAddress": "सेतु पे चले"
         },
         "listAdd": {
             "title": "आस पास के विज्ञापन"
@@ -164,7 +191,12 @@
         "signin": {
             "phoneNumber": "यहां अपना मोबाइल नंबर डालें",
             "submitPhoneNumber": "अपने अकाउंट पे जाएँ",
+            "createAccount": "अपना सेतु अकाउंट बनाये ",
             "title": "श्रमिक सेतु से जुड़े "
+        },
+        "welcome": {
+            "title": "आपका स्वागत है",
+            "subtitle": "क्या आप एक कंपनी है?"
         }
     }
 ]

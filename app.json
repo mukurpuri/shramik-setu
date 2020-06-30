@@ -1,16 +1,14 @@
 {
   "expo": {
-    "name": "Shramik Setu",
-    "slug": "shramik-setu",
+    "name": "Setu",
+    "slug": "Setu",
     "platforms": [
-      "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "setu",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -22,15 +20,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "web": {
-      "favicon": "./assets/images/favicon.png"
+    "android": {
+      "package": "com.pugos.setu",
+      "versionCode": 3
     }
-  },
-  "android": {
-    "package": "com.pugos.shramiksetu",
-    "versionCode": 1
   }
 }

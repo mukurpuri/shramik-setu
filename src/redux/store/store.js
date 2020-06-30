@@ -18,6 +18,7 @@ const persistConfig = {
   // Whitelist (Save Specific Reducers)
   whitelist: [
     'settingsReducer',
+    'userReducer'
   ],
   // Blacklist (Don't Save Specific Reducers)
   blacklist: [

@@ -23,7 +23,7 @@ class ListAdScreen extends React.Component {
 
 
     renderBackAction = () => (
-      <TopNavigationAction onPress={() => {console.log("fewfw")}} icon={BackIcon}/>
+      <TopNavigationAction icon={BackIcon}/>
     );
     
     render() {

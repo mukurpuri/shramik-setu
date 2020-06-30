@@ -1,23 +1,42 @@
 import { StyleSheet } from 'react-native';
-const Alignments = StyleSheet.create({
+const Typography = StyleSheet.create({
     superText: {
       fontSize: 60,
-      fontWeight: "bold",
+      fontFamily: "nunito-bold",
       marginTop: 40
     },
     strong: {
-      fontWeight: "bold",
+      fontFamily: "nunito-bold",
     },
     center: {
       textAlign: "center"
     },
-    strong: { fontWeight: "bold" },
     linkText: {
       color: "#09F",
       textDecorationLine: "underline",
       textDecorationStyle: "dotted",
-      textDecorationColor: "#09F"
+      textDecorationColor: "#09F",
+      fontFamily: "nunito"
+    },
+    label: {
+      fontFamily: "nunito",
+    },
+    nunito: {
+      fontFamily: "nunito",
+    },
+    white: {
+      color: "white",
+    },
+    cardHeaderTitle: {
+      fontFamily: "nunito-bold",
+      fontSize: 14,
+      paddingLeft: 10,
+    },
+    dimText: {
+      fontSize: 12,
+      color: "#757474",
+      fontFamily: "nunito"
     }
 });
-export default Alignments
+export default Typography
   

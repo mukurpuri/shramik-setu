@@ -25,7 +25,6 @@ class SetLocation extends React.Component {
               const location = JSON.stringify(position);
       
               this.setState({ location }, () => {
-                console.log(this.state.location)
               });
             },
             error => Alert.alert(error.message),
