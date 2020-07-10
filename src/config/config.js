@@ -3,7 +3,7 @@ const pipes = {
     production: "https://boiling-temple-64575.herokuapp.com"
 }
 
-export const getBackendAPI = () => {
+export const getBackendAPI =    () => {
     let url = pipes.production;
     if(__DEV__) {
         url = pipes.local

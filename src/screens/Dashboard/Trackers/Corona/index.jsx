@@ -18,6 +18,14 @@ class CoronaTracker extends React.Component {
         super(props);
     }
 
+    numberWithCommas = x => {
+        x = x.toString();
+        var pattern = /(-?\d+)(\d{3})/;
+        while (pattern.test(x))
+            x = x.replace(pattern, "$1,$2");
+        return x;
+    }
+
     getArrowIcon = (type, color) => {
         switch(type) {
             case "up":
@@ -33,19 +41,19 @@ class CoronaTracker extends React.Component {
         let { data } = this.props;
         let coronaData = {
             confirmed: {
-                delta: data.delta && data.delta.confirmed ? (data.delta.confirmed).toLocaleString() : "",
-                total: data.total && data.total.confirmed ? (data.total.confirmed).toLocaleString() : ""
+                delta: data.delta && data.delta.confirmed ? this.numberWithCommas(data.delta.confirmed) : "",
+                total: data.total && data.total.confirmed ? this.numberWithCommas(data.total.confirmed) : ""
             },
             active: {
-                total: data.total && data.total.confirmed && data.total.recovered && data.total.deceased ?  ((parseInt(data.total.confirmed) - ((parseInt(data.total.recovered) + parseInt(data.total.deceased))))).toLocaleString() : "",
+                total: data.total && data.total.confirmed && data.total.recovered && data.total.deceased ?  this.numberWithCommas((parseInt(data.total.confirmed) - ((parseInt(data.total.recovered) + parseInt(data.total.deceased))))) : "",
             },
             recovered: {
-                delta: data.delta && data.delta.recovered ? (data.delta.recovered).toLocaleString() : "",
-                total: data.total && data.total.recovered ? (data.total.recovered).toLocaleString() : "",
+                delta: data.delta && data.delta.recovered ? this.numberWithCommas(data.delta.recovered) : "",
+                total: data.total && data.total.recovered ? this.numberWithCommas(data.total.recovered) : "",
             },
             deceased: {
-                delta: data.delta && data.delta.deceased ? (data.delta.deceased).toLocaleString() : "",
-                total: data.total && data.total.deceased ? (data.total.deceased).toLocaleString() : "",
+                delta: data.delta && data.delta.deceased ? this.numberWithCommas(data.delta.deceased) : "",
+                total: data.total && data.total.deceased ? this.numberWithCommas(data.total.deceased) : "",
             }
         }
 

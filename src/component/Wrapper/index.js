@@ -4,6 +4,7 @@ import { SafeAreaView, View, KeyboardAvoidingView, ScrollView  } from 'react-nat
 export default function Wrapper(props) {
   return (
     <KeyboardAvoidingView  style={Styles.wrapper, {
+      position: "relative",
       minHeight: "100%",
       paddingLeft: props.paddLeft || 0,  
       paddingRight: props.paddRight || 0,

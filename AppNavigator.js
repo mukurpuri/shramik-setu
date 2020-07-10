@@ -12,6 +12,7 @@ import RegisterScreen from './src/screens/Register';
 import ProfilePictureScreen from './src/screens/ProfilePictureScreen';
 import MyProfileScreen from './src/screens/MyProfile';
 import WelcomeScreen from './src/screens/Welcome';
+import CreateQuestionScreen from './src/screens/Create/Question';
 
 
 import QAScreen from './src/screens/QA';
@@ -31,7 +32,7 @@ const AppNavigator = props => {
     }
   }
   /* Temp screen renderer */
-    primaryScreen = "QA"
+    primaryScreen = "Dashboard"
   /* */
   return <NavigationContainer>
       <Navigator headerMode='none'>
@@ -47,7 +48,9 @@ let screens = [
   { name: "ProfilePicture", component: ProfilePictureScreen},
   { name: "Register", component: RegisterScreen},
   { name: "Dashboard", component: DashboardScreen},
-  { name: "QA", component: QAScreen }
+  { name: "QA", component: QAScreen },
+  { name: "CreateQuestion", component: CreateQuestionScreen }
+
 ];
 function getComponent(str) {
   let com = _.find(screens, s => {

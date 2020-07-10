@@ -7,6 +7,7 @@ const initialState = {
       phoneNumber: null,
       token: null,
       isRegistered: null,
+      id: null,
       imageID: null
     }
 };
@@ -69,6 +70,7 @@ function setUser(user, data) {
   newUser.name = data?.name;
   newUser.phoneNumber = data?.phoneNumber;
   newUser.token = data?.token;
+  newUser.id = data?.id;
   newUser.isRegistered = data?.isRegistered;
   return newUser;
 }

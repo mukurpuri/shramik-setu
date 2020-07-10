@@ -78,7 +78,6 @@ class HomeScreen extends React.Component {
                       keyboardType='numeric'
                       maxLength={10}
                       size='large'
-                      status='danger'
                       placeholder={Language.get("signin","phoneNumber",currentLanguage)}
               />
               </Row>

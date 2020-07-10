@@ -42,6 +42,7 @@ class HeaderUser extends React.Component {
       return <TopNavigationAction style={LocalStyles.hamburger} icon={MenuIcon} onPress={() => this.toggleMenu()}/>
     }
     logout = async () => {
+      //console.log(this.props);
       this.toggleMenu();
       await this.props.UserLogout();
       this.props.navigation.navigate("Home");
@@ -55,25 +56,26 @@ class HeaderUser extends React.Component {
         this.props.navigation.navigate("Dashboard");
     }
     RenderTitle = (title) => {
-      if(this.props.showBack) {
-        return <View style={LocalStyles.titleContainer}>
-          <Icon style={LocalStyles.headerIcon} fill="#333" name="arrow-back-outline" />
-        </View>
-      }
-      else {
-        return (
-          <View style={LocalStyles.titleContainer}>
-          <Image style={LocalStyles.avatar} source={getProfilePicture(this.props.user.imageID)} />
-          <Text><Text style={Styles.typograhy.nunito, LocalStyles.title}><Text style={LocalStyles.titleInner}>{title}</Text></Text></Text>
-      </View>)
-      }
+      return (
+      <View style={LocalStyles.titleContainer}>
+        {/* <Image style={LocalStyles.avatar} source={getProfilePicture(this.props.user.imageID)} /> */}
+        {
+          this.props.showBack ? 
+          <Icon onPress={() => this.props.leftIconCall()} style={LocalStyles.headerIcon} fill="#333" name="arrow-back-outline" /> : null
+        }
+        <Text>
+          <Text style={Styles.typograhy.nunito, LocalStyles.title}>
+            <Text style={LocalStyles.titleInner}>{title}</Text>
+          </Text>
+        </Text>
+      </View>);
     }
     render() {
         let currentLanguage = this.props.settings.language;
         const renderRightActions = () => (
           <React.Fragment>
           {
-            this.state.showMenu ? 
+            this.state.showMenu && !this.props.hideHam ? 
             <OverflowMenu
               anchor={this.anchor}
               visible={this.state.menuVisible}
@@ -82,6 +84,12 @@ class HeaderUser extends React.Component {
               <MenuItem style={Styles.typograhy.nunito} onPress={() => this.showMyProfle()} accessoryLeft={ProfileIcon} title='My Profle'/>
               <MenuItem style={Styles.typograhy.nunito} onPress={() => this.logout()} accessoryLeft={LogoutIcon} title='Logout'/>
             </OverflowMenu> : null
+          }
+          {
+            this.props.hideHam && this.props.rightIcon ? (
+              <Icon onPress={() => this.props.leftIconCall()} style={LocalStyles.headerIcon} fill="#333" name={this.props.rightIcon} />
+            ) : <View style={{width: 20, height: 40}}>
+            </View>
           }
           </React.Fragment>
         );
@@ -137,7 +145,8 @@ const LocalStyles = StyleSheet.create({
     },
     headerIcon: {
       width: 30,
-      height: 30
+      height: 30,
+      marginRight: 10
     }
 });
 

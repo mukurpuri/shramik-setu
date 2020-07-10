@@ -13,9 +13,6 @@ const Typography = StyleSheet.create({
     },
     linkText: {
       color: "#09F",
-      textDecorationLine: "underline",
-      textDecorationStyle: "dotted",
-      textDecorationColor: "#09F",
       fontFamily: "nunito"
     },
     label: {
@@ -31,6 +28,9 @@ const Typography = StyleSheet.create({
       fontFamily: "nunito-bold",
       fontSize: 14,
       paddingLeft: 10,
+    },
+    whiteText: {
+      color: "white"
     },
     dimText: {
       fontSize: 12,

@@ -186,4 +186,45 @@ export const GetProfileData = phoneNumber => {
   return status;
 })
 }
+export const SubmitQuestion = question => {
+  return axios.post( getBackendAPI() + '/qa/create-question', { question })
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const GetQuestion = id => {
+  return axios.get( getBackendAPI() + '/qa/question', {
+    params: id
+  })
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const SetQuestionReaction = data => {
+  console.log(data)
+  return axios.post( getBackendAPI() + '/qa/question-reaction', data)
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
 

@@ -43,7 +43,7 @@ class DashboardScreen extends React.Component {
         if (res.status == 502) {
           await this.loadDashboardData();
         } else if (res.status != 200) {
-          await new Promise(resolve => setTimeout(resolve, 5000));
+          await new Promise(resolve => setTimeout(resolve, 10000));
           await this.loadDashboardData();
         } else {
           if(res && res.data && res.data.data && res.data.data.status === "pass") {
@@ -60,9 +60,10 @@ class DashboardScreen extends React.Component {
         let currentLanguage = this.props.settings.language;
         let { dashboardData } = this.state;
         let trackerData = dashboardData ? dashboardData.tracker.corona : null;
+        let qas = dashboardData ? dashboardData.qas : null;
         return (
           <Wrapper bg="#f5f5f5">
-              <HeaderUser title={this.props.user.name}  subTitle="Home" navigation={this.props.navigation}/>
+              <HeaderUser paddBottom={0} navigation={this.props.navigation} />
               {
                 this.state.spinner ?
                 <View style={Styles.alignments.full, {minHeight: 500, justifyContent: "center", alignItems: "center"}}>
@@ -76,12 +77,9 @@ class DashboardScreen extends React.Component {
                     <Text style={LocalStyles.dimHelper}>Predicting 0 Active cases on 12 February 2021</Text>
                   </View>
                 </CardContainer>
-                <CardContainer paddLeft={15} paddRight={15} MarginTop={10} MarginBottom={15}>
-                  <TrendingQuestions title="Questions from Jaipur Citizens"/>
+                <CardContainer paddLeft={15} paddRight={15} MarginTop={10}>
+                  <TrendingQuestions questionsData={qas} navigation={this.props.navigation} title="Questions from Jaipur Citizens"/>
                 </CardContainer>
-                {/* <CardContainer paddLeft={15} paddRight={15} MarginTop={10} MarginBottom={15}>
-                  <TopNews title="Trending in Jaipur"/>
-                </CardContainer> */}
                 </React.Fragment>
               }
           </Wrapper>

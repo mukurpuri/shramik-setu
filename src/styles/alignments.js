@@ -4,7 +4,8 @@ const Alignments = StyleSheet.create({
       flexDirection: "row"
     },
     column: {
-      flexDirection: "column"
+      flexDirection: "column",
+      width: "100%"
     },
     verticalCenter: {
       alignItems: "center",
