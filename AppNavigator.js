@@ -14,6 +14,11 @@ import MyProfileScreen from './src/screens/MyProfile';
 import WelcomeScreen from './src/screens/Welcome';
 import CreateQuestionScreen from './src/screens/Create/Question';
 
+import ConnectScreen from './src/screens/Connect';
+import ForumsScreen from './src/screens/Forums';
+
+import MessagesScreen from './src/screens/Messages';
+import NotificationsScreen from './src/screens/Notifications';
 
 import QAScreen from './src/screens/QA';
 
@@ -31,9 +36,6 @@ const AppNavigator = props => {
       primaryScreen = "Register";
     }
   }
-  /* Temp screen renderer */
-    primaryScreen = "Dashboard"
-  /* */
   return <NavigationContainer>
       <Navigator headerMode='none'>
         {fetchScreen(primaryScreen)}
@@ -49,7 +51,13 @@ let screens = [
   { name: "Register", component: RegisterScreen},
   { name: "Dashboard", component: DashboardScreen},
   { name: "QA", component: QAScreen },
-  { name: "CreateQuestion", component: CreateQuestionScreen }
+  { name: "CreateQuestion", component: CreateQuestionScreen },
+
+  { name: "Connect", component: ConnectScreen},
+  { name: "Forums", component: ForumsScreen},
+
+  { name: "Messages", component: MessagesScreen},
+  { name: "Notifications", component: NotificationsScreen},
 
 ];
 function getComponent(str) {

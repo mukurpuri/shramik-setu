@@ -33,7 +33,7 @@ const Typography = StyleSheet.create({
       color: "white"
     },
     dimText: {
-      fontSize: 12,
+      fontSize: 10,
       color: "#757474",
       fontFamily: "nunito"
     }

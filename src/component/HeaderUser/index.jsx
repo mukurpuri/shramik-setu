@@ -5,6 +5,7 @@ import { SafeAreaView, Layout, View, StyleSheet, Image } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 import { Text, Icon, MenuItem, OverflowMenu, TopNavigation, TopNavigationAction, Divider, Avatar } from '@ui-kitten/components';
+import { EventRegister } from 'react-native-event-listeners'
 
 import  Wrapper from '../../component/Wrapper';
 import Language from '../../config/languages/Language';
@@ -14,7 +15,9 @@ import Styles from '../../styles';
 import Footer from '../../component/Footer';
 import  { getProfilePicture } from '../../utilities/helpers';
 import { UserLogout } from '../../redux/actions/user';
-
+import { GetUpdates } from '../../services/api.service';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { SetuTextLogo } from '../../config/Images';
 const LogoutIcon = (props) => (
   <Icon {...props} name='log-out'/>
 );
@@ -23,13 +26,59 @@ const MenuIcon = (props) => (
   <Icon {...props} name='menu-outline'/>
 );
 
+const MessageIcon = props => (
+  <Icon {...props} name='message-circle-outline'/>
+)
+const NotificationIcon = props => (
+  <Icon {...props} name='bell-outline' />
+)
+
+
 class HeaderUser extends React.Component {
+    _isMounted = false;
     constructor(props) {
       super(props);
         this.state = {
           menuVisible: false,
-          showMenu: true
+          refreshDelay: 1000,
+          showMenu: true,
+          requests: {
+            messages: 0,
+            notifications: 0
+          }
         }
+    }
+
+    componentDidMount = () => {
+      this.interval = setInterval(this.getHeaderUpdates, this.state.refreshDelay);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+      if(prevState.delay !== this.state.refreshDelay) {
+        clearInterval(this.interval);
+        this.interval = setInterval(this.getHeaderUpdates, this.state.refreshDelay);
+      }
+    }
+
+    componentWillUnmount() {
+      clearInterval(this.interval);
+      this._isMounted = false;
+    }
+
+    getHeaderUpdates = async () => {
+      this._isMounted = true;
+      await GetUpdates(this.props.user.id).then(res => {
+        if(res.status === 200) {
+          if(this._isMounted) {
+            this.setState({
+              requests: res.data.requests || {
+                messages: 0,
+                notifications: 0
+              }
+            })
+          }
+        }
+      });
     }
 
     toggleMenu = () => {
@@ -38,11 +87,48 @@ class HeaderUser extends React.Component {
       });
     };
 
-    anchor = () => {
-      return <TopNavigationAction style={LocalStyles.hamburger} icon={MenuIcon} onPress={() => this.toggleMenu()}/>
+    showMessageScreen = () => {
+      this.props.navigation.navigate("Messages");
     }
+
+    showNotificationScreen = () => {
+      EventRegister.emit('loadNotifications');
+      this.props.navigation.navigate("Notifications");
+    }
+
+    anchor = () => {
+      return ( 
+      <View style={{width: 188, flexDirection: "row"}}>
+          <View  style={LocalStyles.headerIcons}>
+            <TouchableOpacity style={LocalStyles.headerTouch} onPress={() => this.showMessageScreen()}>
+              {
+                this.state.requests.messages > 0 ?
+                <Text style={LocalStyles.notificationBubble}>{this.state.requests.messages}</Text> : 
+                null
+              }
+              <TopNavigationAction icon={MessageIcon} />
+            </TouchableOpacity>
+          </View>
+          <View  style={LocalStyles.headerIcons}>
+            <TouchableOpacity style={LocalStyles.headerTouch} onPress={() => this.showNotificationScreen()}>
+              {
+                this.state.requests.notifications > 0 ?
+                <Text style={LocalStyles.notificationBubble}>{this.state.requests.notifications}</Text> : 
+                null
+              }
+              <TopNavigationAction icon={NotificationIcon} />
+            </TouchableOpacity>
+          </View>
+          <View  style={LocalStyles.headerIcons} >
+            <TouchableOpacity style={LocalStyles.headerTouch} onPress={() => this.toggleMenu()}>
+              <TopNavigationAction icon={MenuIcon} />
+            </TouchableOpacity>
+          </View>
+      </View>
+      )
+    }
+
     logout = async () => {
-      //console.log(this.props);
       this.toggleMenu();
       await this.props.UserLogout();
       this.props.navigation.navigate("Home");
@@ -58,16 +144,11 @@ class HeaderUser extends React.Component {
     RenderTitle = (title) => {
       return (
       <View style={LocalStyles.titleContainer}>
-        {/* <Image style={LocalStyles.avatar} source={getProfilePicture(this.props.user.imageID)} /> */}
         {
           this.props.showBack ? 
           <Icon onPress={() => this.props.leftIconCall()} style={LocalStyles.headerIcon} fill="#333" name="arrow-back-outline" /> : null
         }
-        <Text>
-          <Text style={Styles.typograhy.nunito, LocalStyles.title}>
-            <Text style={LocalStyles.titleInner}>{title}</Text>
-          </Text>
-        </Text>
+        <Image source={SetuTextLogo} style={{width: 45, height: 45}} />
       </View>);
     }
     render() {
@@ -95,7 +176,7 @@ class HeaderUser extends React.Component {
         );
 
         return (
-          <View style={{paddingTop: 0, width: "100%", left: 0}}>
+          <View style={{paddingTop: 0, width: "100%"}}>
             <TopNavigation
               style={{paddingTop: 25}}
               alignment='center'
@@ -111,8 +192,6 @@ class HeaderUser extends React.Component {
     }
 }
 
-
-
 const LocalStyles = StyleSheet.create({
     gridContainer: {width: "100%"},
     titleInner: {
@@ -125,14 +204,26 @@ const LocalStyles = StyleSheet.create({
         fontFamily: "nunito",
         color: "#828181"
     },
-    hamburger: {width: 40, height: 40, display: "flex", "justifyContent": "center", alignItems: "center"},
+    headerIcons: {
+      position: "relative", 
+      width: 60, 
+      height: 40,
+      marginRight: 10
+      },
+      headerTouch: {
+        justifyContent: "center", 
+        alignItems: "center",
+        width: "100%",
+        height: 40,
+      },
     titleContainer: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: "flex-end",
       position: "absolute",
       left: 15,
-      top:30
+      top:24 ,
+      //position: "relative"
     },
     logo: {
       marginHorizontal: 16,
@@ -147,6 +238,19 @@ const LocalStyles = StyleSheet.create({
       width: 30,
       height: 30,
       marginRight: 10
+    },
+    notificationBubble: {
+      position: "absolute",
+      borderRadius: 100,
+      backgroundColor: "red",
+      width: 17,
+      height: 17,
+      color: "white",
+      fontSize: 11,
+      textAlign: "center",
+      fontFamily: "nunito-bold",
+      top: 2,
+      right: 8
     }
 });
 

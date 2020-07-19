@@ -8,7 +8,9 @@ const initialState = {
       token: null,
       isRegistered: null,
       id: null,
-      imageID: null
+      imageID: null,
+      lat: null,
+      lng: null
     }
 };
 const userReducer = (state = initialState, action) => {
@@ -55,6 +57,13 @@ const userReducer = (state = initialState, action) => {
           }
         }
 
+        case 'SET_USER_LOCATION': {
+          return {
+            ...state,
+            user: setUserLocation(state.user, action.location)
+          }
+        }
+
         default: {
             return state;
         }
@@ -72,15 +81,18 @@ function setUser(user, data) {
   newUser.token = data?.token;
   newUser.id = data?.id;
   newUser.isRegistered = data?.isRegistered;
+  newUser.lat = null;
+  newUser.lng = null;
   return newUser;
 }
-
 function setUserLogout(user) {
   const newUser = Object.assign({}, user);
     newUser.name = null;
     newUser.phoneNumber = null;
     newUser.token = null;
     newUser.isRegistered = null;
+    newUser.lat = null;
+    newUser.lng = null;
   return newUser;
 }
 function setUserName(user,name) {
@@ -92,6 +104,13 @@ function setUserName(user,name) {
 function setUserImage(user, id) {
   const newUser = Object.assign({}, user);
   newUser.imageID = id;
+  return newUser;
+}
+function setUserLocation(user, location) {
+  const newUser = Object.assign({}, user);
+  newUser.lat = location.lat;
+  newUser.lng = location.lng;
+  console.log("ROTI", newUser);
   return newUser;
 }
 export default userReducer;

@@ -199,9 +199,9 @@ export const SubmitQuestion = question => {
   })
 }
 
-export const GetQuestion = id => {
+export const GetQuestion = (id, userId, clientId) => {
   return axios.get( getBackendAPI() + '/qa/question', {
-    params: id
+    params: { id, userId, clientId }
   })
   .then(function (response) {
     return response;
@@ -215,8 +215,88 @@ export const GetQuestion = id => {
 }
 
 export const SetQuestionReaction = data => {
-  console.log(data)
   return axios.post( getBackendAPI() + '/qa/question-reaction', data)
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const SetAnswerReaction = data => {
+  return axios.post( getBackendAPI() + '/qa/answer-reaction', data)
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const SubmitAnswerToQuestion = data => {
+  return axios.post( getBackendAPI() + '/qa/submit-answer', data)
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const SaveComment = data => {
+  return axios.post( getBackendAPI() + '/qa/comment', data)
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const GetNotifications = (userId) => {
+  return axios.get( getBackendAPI() + '/user/notifications', {
+    params: { userId }
+  })
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+export const GetUpdates = (userId) => {
+  return axios.get( getBackendAPI() + '/user/getUpdates', {
+    params: { userId }
+  })
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const GetQuestionsByType = (type) => {
+  return axios.post( getBackendAPI() + '/qa/getQuestions', {type})
   .then(function (response) {
     return response;
   })

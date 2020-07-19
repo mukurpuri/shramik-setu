@@ -9,7 +9,10 @@ export default function Wrapper(props) {
       paddingLeft: props.paddLeft || 0,  
       paddingRight: props.paddRight || 0,
       backgroundColor: props.bg || "white"}}>
-    <ScrollView>
+    <ScrollView scrollEnabled={true}
+  showsVerticalScrollIndicator={true}
+  keyboardShouldPersistTaps="always"
+  keyboardDismissMode='on-drag'>
       <SafeAreaView>
         <View>
           {props.children}

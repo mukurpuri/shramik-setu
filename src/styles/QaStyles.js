@@ -12,7 +12,7 @@ const QaStyles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#ebebeb",
         borderRadius: 5,
-        height: 42,
+        height: 34,
         backgroundColor: "white",
         alignContent: "center",
         justifyContent: "center",
@@ -53,6 +53,9 @@ const QaStyles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         position: "relative",
+        marginBottom:10,
+        marginTop: 5,
+        height: 30,
     },
     readMoreText: {
         color: "#09f",
@@ -65,13 +68,15 @@ const QaStyles = StyleSheet.create({
         height: 20,
         backgroundColor: "rgba(255, 255, 255, 0.7803921568627451)",
         position: "absolute",
-        right: 15,
+        right: 10,
+        marginLeft: "auto",
+        marginRight: "auto",
         bottom: 0
     },
     questionerDP: {
-        width: "100%",
-        height: 45,
-        borderRadius: 100,
+        width:40,
+        height:40,
+        borderRadius: 5,
     },
     questionAnswer: {
         fontFamily: "nunito-bold",
@@ -109,18 +114,17 @@ const QaStyles = StyleSheet.create({
         justifyContent: "flex-end"
     },
     postParams: {
-        marginTop: 15,
+        marginTop: 2,
         marginBottom: 15,
         flexDirection: "row",
         position: "relative",
         width: "100%",
     },
     answerReactionButton: {
-        minWidth: 80,
+        minWidth: 50,
         height: 30,
         flexDirection: "row",
         justifyContent: "center",
-        paddingTop: 3,
         borderWidth: 0
     },
     qaReactionButton: {
@@ -168,10 +172,6 @@ const QaStyles = StyleSheet.create({
         borderRadius: 5,
         borderWidth: 1,
         borderColor: "#ebebeb",
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 10,
-        paddingBottom: 10,
         alignContent: "center",
         justifyContent: "center"
     },

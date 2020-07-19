@@ -40,3 +40,10 @@ export const UserLogout = () => {
     
 }
 
+export const SetUserLocation = location => {
+    return ({
+        type: 'SET_USER_LOCATION',
+        location
+    })
+    
+}

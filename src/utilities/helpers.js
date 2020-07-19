@@ -28,7 +28,6 @@ export const createFormData = (photo, body, name) => {
   export const getProfilePicture = (id, size="lg") => {
     if(id) {
       let primaryLink = getBackendAPI() + "/uploads/avatars/responsive/" + id + "_" + size + ".png";
-      console.log(primaryLink);
       return { uri: primaryLink };
     }  else {
       return DefaultPP;

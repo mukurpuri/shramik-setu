@@ -21,11 +21,18 @@ class WelcomeScreen extends React.Component {
     constructor(props) {
       super(props);  
       this.state = {
+          user: this.props.user
         }
     }
 
     continue = () => {
         this.props.navigation.navigate("Dashboard");
+    }
+    
+    componentWillUnmount() {
+        this.setState({
+            user: null
+        })
     }
     
     render() {
@@ -39,7 +46,7 @@ class WelcomeScreen extends React.Component {
                 </View>
                 <View style={[Styles.alignments.verticalCenter, Styles.spacings.mTopMedium]}>
                     <Text category="h1" style={Styles.typograhy.strong} > 
-                     Hello {this.props.user.name.split(" ")[0]}
+                     Hello {this.state.user && this.state.user.name ? this.state.user.name.split(" ")[0] :  ""}
                     </Text>
                 </View>
                 <View style={[Styles.alignments.verticalCenter]}>

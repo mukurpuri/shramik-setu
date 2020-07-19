@@ -13,6 +13,8 @@ import Styles from '../../../styles';
 import HeaderUser from '../../../component/HeaderUser';
 import { SubmitQuestion } from '../../../services/api.service';
 import QaStyles from '../../../styles/QaStyles';
+import FootbarAction from '../../../component/FootbarAction';
+
 class CreateQuestion extends React.Component {
   constructor(props) {
     super(props);  
@@ -25,7 +27,7 @@ class CreateQuestion extends React.Component {
             agree: true,
             category: []
         },
-        questionCategories: ["Health", "Education", "Development", "Food", "Travel", "Transport", "Social", "Places", "People", "Bussiness", "Legal", "Government", "Search", "Market", "Animals", "Shopping" ]
+        questionCategories: ["Health", "Education", "Food", "Travel", "Transport", "Social", "Places", "People", "Bussiness", "Government", "Search", "Market", "Shopping", "Sports" ]
       }
   }
 
@@ -144,6 +146,7 @@ class CreateQuestion extends React.Component {
           )
       })
       return (
+        <View style={{flex: 1}}>
         <Wrapper bg="#f5f5f5">
           <HeaderUser
             leftIconCall = { () => this.navigate()}
@@ -162,7 +165,7 @@ class CreateQuestion extends React.Component {
                             </View>
                             <View>
                             <Input
-                                multiline = {this.state.data.title.length > 30}
+                                multiline = {true}
                                 numberOfLines = {this.getLineNumber(40)}
                                 textStyle={[LocalStyles.innerTextStyle]}
                                 inputStyle={[LocalStyles.innerIputText]}
@@ -230,6 +233,8 @@ class CreateQuestion extends React.Component {
                   </Row>
             </Grid>
         </Wrapper>
+        {/* <FootbarAction navigation={this.props.navigation} active="forum"/> */}
+        </View>
       );   
   }
 }

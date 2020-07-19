@@ -57,3 +57,13 @@ export const CircularCheckIconFull = (props) => (
 export const AwardIcon = (props) => (
     <Icon {...props} name='award'/>
 );
+export const MessageIcon = (props) => (
+    <Icon {...props} name='message-square-outline'/>
+);
+export const PlusSquareIcon = (props) => (
+    <Icon {...props} name='plus-outline'/>
+);
+export const QuestionMarkCircleOutline = (props) => (
+    <Icon {...props} name='question-mark-circle-outline'/>
+);
+

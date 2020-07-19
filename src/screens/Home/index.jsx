@@ -88,7 +88,6 @@ class HomeScreen extends React.Component {
               </Row></Grid>
              : <Grid><Row style={[Styles.alignments.row, Styles.spacings.mTopMedium,  Styles.alignments.horizontalCenter]}><Spinner status='danger' size='giant'/></Row></Grid>
             }
-            <Footer/>
           </Wrapper>
         );   
     }
@@ -96,7 +95,7 @@ class HomeScreen extends React.Component {
 
 
 const LocalStyles = StyleSheet.create({
-  inputText: {fontSize: 22, textAlign: "center", width: "94%"},
+  inputText: {fontSize: 19, textAlign: "center", width: "94%"},
 });
 
 const mapStateToProps = state => {

@@ -41,45 +41,46 @@ class TrendingQuestions extends React.Component {
                             <View style={Styles.spacings.mLeftXSmall,Styles.spacings.mTopXSmall}>
                                 <Grid style={Styles.spacings.mLeftXSmall}>
                                     <Col size={11}>
-                                        <Image style={{width: 40, height: 40, borderRadius: 5, marginTop: 3}} source={getProfilePicture(question.asker.dp)} />
+                                        <Image style={{width: 40, height: 40, borderRadius: 5, marginTop: 3}} source={getProfilePicture(question.asker.imageId)} />
                                     </Col>
                                     <Col size={85}>
                                         <Grid style={Styles.spacings.mLeftXSmall}>
                                             <Row>
                                                 <Grid>
                                                 <Row><Text style={Styles.typograhy.strong}>{question.asker.name}</Text></Row>
-                                                <Row><Text style={Styles.typograhy.dimText}>Asked yesterday</Text></Row>
+                                                <Row><Text style={Styles.typograhy.dimText}>Asked {question.askedOn}</Text></Row>
                                                 </Grid>
                                             </Row>
                                         </Grid>
                                     </Col>
                                 </Grid>
                             </View>
-                            <TouchableOpacity onPress={() => this.navigateToQuestion(question.id, question.question, question.asker, question.askedOn)} size={100}>
-                            <View style={Styles.spacings.mXSmall}><Text style={Styles.typograhy.strong}>{question.question}</Text></View>
+                            <TouchableOpacity  onPress={() => this.navigateToQuestion(question.id, question.question, question.asker, question.askedOn)} size={100}>
+                            <View style={[Styles.spacings.mLeftXSmall, Styles.spacings.mRightXSmall, Styles.spacings.mTopXSmall]}><Text style={Styles.typograhy.strong}>{question.question}</Text></View>   
+                            
                                 <View style={QaStyles.primaryAnswerContainer}><Text style={QaStyles.primaryAnswer}>{question.primaryAnswer}</Text>
+                                
                                 <View style={QaStyles.readMore}>
-                                    <Text style={QaStyles.readMoreText}>More..</Text>
+                                    
+                                        <Text style={QaStyles.readMoreText}>More..</Text>
+                                    
                                 </View>
                                 </View>
+                                </TouchableOpacity>
                                 <Divider/>
                             <View style={Styles.spacings.mXSmall}>
                             <Grid>
                                 <Col size={30}>
                                     <Text style={QaStyles.questionAnswer}>{question.answers} Answers</Text>
                                 </Col>
-                                <Col size={10}>
-                                    
-                                </Col>
-                                <Col style={QaStyles.actionBorder} size={12}>
-                                    <Image style={QaStyles.action} source={{uri: PrayEmoji64}}/><Text style={QaStyles.actionText}>34</Text>
-                                </Col>
-                                <Col style={QaStyles.actionBorder} size={12}>
-                                    <Image style={QaStyles.action} source={{uri: LaughEmoji64}}/><Text style={QaStyles.actionText}>11</Text>
+                                <Col size={90}>
+                                    {/* <Grid style={{justifyContent: "flex-end"}}>
+                                        <Image style={{width: 13, height: 13, borderRadius: 4, marginTop: 2}} source={getProfilePicture(question.asker.dp)} />
+                                        <Text style={[Styles.typograhy.strong,{marginLeft: 4,fontSize: 12}]}>{question.asker.name}</Text>
+                                    </Grid> */}
                                 </Col>
                             </Grid>
                             </View>
-                            </TouchableOpacity>
                         </View>
                     </Col>
                 </Row>

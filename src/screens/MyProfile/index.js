@@ -42,7 +42,7 @@ class MyProfileScreen extends React.Component {
   }
 
   followConnection = number => {
-    console.log(number);
+    true;
   }
 
   render() {
@@ -51,9 +51,7 @@ class MyProfileScreen extends React.Component {
       const { myProfileData } = this.state;
       let connections = [];
       _.each(myProfileData?.connections, (connection, index) => {
-        console.log(index);
         connections.push(
-          <React.Fragment>
           <Col style={{marginBottom: 10}} index={`index-${index}-col`} size={31}>
             <View style={LocalStyles.connectionCard}>
               <View style={Styles.alignments.horizontalCenter}>
@@ -66,10 +64,8 @@ class MyProfileScreen extends React.Component {
               </Button>
             </View>
           </Col>
-        </React.Fragment>
         );
       })
-
       return (
         <Wrapper bg="#f5f5f5">
           <HeaderUser title={this.props.user.name} subTitle="Profile" navigation={this.props.navigation}/>

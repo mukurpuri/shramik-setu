@@ -35,9 +35,6 @@ class RegisterScreen extends React.Component {
     }
 
     save = async () => {
-      this.setState({
-        spinner: true
-      });
       let { name, sex } = this.state.data;
       const { language } = this.props.settings;
       let error = "";
@@ -53,6 +50,9 @@ class RegisterScreen extends React.Component {
       }
       let { data } = this.state;
       data.phoneNumber = this.props.user.phoneNumber;
+      this.setState({
+        spinner: true
+      });
       await SubmitUserProfile(data).then( async (res) => {
         let response = res.data;
         if(response) {

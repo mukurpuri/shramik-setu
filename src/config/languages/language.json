@@ -77,9 +77,9 @@
         "location": {
             "title": "Set your Current Location",
             "list": [
-                "Get Latest Updates of your City",
                 "Find what's new happening in Jaipur",
-                "Connect to People in your Location",
+                "Learn and Ask questions from people in Jaipur",
+                "Connect to People/Shops in your Location",
                 "Get Latest Updates about Companies and Factories"
             ],
             "button": "Set Current Location",

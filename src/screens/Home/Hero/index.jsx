@@ -4,7 +4,7 @@ import { Text, Input } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native';
 
 import Language from '../../../config/languages/Language';
-import Images, { SetuCover, SetuTextLogo } from '../../../config/Images';
+import Images, { SetuCover, SetuTextLogo, MadeInIndia } from '../../../config/Images';
 
 import Styles from '../../../styles';
 
@@ -19,6 +19,9 @@ class Hero extends React.Component {
             <View style={{marginTop: 50}}>
                 <View style={[Styles.alignments.row, Styles.alignments.horizontalCenter]} >
                     <Image style = {[HeroStyles.textImage]} source={SetuTextLogo}/>
+                </View>
+                <View style={[Styles.alignments.row, Styles.alignments.horizontalCenter]} >
+                    <Image style = {{width: 150, height: 30}} source={MadeInIndia}/>
                 </View>
                 <View style={[Styles.alignments.row, Styles.alignments.horizontalCenter, Styles.spacings.mTopMedium]} >
                     <Image style = {[HeroStyles.image]} source={SetuCover}/>
