@@ -66,4 +66,25 @@ export const PlusSquareIcon = (props) => (
 export const QuestionMarkCircleOutline = (props) => (
     <Icon {...props} name='question-mark-circle-outline'/>
 );
+export const VerifiedTick = (props) => (
+    <Icon {...props}  name='checkmark-circle-2'/>
+);
+export const Gear = (props) => (
+    <Icon {...props}  name='settings-2-outline'/>
+);
+export const Edit = (props) => (
+    <Icon {...props}  name='edit-outline'/>
+);
+export const AddCircular = (props) => (
+    <Icon {...props}  name='plus-circle-outline'/>
+);
+export const Shop = (props) => (
+    <Icon {...props}  name='shopping-bag-outline'/>
+);
+export const Briefcase= (props) => (
+    <Icon {...props}  name='briefcase-outline'/>
+);
+export const Logout= (props) => (
+    <Icon {...props}  name='log-out-outline'/>
+);
 

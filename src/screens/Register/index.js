@@ -49,7 +49,7 @@ class RegisterScreen extends React.Component {
         return false;
       }
       let { data } = this.state;
-      data.phoneNumber = this.props.user.phoneNumber;
+      data.id = this.props.user.id;
       this.setState({
         spinner: true
       });

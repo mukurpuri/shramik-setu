@@ -63,7 +63,6 @@ class QA extends React.Component {
             if(res && res.data && res.data.status === 200) {
                 let { actions } = this.state;
                 let { createdOn, views ,votes, upvote, downvote, bookmark , categories, answerSet, questioner, title } = res.data.content;
-                console.log("res.data.contentres.data.content", res.data.content);
                 actions.votes =  votes;
                 actions.downvote = downvote;
                 actions.upvote = upvote;
@@ -622,7 +621,7 @@ actionIcons: {
 },
 touchFull: {
     width: 40,
-    height: 40,
+    height: 33,
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center"

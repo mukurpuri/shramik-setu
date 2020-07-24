@@ -11,6 +11,7 @@ import DashboardScreen from './src/screens/Dashboard';
 import RegisterScreen from './src/screens/Register';
 import ProfilePictureScreen from './src/screens/ProfilePictureScreen';
 import MyProfileScreen from './src/screens/MyProfile';
+import EditProfileScreen from './src/screens/EditProfile';
 import WelcomeScreen from './src/screens/Welcome';
 import CreateQuestionScreen from './src/screens/Create/Question';
 
@@ -19,9 +20,10 @@ import ForumsScreen from './src/screens/Forums';
 
 import MessagesScreen from './src/screens/Messages';
 import NotificationsScreen from './src/screens/Notifications';
-
+import ShopScreen from './src/screens/Shop';
 import QAScreen from './src/screens/QA';
 
+import MenuScreen from './src/screens/Menu';
 
 
 const AppNavigator = props => {
@@ -46,6 +48,7 @@ let screens = [
   { name: "OTP", component: OTPScreen},
   { name: "Home", component: HomeScreen},
   { name: "MyProfile", component: MyProfileScreen},
+  { name: "EditProfile", component: EditProfileScreen},
   { name: "Welcome", component: WelcomeScreen},
   { name: "ProfilePicture", component: ProfilePictureScreen},
   { name: "Register", component: RegisterScreen},
@@ -58,6 +61,8 @@ let screens = [
 
   { name: "Messages", component: MessagesScreen},
   { name: "Notifications", component: NotificationsScreen},
+  { name: "Shop", component: ShopScreen},
+  {name :"Menu", component: MenuScreen}
 
 ];
 function getComponent(str) {

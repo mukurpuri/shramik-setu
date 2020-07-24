@@ -43,9 +43,9 @@ class Categories extends React.Component {
                     <View style={LocalStyles.divider}></View>
                     <View style={LocalStyles.category}>
                         <TouchableOpacity style={{justifyContent: "center", alignContent: "center", alignItems: "center", width: 120}} onPress={() => this.setState({active: "places"})}>
-                        <Icon name="image-outline" fill={ this.state.active === "places" ? "#09F" : "#333"} style={{width: 15, height: 15}}/>
+                        <Icon name="cube-outline" fill={ this.state.active === "places" ? "#09F" : "#333"} style={{width: 15, height: 15}}/>
                         <Text style={[Styles.typograhy.strong, this.state.active === "places" ? LocalStyles.active : { color: "#333" }]}>
-                            Places
+                            Services
                         </Text>
                         </TouchableOpacity>
                     </View>

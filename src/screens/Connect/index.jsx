@@ -54,7 +54,7 @@ class Connect extends React.Component {
                    !this.state.spinner ? 
                      <View style={{flex: 1, paddingBottom: 100}}>
                        <Categories/>
-                       <Content>
+                       <Content navigation={this.props.navigation}>
                        </Content>
                      </View> :
                      <LoadingSetu />

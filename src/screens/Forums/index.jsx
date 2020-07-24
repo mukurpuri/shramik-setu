@@ -51,7 +51,6 @@ class Forums extends React.Component {
         spinner: true
       }, async () => {
         await GetQuestionsByType(tabName).then( res => {
-          console.log("asd",res);
           if(res && res.data && res.status === 200) {
             let questions = res.data.questionsSet;
             if (this._isMounted) {

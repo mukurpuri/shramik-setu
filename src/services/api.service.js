@@ -308,3 +308,16 @@ export const GetQuestionsByType = (type) => {
   })
 }
 
+export const GetProfile = id => {
+  console.log(id)
+  return axios.get( getBackendAPI() + '/user/getProfile', { params: { id }})
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}

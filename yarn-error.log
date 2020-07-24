@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.17.3/libexec/bin/yarn.js add expo-constants
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.17.3/libexec/bin/yarn.js add @react-native-community/slider
 
 PATH: 
   /Users/mukar/google-cloud-sdk/bin:/Users/mukar/anaconda3/bin:/Users/mukar/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: EACCES: permission denied, mkdir '/Users/mukar/Desktop/exa/shramik-setu/node_modules/expo/node_modules/expo-constants'
+  Error: EACCES: permission denied, unlink '/Users/mukar/Desktop/exa/shramik-setu/node_modules/@babel/code-frame/package.json'
 
 npm manifest: 
   {
@@ -44,7 +44,7 @@ npm manifest:
       "expo": "~37.0.9",
       "expo-asset": "~8.1.0",
       "expo-camera": "~8.2.0",
-      "expo-constants": "~9.0.0",
+      "expo-constants": "^9.1.1",
       "expo-font": "~8.1.0",
       "expo-image-picker": "~8.1.0",
       "expo-linking": "^1.0.1",
@@ -3205,6 +3205,14 @@ Lockfile:
     dependencies:
       lodash "^4.6.0"
       prop-types "^15.6.0"
+  
+  expo-constants@^9.1.1:
+    version "9.1.1"
+    resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-9.1.1.tgz#bca141ee3d4550e308798128f66c6d9c6a206ca1"
+    integrity sha512-zCa/wRARODHd6BSwxjBhidmao0AqQnKmLkl0tsVIoZlRyPDHsEaxNR/m+7wqGC7qiC+UpG1qRnvLOLwCGt2ihg==
+    dependencies:
+      fbjs "1.0.0"
+      uuid "^3.3.2"
   
   expo-constants@~9.0.0:
     version "9.0.0"

@@ -10,7 +10,8 @@ const initialState = {
       id: null,
       imageID: null,
       lat: null,
-      lng: null
+      lng: null,
+      isVerified: false,
     }
 };
 const userReducer = (state = initialState, action) => {
@@ -83,6 +84,7 @@ function setUser(user, data) {
   newUser.isRegistered = data?.isRegistered;
   newUser.lat = null;
   newUser.lng = null;
+  newUser.isVerified = data?.isVerified;
   return newUser;
 }
 function setUserLogout(user) {
@@ -110,7 +112,6 @@ function setUserLocation(user, location) {
   const newUser = Object.assign({}, user);
   newUser.lat = location.lat;
   newUser.lng = location.lng;
-  console.log("ROTI", newUser);
   return newUser;
 }
 export default userReducer;

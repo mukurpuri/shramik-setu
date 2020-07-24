@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { SafeAreaView, Layout, View, StyleSheet, Image } from 'react-native';
 
-import { Col, Row, Grid } from "react-native-easy-grid";
 
 import { Text, Icon, MenuItem, OverflowMenu, TopNavigation, TopNavigationAction, Divider, Avatar } from '@ui-kitten/components';
 import { EventRegister } from 'react-native-event-listeners'
@@ -12,8 +11,6 @@ import Language from '../../config/languages/Language';
 import { RightIcon, ProfileIcon, GlobeIcon } from '../../component/Icons';
 import Styles from '../../styles';
 
-import Footer from '../../component/Footer';
-import  { getProfilePicture } from '../../utilities/helpers';
 import { UserLogout } from '../../redux/actions/user';
 import { GetUpdates } from '../../services/api.service';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -82,9 +79,7 @@ class HeaderUser extends React.Component {
     }
 
     toggleMenu = () => {
-      this.setState({
-        menuVisible: !this.state.menuVisible,
-      });
+      this.props.navigation.navigate("Menu");
     };
 
     showMessageScreen = () => {
@@ -96,9 +91,31 @@ class HeaderUser extends React.Component {
       this.props.navigation.navigate("Notifications");
     }
 
-    anchor = () => {
-      return ( 
-      <View style={{width: 188, flexDirection: "row"}}>
+    logout = async () => {
+      await this.props.UserLogout();
+      this.props.navigation.navigate("Home");
+    }
+    showMyProfle = () => {
+      this.props.navigation.navigate("MyProfile");
+    }
+    showHome = () => {
+        this.props.navigation.navigate("Dashboard");
+    }
+    RenderTitle = (title) => {
+      return (
+      <View style={LocalStyles.titleContainer}>
+        {
+          this.props.showBack ? 
+          <Icon onPress={() => this.props.leftIconCall()} style={LocalStyles.headerIcon} fill="#333" name="arrow-back-outline" /> : null
+        }
+        <Image source={SetuTextLogo} style={{width: 45, height: 45}} />
+      </View>);
+    }
+    render() {
+        let currentLanguage = this.props.settings.language;
+        const renderRightActions = () => (
+          <React.Fragment>
+          <View style={{width: 188, flexDirection: "row"}}>
           <View  style={LocalStyles.headerIcons}>
             <TouchableOpacity style={LocalStyles.headerTouch} onPress={() => this.showMessageScreen()}>
               {
@@ -124,48 +141,7 @@ class HeaderUser extends React.Component {
               <TopNavigationAction icon={MenuIcon} />
             </TouchableOpacity>
           </View>
-      </View>
-      )
-    }
-
-    logout = async () => {
-      this.toggleMenu();
-      await this.props.UserLogout();
-      this.props.navigation.navigate("Home");
-    }
-    showMyProfle = () => {
-      this.toggleMenu();
-      this.props.navigation.navigate("MyProfile");
-    }
-    showHome = () => {
-        this.toggleMenu();
-        this.props.navigation.navigate("Dashboard");
-    }
-    RenderTitle = (title) => {
-      return (
-      <View style={LocalStyles.titleContainer}>
-        {
-          this.props.showBack ? 
-          <Icon onPress={() => this.props.leftIconCall()} style={LocalStyles.headerIcon} fill="#333" name="arrow-back-outline" /> : null
-        }
-        <Image source={SetuTextLogo} style={{width: 45, height: 45}} />
-      </View>);
-    }
-    render() {
-        let currentLanguage = this.props.settings.language;
-        const renderRightActions = () => (
-          <React.Fragment>
-          {
-            this.state.showMenu && !this.props.hideHam ? 
-            <OverflowMenu
-              anchor={this.anchor}
-              visible={this.state.menuVisible}
-              onBackdropPress={()=>this.toggleMenu()}>
-              <MenuItem style={Styles.typograhy.nunito} onPress={() => this.showHome()} accessoryLeft={GlobeIcon} title='Home'/>
-              <MenuItem style={Styles.typograhy.nunito} onPress={() => this.showMyProfle()} accessoryLeft={ProfileIcon} title='My Profle'/>
-              <MenuItem style={Styles.typograhy.nunito} onPress={() => this.logout()} accessoryLeft={LogoutIcon} title='Logout'/>
-            </OverflowMenu> : null
-          }
+          </View>
           {
             this.props.hideHam && this.props.rightIcon ? (
               <Icon onPress={() => this.props.leftIconCall()} style={LocalStyles.headerIcon} fill="#333" name={this.props.rightIcon} />
@@ -180,9 +156,7 @@ class HeaderUser extends React.Component {
             <TopNavigation
               style={{paddingTop: 25}}
               alignment='center'
-              
               title={() => this.RenderTitle(this.props.title)}
-              // subtitle={evaProps => <Text {...evaProps}><Text style={Styles.typograhy.nunito, LocalStyles.subTitle}>{this.props.subTitle}</Text></Text>}
               accessoryRight={renderRightActions}
             >
             </TopNavigation>
