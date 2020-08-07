@@ -8,6 +8,7 @@ export default function Wrapper(props) {
       minHeight: "100%",
       paddingLeft: props.paddLeft || 0,  
       paddingRight: props.paddRight || 0,
+      backgroundImage: props.bgImage ? "radial-gradient(#6c6c6c 2%,transparent 0)" : "",
       backgroundColor: props.bg || "white"}}>
     <ScrollView scrollEnabled={true}
   showsVerticalScrollIndicator={true}

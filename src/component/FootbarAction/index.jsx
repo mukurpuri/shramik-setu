@@ -46,9 +46,9 @@ class FootbarAction extends React.Component {
               <TouchableOpacity onPress={() => this.props.navigation.navigate("Forums")}>
               <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}>
                 <View style={{marginTop: 8}}>
-                  <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}><Icon fill={ this.props.active === "forum" ? "#000" : "#6e6e6e"} name="smiling-face-outline" style={LocalStyles.icon} /></View>
+                  <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}><Icon fill={ this.props.active === "forum" ? "#000" : "#6e6e6e"} name="search-outline" style={LocalStyles.icon} /></View>
                   <View>
-                    <Text style={[LocalStyles.iconText, { color: this.props.active === "forum" ? "#000" : "#6e6e6e" }]}>Ask / Answer</Text>
+                    <Text style={[LocalStyles.iconText, { color: this.props.active === "forum" ? "#000" : "#6e6e6e" }]}>Search</Text>
                   </View>
                 </View>
               </View>
@@ -75,9 +75,9 @@ const mapDispatchToProps = (dispatch) => {
        height: 52
     },
     icon: {
-      width: 19,
-      height: 19
-    },
+      width: 20,
+      height: 20,
+      marginTop: 3    },
     iconText: {
       fontFamily: "nunito",
       fontSize: 11

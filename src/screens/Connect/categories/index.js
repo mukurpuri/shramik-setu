@@ -11,7 +11,7 @@ class Categories extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            active: "shops"
+            active: "people"
         }
     }
 
@@ -23,15 +23,6 @@ class Categories extends React.Component {
         return (
             <View style={LocalStyles.container}>
                 <View style={LocalStyles.categories}>
-                    <View style={[LocalStyles.category]}>
-                        <TouchableOpacity style={{justifyContent: "center", alignContent: "center", alignItems: "center", width: 120}} onPress={() => this.setState({active: "shops"})}>
-                        <Icon name="shopping-bag-outline" fill={ this.state.active === "shops" ? "#09F" : "#333"} style={{width: 15, height: 15}}/>
-                        <Text style={[Styles.typograhy.strong, this.state.active === "shops" ? LocalStyles.active : { color: "#333" }]}>
-                            Shops
-                        </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={LocalStyles.divider}></View>
                     <View style={LocalStyles.category}>
                         <TouchableOpacity style={{justifyContent: "center", alignContent: "center", alignItems: "center", width: 120}} onPress={() => this.setState({active: "people"})}>
                         <Icon name="people-outline" fill={ this.state.active === "people" ? "#09F" : "#333"} style={{width: 15, height: 15}}/>
@@ -41,11 +32,28 @@ class Categories extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <View style={LocalStyles.divider}></View>
-                    <View style={LocalStyles.category}>
+                    <View style={[LocalStyles.category]}>
+                        <TouchableOpacity style={{justifyContent: "center", alignContent: "center", alignItems: "center", width: 120}} onPress={() => this.setState({active: "shops"})}>
+                        <Icon name="shopping-bag-outline" fill={ this.state.active === "shops" ? "#09F" : "#333"} style={{width: 15, height: 15}}/>
+                        <Text style={[Styles.typograhy.strong, this.state.active === "shops" ? LocalStyles.active : { color: "#333" }]}>
+                            Shops
+                        </Text>
+                        </TouchableOpacity>
+                    </View>
+                    {/* <View style={LocalStyles.category}>
                         <TouchableOpacity style={{justifyContent: "center", alignContent: "center", alignItems: "center", width: 120}} onPress={() => this.setState({active: "places"})}>
                         <Icon name="cube-outline" fill={ this.state.active === "places" ? "#09F" : "#333"} style={{width: 15, height: 15}}/>
                         <Text style={[Styles.typograhy.strong, this.state.active === "places" ? LocalStyles.active : { color: "#333" }]}>
                             Services
+                        </Text>
+                        </TouchableOpacity>
+                    </View> */}
+                    <View style={LocalStyles.divider}></View>
+                    <View style={LocalStyles.category}>
+                        <TouchableOpacity style={{justifyContent: "center", alignContent: "center", alignItems: "center", width: 120}} onPress={() => this.setState({active: "saved"})}>
+                        <Icon name="bookmark-outline" fill={ this.state.active === "saved" ? "#09F" : "#333"} style={{width: 15, height: 15}}/>
+                        <Text style={[Styles.typograhy.strong, this.state.active === "saved" ? LocalStyles.active : { color: "#333" }]}>
+                            Saved
                         </Text>
                         </TouchableOpacity>
                     </View>

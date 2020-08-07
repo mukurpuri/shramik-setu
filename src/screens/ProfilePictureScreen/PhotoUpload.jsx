@@ -69,21 +69,19 @@ export default function PhotoUpload(props) {
         <View style={[Styles.alignments.row,  Styles.alignments.horizontalCenter,Styles.spacings.mTopSmall, {width: 240}]}>
           {
             props.uri ?
-            <Button onPress={submitImage}  style={Styles.alignments.full} size="large" status="danger">SET AS PROFILE PICTURE</Button>
+            <Button onPress={submitImage}  style={Styles.alignments.full} size="large" status="danger">{props.buttonTitle ? props.buttonTitle : `SET AS PROFILE PICTURE`}</Button>
             : 
             <Button onPress={pickImage} style={Styles.alignments.full} onPress={pickImage} size="large" status="danger">CHOOSE FROM PHONE</Button>
           }
         </View>
-        {/* {
-          <Button onPress={submitImage} style={Styles.spacings.mTopMedium} size="large" status="danger">SET AS PROFILE PICTURE</Button>
-          !props.uri ? 
-           : null
-        } */}
-        <View style={[Styles.alignments.row,  Styles.alignments.horizontalCenter, {marginTop: 120}]} >
+        {
+          !props.notFirstTime ? 
+          <View style={[Styles.alignments.row,  Styles.alignments.horizontalCenter, {marginTop: 120}]} >
           <TouchableOpacity onPress={() => props.skipLink()}>
             <Text style={{color: "#09F"}}>Skip for now</Text>
           </TouchableOpacity>
-        </View>
+          </View> : null
+        }
       </View>
     );
   }

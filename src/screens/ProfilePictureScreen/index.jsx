@@ -52,13 +52,17 @@ class ProfilePictureScreen extends React.Component {
           });
           await UploadUserImage(formData).then( async (res) => {
             if(res.data.result === "pass") {
-              await UpdateUserImage(res.data.imageID, this.props.user.phoneNumber).then( async (newRes) => {
+              await UpdateUserImage(res.data.imageID, this.props.user.id).then( async (newRes) => {
                 if(newRes && newRes.data && newRes.data.result === "pass") {
                   this.setState({
                     spinner: true
                   }, () => {
                     this.props.setUserImage(res.data.imageID)
-                    this.props.navigation.navigate("Welcome")
+                    if(!(this.props.route && this.props.route.params && this.props.route.params.notFirstTime)) {
+                      this.props.navigation.navigate("Welcome");
+                    } else {
+                      this.props.navigation.navigate("Dashboard");
+                    }
                   })
                 }
               });
@@ -68,18 +72,22 @@ class ProfilePictureScreen extends React.Component {
           });
         }
     }
+
+    componentDidMount = () => {
+      
+    }
     
     render() {
         let currentLanguage = this.props.settings.language;
         let { user } = this.props;
         return (
           <Wrapper>
-              <Row style={[Styles.spacings.mTopMedium, Styles.alignments.horizontalCenter]}><Text category="h3" style={[Styles.typograhy.strong, Styles.spacings.mTopSmall]}>Have a Profile Picture</Text></Row>
+              <Row style={[Styles.spacings.mTopMedium, Styles.alignments.horizontalCenter]}><Text category="h3" style={[Styles.typograhy.strong, Styles.spacings.mTopSmall]}>{ this.props.route.params.notFirstTime ? "Change Profile Picture" : "Have a Profile Picture" }</Text></Row>
               <Grid  style={{minHeight: 550}}>
                   {
                     this.state.spinner ?
                     <Grid><Row style={[Styles.alignments.row, Styles.spacings.mTopMedium,  Styles.alignments.horizontalCenter]}><Spinner status='danger' size='giant'/></Row></Grid> : <Row>
-                    <PhotoUpload skipLink={() => {this.props.navigation.navigate("Welcome")}} saveDisplayPicture={() => this.saveDisplayPicture()} uri={this.state.image.uri} setProfileImage={image => this.setProfileImage(image)} currentLanguage={currentLanguage}/>
+                    <PhotoUpload notFirstTime={this.props.route.params.notFirstTime || false} skipLink={() => {this.props.navigation.navigate("Welcome")}} saveDisplayPicture={() => this.saveDisplayPicture()} uri={this.state.image.uri} setProfileImage={image => this.setProfileImage(image)} currentLanguage={currentLanguage}/>
                   </Row>
                   }
               </Grid> 

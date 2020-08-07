@@ -79,6 +79,7 @@ class HeaderUser extends React.Component {
     }
 
     toggleMenu = () => {
+      EventRegister.emit('loadOtherAccounts');
       this.props.navigation.navigate("Menu");
     };
 
@@ -126,7 +127,7 @@ class HeaderUser extends React.Component {
               <TopNavigationAction icon={MessageIcon} />
             </TouchableOpacity>
           </View>
-          <View  style={LocalStyles.headerIcons}>
+          <View  style={[LocalStyles.headerIcons]}>
             <TouchableOpacity style={LocalStyles.headerTouch} onPress={() => this.showNotificationScreen()}>
               {
                 this.state.requests.notifications > 0 ?

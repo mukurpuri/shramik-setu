@@ -22,7 +22,7 @@
     ],
     "android": {
       "package": "com.pugos.setu",
-      "versionCode": 5
+      "versionCode": 10
     }
   }
 }

@@ -8,14 +8,18 @@ import { Text, Input, Button, Divider, Spinner, Icon, Card } from '@ui-kitten/co
 import _ from 'lodash';
 import  Wrapper from '../../component/Wrapper';
 import Language from '../../config/languages/Language';
-import { RightIcon, AwardIcon, UserIcon, CircularCheckIconFull } from '../../component/Icons';
+import { RightIcon, AwardIcon, Edit, CircularCheckIconFull } from '../../component/Icons';
 import Styles from '../../styles';
 import HeaderUser from '../../component/HeaderUser';
 
 import { GetProfileData } from '../../services/api.service';
 import { OTPStatus, SubmitMobileNumberStatus } from '../../redux/actions/user';
 import { getProfilePicture } from '../../../src/utilities/helpers';
+import { EventRegister } from 'react-native-event-listeners'
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
 class MyProfileScreen extends React.Component {
+  _isMounted = false;
   constructor(props) {
     super(props);  
     this.state = {
@@ -25,17 +29,29 @@ class MyProfileScreen extends React.Component {
   }
 
   componentDidMount = () => {
+    console.log(this.props);
     this.myProfiledData();
+    this.listener = EventRegister.addEventListener('loadMyProfile', (data) => {
+      this.myProfiledData();
+    })
+  }
+
+  componentWillUnmount() {
+    EventRegister.removeEventListener(this.listener)
+    this._isMounted = false;
   }
 
   myProfiledData = async () => {
+    this._isMounted = true;
     this.setState({
       spinner: true
     }, async  () => {
-      await GetProfileData(this.props.user.phoneNumber).then( res => {
-        if(res && res.data && res.data.data.status === "pass") {
-          let myProfileData = res.data.data.body;
-          this.setState({ myProfileData: myProfileData, spinner: false})
+      await GetProfileData(this.props.user.id).then( res => {
+        if (this._isMounted) {
+          if(res && res.data && res.data.data.status === "pass") {
+            let myProfileData = res.data.data.body;
+            this.setState({ myProfileData: myProfileData, spinner: false})
+          }
         }
       });
     })
@@ -43,6 +59,12 @@ class MyProfileScreen extends React.Component {
 
   followConnection = number => {
     true;
+  }
+
+  changeProfilePicture = () => {
+    this.props.navigation.navigate('ProfilePicture', {
+      notFirstTime: true
+    });
   }
 
   render() {
@@ -73,9 +95,12 @@ class MyProfileScreen extends React.Component {
                 !this.state.spinner ? 
                 <View style={LocalStyles.masthead}>
                 <View style={[Styles.alignments.row, Styles.alignments.horizontalCenter, Styles.spacings.mTopSmall]}>
-                  <View style={[LocalStyles.avatarContainer]}>
+                  <TouchableOpacity onPress={() => this.changeProfilePicture()} style={[LocalStyles.avatarContainer]}>
                       <Image style={LocalStyles.avatar} source={getProfilePicture(user.imageID)} />
-                  </View>
+                      <View style={LocalStyles.editIcon}>
+                        <Edit style={{width: 27, height: 27, marginLeft: 3}} fill="#09F" />
+                      </View>
+                  </TouchableOpacity>
                 </View>
                 <View style={[Styles.alignments.row, Styles.alignments.horizontalCenter, Styles.spacings.mTopSmall]}>
                   <Text style={LocalStyles.profileName}>{myProfileData?.name}</Text><View><CircularCheckIconFull style={LocalStyles.tick} fill="#09F" /></View>
@@ -91,9 +116,7 @@ class MyProfileScreen extends React.Component {
                       </Text>
                     </View>
                     <Divider/>
-                    <View  style={LocalStyles.karma}>
-                      </View>
-                      <Grid style={LocalStyles.rewards}>
+                      {/* <Grid style={LocalStyles.rewards}>
                         <Col style={Styles.alignments.horizontalCenter} size={33}>
                           <View style={Styles.alignments.column}>
                             <Icon style={LocalStyles.rewardIcons} name="flash-outline"  fill="#ff5722"/>
@@ -118,16 +141,16 @@ class MyProfileScreen extends React.Component {
                               </View>
                           </View>
                         </Col>
-                      </Grid>
+                      </Grid> */}
                   </View>
                 </View>
                 <View style={[Styles.alignments.row, Styles.alignments.horizontalCenter, Styles.spacings.mTopSmall]}>
                   <View style={{width: "90%"}}>
                   <Grid>
                     <Col size={100}>
-                        <Button accessoryRight={UserIcon} status="danger" size="small" >
+                        <Button onPress={() => this.props.navigation.navigate("EditProfile")} accessoryRight={Edit} status="danger" size="small" >
                         <Text accesso style={{color: "white", fontFamily: "nunito-bold", fontSize: 18}}>
-                          Connect
+                          Edit Profile
                         </Text>
                       </Button>
                     </Col>
@@ -136,13 +159,13 @@ class MyProfileScreen extends React.Component {
                 </View>
                 <View style={[Styles.spacings.mTopSmall,Styles.spacings.mBottomSmall ]}>
                 </View>
-                <View style={[Styles.alignments.row, Styles.alignments.horizontalCenter, Styles.spacings.mTopSmall]}>
+                {/* <View style={[Styles.alignments.row, Styles.alignments.horizontalCenter, Styles.spacings.mTopSmall]}>
                   <View style={{width: "90%"}}>
                     <Text style={LocalStyles.labels}>
                       Connections ({connections.length})
                     </Text>
                   </View>
-                </View>
+                </View> */}
                 <View style={[Styles.alignments.row, Styles.alignments.horizontalCenter, Styles.spacings.mTopSmall]}>
                   <View style={{width: "90%", marginBottom: 20}}>
                     <Grid>
@@ -248,8 +271,7 @@ const LocalStyles = StyleSheet.create({
     backgroundColor: "white",
     borderColor: "#efefef",
     borderWidth:  1,
-    overflow: "hidden",
-    paddingBottom: 20
+    overflow: "hidden"
   },
   avatar: {
     width: 115,
@@ -268,6 +290,14 @@ const LocalStyles = StyleSheet.create({
     height: 20,
     marginLeft: 10,
     marginTop: 19
+  },
+  editIcon: {
+    width: 30,
+    height: 30,
+    backgroundColor: "white",
+    borderRadius: 4,
+    top: -21,
+    right: -95
   }
 });
 

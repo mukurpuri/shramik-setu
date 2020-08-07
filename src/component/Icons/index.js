@@ -87,4 +87,7 @@ export const Briefcase= (props) => (
 export const Logout= (props) => (
     <Icon {...props}  name='log-out-outline'/>
 );
+export const EyeOutline= (props) => (
+    <Icon {...props}  name='eye-outline'/>
+);
 

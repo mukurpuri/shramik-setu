@@ -15,6 +15,7 @@ const persistConfig = {
   // Root?
   key: 'root',
   storage: AsyncStorage,
+  timeout: null,
   // Whitelist (Save Specific Reducers)
   whitelist: [
     'settingsReducer',

@@ -7,7 +7,9 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import  Wrapper from '../../component/Wrapper';
 import HeaderUser from '../../component/HeaderUser';
 import FootbarAction from '../../component/FootbarAction';
-import { SetUserLocation } from '../../redux/actions/user';
+import { setUserName } from '../../redux/actions/user';
+import  { SubmitProfile } from '../../services/api.service';
+import { EventRegister } from 'react-native-event-listeners'
 
 import Styles from '../../styles';
 import { GetProfile } from '../../services/api.service';
@@ -19,7 +21,8 @@ class EditProfile extends React.Component {
           spinner: false,
           data: {
               name: "",
-              about: ""
+              about: "",
+              id: this.props.user.id
           }
         }
     }
@@ -29,20 +32,53 @@ class EditProfile extends React.Component {
             spinner: true
         }, async () => {
             await GetProfile(this.props.user.id).then(res => {
-                console.log(res.data)
                 if(res && res.status === 200) {
-                    console.log(res.data)
                     this.setState({
-                        data: res.data,
+                        data: res.data.requests,
                         spinner: false
+                    }, () => {
+                        console.log("MOT",this.state.data);
                     })
                 }
             })
         })
     }
 
-    submitChanges = () => {
+    setData = (text,type) => {
+        const { data } = this.state;
+        switch(type) {
+            case 'name':
+            data.name = text;
+            break;
 
+            case 'about':
+            data.about = text;
+            break;
+
+            default:
+            console.log("Unknown type");
+        }
+        this.setState({data});
+    }
+
+    submitChanges = () => {
+        if(this.state.data.name === "") {
+            alert("Empty Profile name");
+            return;
+        }
+        const { data } = this.state;
+        data.id = this.props.user.id;
+        this.setState( {
+            spinner: true
+        }, async () => {
+            await SubmitProfile(data).then(async res => {
+                if(res && res.status === 200) {
+                    await this.props.setUserName(res.data.name);
+                    EventRegister.emit('loadMyProfile');
+                    this.props.navigation.navigate("MyProfile")
+                }
+            })
+        })
     }
     
     render() {
@@ -62,6 +98,7 @@ class EditProfile extends React.Component {
                         placeholder="Profile Name"
                         style={LocalStyles.input}
                         value={this.state.data.name}
+                        onChangeText = { text => this.setData(text, "name") }
                         />
                     </Col>
                     <Col style={Styles.spacings.mTopSmall}>
@@ -74,7 +111,7 @@ class EditProfile extends React.Component {
                             value={this.state.data.about}
                             multiline={true}
                             numberOfLines={7}
-
+                            onChangeText = { text => this.setData(text, "about") }
                         />
                     </Col>
                     <Row style={Styles.spacings.mTopSmall}>
@@ -127,7 +164,7 @@ const mapStateToProps = state => {
   
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        setUserName: name => dispatch(setUserName(name))
     };
 };
   

@@ -55,19 +55,16 @@ class RegisterScreen extends React.Component {
       });
       await SubmitUserProfile(data).then( async (res) => {
         let response = res.data;
-        if(response) {
+        if(res.status === 200) {
           let name = response.name ||  "";
-          let phoneNumber = response.phoneNumber ||  "";
-          if(phoneNumber === this.props.user.phoneNumber) {
             await this.props.setUserName(name);
             this.props.navigation.navigate('ProfilePicture');
           } else {
             alert("Something went wrong");
             this.setState({
               spinner: false
-            });
+            }); 
           }
-        }
       });
     }
 

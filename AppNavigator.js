@@ -24,8 +24,11 @@ import ShopScreen from './src/screens/Shop';
 import QAScreen from './src/screens/QA';
 
 import MenuScreen from './src/screens/Menu';
+import AccountSettingScreen from './src/screens/AccountSetting';
 
+import CreateShopScreen from './src/screens/Create/Shop';
 
+import ConsoleScreen from './src/screens/Console';
 const AppNavigator = props => {
   
   let userIsLoggedIn = props.user && props.user.phoneNumber && props.user.phoneNumber.length > 0 ? true : false;
@@ -62,7 +65,13 @@ let screens = [
   { name: "Messages", component: MessagesScreen},
   { name: "Notifications", component: NotificationsScreen},
   { name: "Shop", component: ShopScreen},
-  {name :"Menu", component: MenuScreen}
+  { name :"Menu", component: MenuScreen},
+
+  { name: "AccountSetting", component: AccountSettingScreen },
+
+  { name: "CreateShop", component: CreateShopScreen },
+
+  { name: "Console", component: ConsoleScreen }
 
 ];
 function getComponent(str) {

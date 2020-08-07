@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.17.3/libexec/bin/yarn.js add @react-native-community/slider
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.17.3/libexec/bin/yarn.js add expo
 
 PATH: 
   /Users/mukar/google-cloud-sdk/bin:/Users/mukar/anaconda3/bin:/Users/mukar/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/mukar/Desktop/exa/shramik-setu/node_modules/@babel/code-frame/package.json'
+  Error: EACCES: permission denied, mkdir '/Users/mukar/Desktop/exa/shramik-setu/node_modules/@expo/config/node_modules/fs-extra'
 
 npm manifest: 
   {
@@ -35,6 +35,7 @@ npm manifest:
       "@expo/vector-icons": "~10.0.6",
       "@react-native-community/async-storage": "^1.11.0",
       "@react-native-community/masked-view": "0.1.6",
+      "@react-native-community/slider": "^3.0.3",
       "@react-navigation/bottom-tabs": "^5.3.1",
       "@react-navigation/native": "^5.2.1",
       "@react-navigation/stack": "^5.2.16",
@@ -1475,6 +1476,11 @@ Lockfile:
     version "0.1.6"
     resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.6.tgz#c7f2ac187c1f25aa8c30d11baa8f4398eca3bb84"
     integrity sha512-PpMoeXwPUoldCRKDuSi+zK5rT+sJTW6ri6RdGPkSKRzU77Q1d9IaR0O5IKvBj0XSdL3p+dcOa05gk35aGDffBQ==
+  
+  "@react-native-community/slider@^3.0.3":
+    version "3.0.3"
+    resolved "https://registry.yarnpkg.com/@react-native-community/slider/-/slider-3.0.3.tgz#830167fd757ba70ac638747ba3169b2dbae60330"
+    integrity sha512-8IeHfDwJ9/CTUwFs6x90VlobV3BfuPgNLjTgC6dRZovfCWigaZwVNIFFJnHBakK3pW2xErAPwhdvNR4JeNoYbw==
   
   "@react-navigation/bottom-tabs@^5.3.1":
     version "5.5.1"

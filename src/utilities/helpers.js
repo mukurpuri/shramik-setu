@@ -1,6 +1,6 @@
 import { Image }  from  'react-native';
 import { getBackendAPI } from '../config/config';
-import {DefaultPP} from '../config/Images';
+import { DefaultPP, DefaultPPShop } from '../config/Images';
 
 export const isValidEmail = email => {
     let bool = false
@@ -31,5 +31,14 @@ export const createFormData = (photo, body, name) => {
       return { uri: primaryLink };
     }  else {
       return DefaultPP;
+    }
+  };
+
+  export const getProfilePictureShop = (id, size="lg") => {
+    if(id) {
+      let primaryLink = getBackendAPI() + "/uploads/avatars/responsive/" + id + "_" + size + ".png";
+      return { uri: primaryLink };
+    }  else {
+      return DefaultPPShop;
     }
   };

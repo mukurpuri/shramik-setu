@@ -118,10 +118,10 @@ export const UploadUserImage = (formData) => {
   })
 }
 
-export const UpdateUserImage = (imageID, phoneNumber) => {
+export const UpdateUserImage = (imageID, id) => {
   return axios.post( 
       getBackendAPI() + '/user/save-user-image', 
-      {imageID, phoneNumber},
+      {imageID, id},
       { 
         headers: {
           Accept: 'application/json',
@@ -160,9 +160,9 @@ export const GetDashboardData = data => {
     return status;
   })
 }
-export const GetProfileData = phoneNumber => {
+export const GetProfileData = id => {
   let data = {
-    phoneNumber
+    id
   }
   return axios.get( 
     getBackendAPI() + '/user/profile', 
@@ -311,6 +311,92 @@ export const GetQuestionsByType = (type) => {
 export const GetProfile = id => {
   console.log(id)
   return axios.get( getBackendAPI() + '/user/getProfile', { params: { id }})
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const SubmitProfile = data => {
+  return axios.post( getBackendAPI() + '/user/submit-edited-profile', data)
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const AddressFromCurrentLocation = coordinates => {
+  return axios.post( getBackendAPI() + '/user/get-address-from-coordinates', coordinates)
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+export const FetchShopCategories = () => {
+  return axios.get( getBackendAPI() + '/shop/categories')
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+
+export const SetupShop = data => {
+  return axios.post( 
+      getBackendAPI() + '/shop/set-up-shop', 
+      {data},
+      { 
+        headers: {
+          Accept: 'application/json',
+        }
+      }
+  )
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const getOtherAccounts = userID => {
+  return axios.get( getBackendAPI() + '/user/get-acccounts', { params: userID})
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const getShop = params => {
+  return axios.get( getBackendAPI() + '/shop/get', { params: params})
   .then(function (response) {
     return response;
   })

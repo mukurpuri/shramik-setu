@@ -4,37 +4,68 @@ import { View } from 'react-native';
 import { SafeAreaView,StyleSheet, Image } from 'react-native';
 import { Text, Input, Button, Divider, Spinner, Icon } from '@ui-kitten/components';
 import { Col, Row, Grid } from "react-native-easy-grid";
-
+import _ from 'lodash';
 import  Wrapper from '../../component/Wrapper';
 import HeaderUser from '../../component/HeaderUser';
 import FootbarAction from '../../component/FootbarAction';
 import { SetUserLocation } from '../../redux/actions/user';
 import { getProfilePicture } from '../../utilities/helpers';
-import { VerifiedTick, Gear, Edit, PictureIcon, AddCircular, Briefcase, Shop, Logout  } from '../../component/Icons';
+import { VerifiedTick, Gear, EyeOutline, Edit, PictureIcon, AddCircular, Briefcase, Shop, Logout  } from '../../component/Icons';
 import { SetuLogo } from '../../config/Images';
 import Styles from '../../styles';
+import { getOtherAccounts } from '../../services/api.service';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { UserLogout } from '../../redux/actions/user';
+import { EventRegister } from 'react-native-event-listeners'
 
 class Menu extends React.Component {
+  _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
           spinner: false,
+          showShopLoaders: false,
+          otherAccounts: [
+          ]
         }
     }
 
     componentDidMount = async () => {
-
+      this.fetchOtherAccounts();
+      this.listener = EventRegister.addEventListener('loadOtherAccounts', (data) => {
+        this.fetchOtherAccounts();
+      })
     }
 
     editProfile = () => {
       this.props.navigation.navigate("EditProfile")
     }
     
+    componentWillUnmount() {
+        EventRegister.removeEventListener(this.listener)
+        this._isMounted = false;
+    }
+    
     logout = async () => {
       await this.props.UserLogout();
       this.props.navigation.navigate("Home");
+    }
+
+    fetchOtherAccounts = () => {
+      this.setState({
+        showShopLoaders: true
+      }, async () => {
+        await getOtherAccounts(this.props.user.id).then( res => {
+          if(res.status === 200) {
+            this._isMounted = true;
+            this.setState({
+              showShopLoaders: false,
+              otherAccounts: res.data,
+            }, () => {
+            })
+          }
+        })
+      })
     }
 
     render() {
@@ -80,7 +111,7 @@ class Menu extends React.Component {
                         </Col>
                       </Grid>
                     </TouchableOpacity>
-                    <View style={LocalStyles.cardItem}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("ProfilePicture", { notFirstTime: true })} style={LocalStyles.cardItem}>
                       <Grid>
                         <Col size={20} style={{justifyContent: "center", alignItems: "center", width: 10, height: 40}} >
                           <PictureIcon style={{width: 20, height: 20}} fill="#333"/>
@@ -89,46 +120,45 @@ class Menu extends React.Component {
                           <Text style={LocalStyles.cardListItems}>Change Profile Picture</Text>
                         </Col>
                       </Grid>
-                    </View>
-                    <View style={LocalStyles.cardItem}>
-                      <Grid>
-                        <Col size={20} style={{justifyContent: "center", alignItems: "center", width: 10, height: 40}} >
-                          <Gear style={{width: 20, height: 20}} fill="#333"/>
-                        </Col>
-                        <Col style={{justifyContent: "center"}} size={90}>
-                          <Text style={LocalStyles.cardListItems}>Account Settings</Text>
-                        </Col>
-                      </Grid>
-                    </View>
-                  </View>
-                  <View style={LocalStyles.divider}></View>
-                  <View>
-                      <Text style={LocalStyles.label}>OTHER ACCOUNTS</Text>
-                  </View>
-                  <View style={[LocalStyles.card, Styles.spacings.mTopXSmall]}>
-                    <View style={LocalStyles.cardItem}>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("CreateShop")} style={LocalStyles.cardItem}>
                       <Grid>
                         <Col size={20} style={{justifyContent: "center", alignItems: "center", width: 10, height: 40}} >
                           <Shop style={{width: 20, height: 20}} fill="#333"/>
                         </Col>
                         <Col style={{justifyContent: "center"}} size={90}>
-                          <Text style={LocalStyles.cardListItems}>Create Bussiness/Shop</Text>
+                          <Text style={LocalStyles.cardListItems}>Create Bussiness Acccount</Text>
                         </Col>
                       </Grid>
-                    </View>
-                    <View style={LocalStyles.cardItem}>
+                    </TouchableOpacity>
+                    {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("AccountSetting")} style={LocalStyles.cardItem}>
                       <Grid>
                         <Col size={20} style={{justifyContent: "center", alignItems: "center", width: 10, height: 40}} >
-                          <Briefcase style={{width: 20, height: 20}} fill="#333"/>
+                          <EyeOutline style={{width: 20, height: 20}} fill="#333"/>
                         </Col>
                         <Col style={{justifyContent: "center"}} size={90}>
-                          <Text style={LocalStyles.cardListItems}>Create a Service</Text>
+                          <Text style={LocalStyles.cardListItems}>Privacy Settings</Text>
                         </Col>
                       </Grid>
+                    </TouchableOpacity> */}
+                  </View>
+                  {/* <View style={LocalStyles.divider}></View> */}
+                  <View style={[Styles.spacings.mTopSmall]}>
+                    <View>
+                        <Text style={LocalStyles.label}>OTHER ACCOUNTS</Text>
+                    </View>
+                    <View>
+                      {
+                        this.state.showShopLoaders ? 
+                        <View style={Styles.spacings.mTopSmall}>
+                        <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}>
+                          <Spinner size="medium" status="danger"/>
+                        </View></View> : 
+                        <Accounts navigation={this.props.navigation} data={this.state.otherAccounts} user={this.props.user} />
+                      }
                     </View>
                   </View>
-                  <View style={LocalStyles.divider}></View>
-                  <View>
+                  <View style={[Styles.spacings.mTopSmall]}>
                       <Text style={LocalStyles.label}>CHANGE LANGUAGE</Text>
                   </View>
                   <View style={[Styles.spacings.mTopXSmall]}>
@@ -154,39 +184,8 @@ class Menu extends React.Component {
                       </Col>
                     </Grid>
                   </View>
-                  <View style={LocalStyles.divider}></View>
-                  <View>
-                      <Text style={LocalStyles.label}>SWITCH CITIES</Text>
-                  </View>
-                  <View style={[Styles.spacings.mTopXSmall]}>
-                    <Grid>
-                      <Col size={46}>
-                        <View style={LocalStyles.card}>
-                          <View style={LocalStyles.cardItem}>
-                            <View style={[Styles.alignments.horizontalCenter]}>
-                              <Text style={[LocalStyles.cardListItems, {paddingTop: 7}]}>Jaipur (जयपुर)</Text>
-                            </View>
-                          </View>
-                        </View>
-                      </Col>
-                      <Col size={8}></Col>
-                      <Col size={46}>
-                      <View style={LocalStyles.card}>
-                        <View style={LocalStyles.cardItem}>
-                            <View style={[Styles.alignments.horizontalCenter]}>
-                            <Text style={[LocalStyles.cardListItems, {paddingTop: 7}]}>Gurgaon (गुडगाँव)</Text>
-                            </View>
-                        </View>
-                      </View>
-                      </Col>
-                    </Grid>
-                  </View>
-                  <View style={LocalStyles.divider}></View>
-                  <View>
-                      <Text style={LocalStyles.label}>MORE</Text>
-                  </View>
                   <View style={[LocalStyles.card, Styles.spacings.mTopXSmall]}>
-                    <View style={LocalStyles.cardItem}>
+                    {/* <View style={LocalStyles.cardItem}>
                       <Grid>
                         <Col size={20} style={{justifyContent: "center", alignItems: "center"}} >
                           <Image source={SetuLogo} style={{width: 25, height: 25}} />
@@ -195,7 +194,7 @@ class Menu extends React.Component {
                           <Text style={LocalStyles.cardListItems}>About Setu</Text>
                         </Col>
                       </Grid>
-                    </View>
+                    </View> */}
                     <TouchableOpacity onPress={() => this.logout()} style={LocalStyles.cardItem}>
                       <Grid>
                         <Col size={20} style={{justifyContent: "center", alignItems: "center"}} >
@@ -207,6 +206,18 @@ class Menu extends React.Component {
                       </Grid>
                     </TouchableOpacity>
                   </View>
+                  <View style={[Styles.spacings.mTopSmall, Styles.alignments.horizontalCenter]}>
+                    <View>
+                    <Grid>
+                      <Row>
+                        <Image source={SetuLogo} style={{width: 90, height: 90, borderRadius: 400}} />
+                      </Row>
+                      <Row>
+                        <Text style={Styles.typograhy.strong}>© Setu 2020</Text>
+                      </Row>
+                    </Grid>
+                    </View>
+                  </View>
                 </View>
             </Wrapper>
             <FootbarAction navigation={this.props.navigation} active="connect"/>
@@ -214,6 +225,46 @@ class Menu extends React.Component {
         );   
     }
 }
+class Accounts extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+      }
+  }
+
+  componentDidMount = async () => {
+  }
+
+  render() {
+      let accounts = [];
+      _.each(this.props.data, (account, index) => {
+        accounts.push(
+          <View key={account.id}  style={[LocalStyles.shopCard, Styles.spacings.pBottomXSmall]}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("Shop", {id: account.id})} style={LocalStyles.cardItem, Styles.spacings.pTopXSmall}>
+              <Grid>
+                <Col size={20} style={{justifyContent: "center", alignItems: "center"}} >
+                  <Image style={{width: 40, height: 40, borderRadius: 4,}} source={getProfilePicture(account.imageID)} />
+                </Col>
+                <Col style={{justifyContent: "center"}} size={90}>
+                  <View><Text style={LocalStyles.cardListItems}>{account.name}</Text></View>
+                  <View><Text style={LocalStyles.about}>{account.about}</Text></View>
+                  <View style={LocalStyles.shopNotification}>
+                  <Text style={LocalStyles.shopNotificationText}>33</Text>
+                  </View>
+                </Col>
+              </Grid>
+            </TouchableOpacity>
+          </View>
+        )
+      })
+      return (
+        <View style={{flexDirection: "row", flexWrap: "wrap"}}>
+          {accounts}
+        </View>
+      );   
+  }
+}
+
 const LocalStyles = StyleSheet.create({
   menuContainer: {
     width: "100%",
@@ -226,10 +277,16 @@ const LocalStyles = StyleSheet.create({
     borderWidth: 1, borderColor: "#efefef",
     borderRadius: 4
   },
+  shopCard: {
+    width: "100%",
+    backgroundColor: "white",
+    borderRadius: 4,
+    marginTop: 10,
+  },
   cardItem: {
     borderBottomWidth: 1,
     borderBottomColor: "#efefef",
-    height: 40
+    minHeight: 40
   },
   tick: {
     width: 15, height: 15,
@@ -239,20 +296,44 @@ const LocalStyles = StyleSheet.create({
   cardListItems: {
     fontFamily: "nunito-bold",
     fontSize: 16,
-    color: "#444"
+    color: "#444",
+    position: "relative"
   },
   label: {
     fontSize: 10,
     fontFamily: "nunito-bold"
   },
   divider: {
-    marginTop: 15,
-    marginBottom: 15,
+    marginTop: 25,
+    marginBottom: 25,
     width: "70%",
     marginLeft: "auto",
     marginRight: "auto",
     height: 1,
-    backgroundColor: "#eae7e7"
+  },
+  about: {
+    color: "#666",
+    fontFamily: "nunito",
+    fontSize: 12,
+    height: 20,
+    width: "70%",
+    overflow: "hidden"
+  },
+  shopNotification: {
+    backgroundColor: "red",
+    width: 25,
+    height: 25,
+    borderRadius: 50,
+    position: "absolute",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    right: 10
+  },
+  shopNotificationText: {
+    color: "white",
+    fontSize: 12,
+    fontFamily: "nunito-bold",
   }
 });
 

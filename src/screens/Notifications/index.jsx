@@ -58,10 +58,11 @@ class NotificationScreen extends React.Component {
         let currentLanguage = this.props.settings.language;
         let notificationNodes = [];
         _.each(this.state.notifications, (notification, index) => {
+          console.log(notification)
           const type = notification  ? notification.type : 0;
           const title = notification.title;
           const engager = notification.engager;
-          const createdOn = notification.createdAt;
+          const createdOn = notification.createdOn;
           const imageID = notification.imageID;
           let textNode = <Text></Text>;
           switch(type) {
@@ -82,7 +83,14 @@ class NotificationScreen extends React.Component {
                         <Image style={{width: 40, height: 40, borderRadius: 5, marginTop: 3}} source={getProfilePicture(imageID)} />
                       </Col>
                       <Col size={74}>
-                        { textNode }
+                        <View>
+                          { textNode }
+                        </View>
+                        <View>
+                          <Text style={Styles.typograhy.nunito}>
+                            <Text style={{fontSize: 11, color: "#666"}}>{createdOn}</Text>
+                          </Text>
+                        </View>
                       </Col>
                       <Col size={18}>
                         <Icon style={{width: 22, height: 22, marginLeft: 25}} name="close" fill="#979797"/>
