@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
-import { SafeAreaView,StyleSheet } from 'react-native';
+import { SafeAreaView,StyleSheet, Alert } from 'react-native';
 import { Text, Input, Button, Divider, Spinner, Icon } from '@ui-kitten/components';
 
 import  Wrapper from '../../component/Wrapper';
@@ -9,7 +9,7 @@ import HeaderUser from '../../component/HeaderUser';
 import FootbarAction from '../../component/FootbarAction';
 import { SetUserLocation } from '../../redux/actions/user';
 import { EventRegister } from 'react-native-event-listeners'
-import { getShop } from '../../services/api.service';
+import { getShop, EntityToSave, EntityToDelete, HideShop, DeactivateShop, DeleteShop, BlockShop, ReportShop, UnblockShop } from '../../services/api.service';
 import Styles from '../../styles';
 import Header from './header';
 import * as Location from 'expo-location';
@@ -24,6 +24,7 @@ class Shop extends React.Component {
             lat: 0,
             lng: 0
           },
+          activeTab: 0,
           data: {
             name: "",
             about: "",
@@ -32,13 +33,18 @@ class Shop extends React.Component {
             stars: 0,
             noOfReviews: 0,
             isVerified: false,
+            averageStars: 0,
             category: [],
             contacts: [],
+            isSaved: false,
+            isOwner: false,
             location: {
               lat: null,
               lng: null
             },
-            range: "0"
+            range: "0",
+            hide: false,
+            deactivate: false
         }
       }
     }
@@ -48,6 +54,15 @@ class Shop extends React.Component {
       this.fetchShop(shopId);
       this.listener = EventRegister.addEventListener('loadShop', id => {
         this.fetchShop(id);
+      })
+    }
+
+    refreshPageWithReviews = () => {
+      this.setState({
+        activeTab: 1
+      }, async () => {
+        let shopId = this.props.route.params && this.props.route.params.id;
+        this.fetchShop(shopId)
       })
     }
 
@@ -69,7 +84,8 @@ class Shop extends React.Component {
           }, async () => {
             let params = {
               id: this.props.route.params && this.props.route.params.id, 
-              location: location
+              location: location,
+              userID: this.props.user.id
             }
             await getShop(params).then( res => {
               if(res.status === 200) {
@@ -84,6 +100,206 @@ class Shop extends React.Component {
         }
       })
     }
+
+    saveEntity = () => {
+      let {data} = this.state;
+      data.isSaved = true;
+      this.setState({
+        data: data
+      }, async () => {
+        let paramsData = {
+          entityId: this.props.route.params && this.props.route.params.id, 
+          type: 1,
+          userId: this.props.user.id
+        }
+        await EntityToSave(paramsData).then( res => {
+          if(res.status === 200) {
+            this._isMounted = true;
+          }
+        })
+      })
+    }
+
+    unsaveEntity = () => {
+      let {data} = this.state;
+      data.isSaved = false;
+      this.setState({
+        data: data
+      }, async () => {
+        let paramsData = {
+          entityId: this.props.route.params && this.props.route.params.id, 
+          userId: this.props.user.id
+        }
+        await EntityToDelete(paramsData).then( res => {
+          if(res.status === 200) {
+            this._isMounted = true;
+          }
+        })
+      })
+    }
+
+    hideShop = () => {
+      if(this.state.data.hide) {
+        this.HIDE_ACCOUNT();
+        Alert.alert(
+          "Unhide Account",
+          "Your account is now Available on Setu.",
+          [
+            { text: "OK", onPress: () => {
+              
+            } }
+          ],
+          { cancelable: true }
+        );
+      } else {
+        Alert.alert(
+          "Hide Account",
+          "Are you sure you want to make your Business Acount Unavailable?",
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "Yes", onPress: () => {
+              this.HIDE_ACCOUNT()
+            } }
+          ],
+          { cancelable: false }
+        );
+      }
+    }
+
+    deactivateShop = () => {
+      if(this.state.data.deactivate) {
+        this.DEACTIVATE_ACCOUNT();
+        Alert.alert(
+          "Reactivate Account",
+          "You account is now reactivated on Setu.",
+          [
+            { text: "OK", onPress: () => {
+              
+            } }
+          ],
+          { cancelable: true }
+        );
+      } else {
+        Alert.alert(
+          "Deactivate Account",
+          "Are you sure you want to Deactivate your Business Acount?",
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "Yes", onPress: () => {
+              this.DEACTIVATE_ACCOUNT();
+            } }
+          ],
+          { cancelable: false }
+        );
+      }
+    }
+
+    DEACTIVATE_ACCOUNT() {
+      let {data} = this.state;
+      data.deactivate = !data.deactivate;
+      this.setState({
+        data: data
+      }, async () => {
+        let paramsData = {
+          entityId: this.props.route.params && this.props.route.params.id, 
+          userId: this.props.user.id,
+          state: this.state.data.deactivate
+        }
+        await DeactivateShop(paramsData).then( res => {
+          if(res.status === 200) {
+            this._isMounted = true;
+          }
+        })
+      })
+    }
+
+    HIDE_ACCOUNT() {
+      let {data} = this.state;
+      data.hide = !data.hide;
+      this.setState({
+        data: data
+      }, async () => {
+        let paramsData = {
+          entityId: this.props.route.params && this.props.route.params.id, 
+          userId: this.props.user.id,
+          state: this.state.data.hide
+        }
+        await HideShop(paramsData).then( res => {
+          if(res.status === 200) {
+            this._isMounted = true;
+          }
+        })
+      })
+    }
+
+    DELETE_ACCOUNT() {
+      let {data} = this.state;
+      data.hide = !data.hide;
+      this.setState({
+        data: data
+      }, async () => {
+        let paramsData = {
+          entityId: this.props.route.params && this.props.route.params.id, 
+          userId: this.props.user.id,
+          state: this.state.data.hide
+        }
+        await DeleteShop(paramsData).then( res => {
+          if(res.status === 200) {
+            this._isMounted = true;
+            EventRegister.emit("loadOtherAccounts")
+            this.props.navigation.navigate("Menu");
+          }
+        })
+      })
+    }
+
+    deleteShop = () => {
+      Alert.alert(
+        "Deleting Account on Setu",
+        "Deletion of an Account is a permanent action. It will delete all your Connections, Messages and Photos. Are you sure you want to take this step?",
+        [
+          { text: "Yes", onPress: () => {
+            this.DELETE_ACCOUNT()
+          } }
+        ],
+        { cancelable: true }
+      );
+    }
+
+    blockAccount = () => {
+      Alert.alert(
+          "Block Account",
+          "Are you sure you want to Block this Account?",
+          [
+            { text: "Yes", onPress: async () => {
+              let paramsData = {
+                  entityId: this.props.route.params && this.props.route.params.id, 
+                  createdBy: this.props.user.id,
+                }
+                await BlockShop(paramsData).then( res => {
+                  if(res.status === 200) {
+                    this.setState({
+                        flagship: false
+                    }, () => {
+                      alert("You have blocked this Account for you.")
+                    })
+                  }
+                })
+            } }
+          ],
+          { cancelable: true }
+        );
+    }
+
+
     
     render() {
         let currentLanguage = this.props.settings.language;
@@ -101,7 +317,19 @@ class Shop extends React.Component {
                     </View>
                    </View> : 
                    <View style={LocalStyles.profile}>
-                    <Header data={this.state.data} navigation={this.props.navigation} editMode={this.state.editMode} />
+                    <Header
+                      blockAccount={this.blockAccount}
+                      deleteShop={this.deleteShop}
+                      hideShop={this.hideShop}
+                      deactivateShop={this.deactivateShop}
+                      unsaveEntity={this.unsaveEntity}
+                      saveEntity={this.saveEntity}
+                      activeTab={this.state.activeTab}
+                      refreshPageWithReviews={this.refreshPageWithReviews}
+                      shopId={this.props.route.params && this.props.route.params.id}
+                      user={this.props.user} data={this.state.data}
+                      navigation={this.props.navigation}
+                      editMode={this.state.editMode} />
                    </View>
                  }
             </Wrapper>

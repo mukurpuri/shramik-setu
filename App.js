@@ -13,7 +13,8 @@ import AppNavigator from './AppNavigator';
 
 import useCachedResources from './hooks/useCachedResources';
 import { store, persistor } from './src/redux/store/store';
-
+import { YellowBox } from 'react-native';
+YellowBox.ignoreWarnings(['Remote debugger']);
 export default function App(props) {
   const isLoadingComplete = useCachedResources();
 

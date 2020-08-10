@@ -49,11 +49,11 @@ class Connect extends React.Component {
         return (
           <View style={{flex: 1}}>
             <HeaderUser title="Connect" paddBottom={0} navigation={this.props.navigation} />
+            <Categories/>
             <Wrapper bg="#f5f5f5">
                 {
                    !this.state.spinner ? 
                      <View style={{flex: 1, paddingBottom: 100}}>
-                       <Categories/>
                        <Content navigation={this.props.navigation}>
                        </Content>
                      </View> :

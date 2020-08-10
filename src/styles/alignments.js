@@ -20,6 +20,9 @@ const Alignments = StyleSheet.create({
     },
     textCenter: {
       textAlign: "center"
+    },
+    rel: {
+      position: "relative"
     }
 });
 export default Alignments

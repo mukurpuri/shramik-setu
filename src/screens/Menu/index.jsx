@@ -239,8 +239,23 @@ class Accounts extends React.Component {
       let accounts = [];
       _.each(this.props.data, (account, index) => {
         accounts.push(
-          <View key={account.id}  style={[LocalStyles.shopCard, Styles.spacings.pBottomXSmall]}>
+          <View key={account.id}  style={[Styles.alignments.rel,LocalStyles.shopCard, Styles.spacings.pBottomXSmall]}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate("Shop", {id: account.id})} style={LocalStyles.cardItem, Styles.spacings.pTopXSmall}>
+              {
+                account.deactivate ? 
+                  <React.Fragment>
+                    <View style={LocalStyles.deactivate}></View>
+                    <View style={LocalStyles.deactivateTag}><Text style={[Styles.typograhy.nunito, {color: "#888", fontSize: 12}]}>Deactivated</Text></View>
+                  </React.Fragment>
+                   : null
+              }
+              {
+                account.hide ? 
+                  <React.Fragment>
+                    <View style={LocalStyles.hidden}><Text style={[Styles.typograhy.nunito, {color: "#fff", fontSize: 12}]}>Unavailable</Text></View>
+                  </React.Fragment>
+                   : null
+              }
               <Grid>
                 <Col size={20} style={{justifyContent: "center", alignItems: "center"}} >
                   <Image style={{width: 40, height: 40, borderRadius: 4,}} source={getProfilePicture(account.imageID)} />
@@ -248,9 +263,9 @@ class Accounts extends React.Component {
                 <Col style={{justifyContent: "center"}} size={90}>
                   <View><Text style={LocalStyles.cardListItems}>{account.name}</Text></View>
                   <View><Text style={LocalStyles.about}>{account.about}</Text></View>
-                  <View style={LocalStyles.shopNotification}>
-                  <Text style={LocalStyles.shopNotificationText}>33</Text>
-                  </View>
+                  {/* <View style={LocalStyles.shopNotification}>
+                    <Text style={LocalStyles.shopNotificationText}>33</Text>
+                  </View> */}
                 </Col>
               </Grid>
             </TouchableOpacity>
@@ -334,6 +349,42 @@ const LocalStyles = StyleSheet.create({
     color: "white",
     fontSize: 12,
     fontFamily: "nunito-bold",
+  },
+  deactivate: {
+    position: "absolute",
+    width: "100%",
+    height: 100,
+    zIndex: 1,
+    backgroundColor: "rgba(255,255,255, 0.8)"
+  },
+  deactivateTag: {
+    borderWidth: 1,
+    position: "absolute",
+    borderColor: "#ccc",
+    padding: 3,
+    paddingLeft: 6,
+    paddingRight: 6,
+    top: 5,
+    right: 5,
+    zIndex: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    width: 100
+  },
+  hidden: {
+    borderWidth: 1,
+    position: "absolute",
+    borderColor: "#09F",
+    backgroundColor: "#09F",
+    padding: 3,
+    paddingLeft: 6,
+    paddingRight: 6,
+    bottom: 0,
+    right: 5,
+    zIndex: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    width: 100
   }
 });
 

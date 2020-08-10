@@ -1,5 +1,5 @@
 const pipes = {
-    local: "http://192.168.1.102:8080",
+    local: "http://192.168.1.101:8080",
     production: "https://boiling-temple-64575.herokuapp.com"
 }
 

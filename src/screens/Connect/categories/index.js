@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
-import { SafeAreaView,StyleSheet } from 'react-native';
+import { SafeAreaView,StyleSheet, TextInput } from 'react-native';
 import { Text, Input, Button, Divider, Spinner, Icon } from '@ui-kitten/components';
 
 import Styles from '../../../styles';
@@ -51,12 +51,15 @@ class Categories extends React.Component {
                     <View style={LocalStyles.divider}></View>
                     <View style={LocalStyles.category}>
                         <TouchableOpacity style={{justifyContent: "center", alignContent: "center", alignItems: "center", width: 120}} onPress={() => this.setState({active: "saved"})}>
-                        <Icon name="bookmark-outline" fill={ this.state.active === "saved" ? "#09F" : "#333"} style={{width: 15, height: 15}}/>
+                        <Icon name="checkmark-outline" fill={ this.state.active === "saved" ? "#09F" : "#333"} style={{width: 15, height: 15}}/>
                         <Text style={[Styles.typograhy.strong, this.state.active === "saved" ? LocalStyles.active : { color: "#333" }]}>
                             Saved
                         </Text>
                         </TouchableOpacity>
                     </View>
+                </View>
+                <View style={LocalStyles.search}>
+                    <TextInput placeholder="Search by Name, Categories.." style={LocalStyles.searchInput} />
                 </View>
             </View>
         );   
@@ -90,6 +93,20 @@ const LocalStyles = StyleSheet.create({
     },
     active: {
         color: "#09F"
+    },
+    search: {
+        width: "100%",
+        height: 50,
+        backgroundColor: "white",
+        borderBottomWidth: 1,
+        borderBottomColor: "#efefef"
+    },
+    searchInput: {
+        paddingLeft: 20,
+        paddingTop: 10,
+        fontFamily: "nunito-bold",
+        fontSize: 16,
+        color: "#000"
     }
 });
 

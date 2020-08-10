@@ -11,6 +11,7 @@ import { MessageIcon, PlusSquareIcon } from '../../../component/Icons';
 import Filter from './filter';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import _ from 'lodash';
+import People from './people';
 class Content extends React.Component {
     constructor(props) {
         super(props);
@@ -112,7 +113,7 @@ class Content extends React.Component {
         })
         return (
             <View style={LocalStyles.container}>
-                <View style={[Styles.spacings.mBottomSmall, Styles.alignments.row, {alignItems: "center", justifyContent: "space-between"}]}>
+                {/* <View style={[Styles.spacings.mBottomSmall, Styles.alignments.row, {alignItems: "center", justifyContent: "space-between"}]}>
                     <View>
                         <Text style={[Styles.typograhy.strong, {paddingTop: 0}]}>21 Found</Text>
                         <Text style={[Styles.typograhy.nunito, {fontSize: 10}]}>within 1 Km</Text>
@@ -125,12 +126,13 @@ class Content extends React.Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </View> */}
                 <View>
                     <Filter active={this.state.showFilter}/>
                 </View>
                 <View style={LocalStyles.wrap}>
-                    {ShopNodes}    
+                    {/* {ShopNodes} */}
+                    <People/>
                 </View>
             </View>
         );   

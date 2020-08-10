@@ -17,20 +17,24 @@ import FootbarAction from '../../../component/FootbarAction';
 import { ECommerce, PaperNote, LocationShop } from '../../../config/Images';
 import * as Location from 'expo-location';
 import PhotoUpload from '../../ProfilePictureScreen/PhotoUpload';
+import { getProfilePictureShop } from '../../../utilities/helpers';
+import { EventRegister } from 'react-native-event-listeners'
+
 class CreateShop extends React.Component {
   constructor(props) {
     super(props);  
     this.state = {
         questionId: 11,
         spinner: false,
-        currentScreen : 1,
+        currentScreen : 0,
         data: {
             name: "",
             categories: null,
             about: "",
             address: "",
             lat: 0,
-            lng: 0
+            lng: 0,
+            imgageID: null
         },
       }
   }
@@ -99,10 +103,15 @@ class CreateShop extends React.Component {
                     let { data } = this.state;
                     data.imageID = res.data.imageID;
                     data.userID = this.props.user.id
-
                     await SetupShop(data).then( async (newRes) => {
                         if(newRes && newRes.data && newRes.data.result === "pass") {
-                            console.log("enfnkjer",data);
+                            const { data } = this.state;
+                            data.name = newRes.data.name;
+                            data.imageID = newRes.data.imageID;
+                            this.setState({
+                                data,
+                                currentScreen: 6
+                            })
                         }
                     });
                 } else {
@@ -119,6 +128,11 @@ class CreateShop extends React.Component {
         data.lat = lat;
         data.lng = lng;
         this.setState({data});
+  }
+
+  navigateToNewAccount = () => {
+    EventRegister.emit('loadOtherAccounts');
+    this.props.navigation.navigate("Menu");
   }
 
   render() {
@@ -154,6 +168,9 @@ class CreateShop extends React.Component {
                 }
                 {
                     currentScreen === 5 ? <SavingShop/> : <Text></Text>
+                }
+                {
+                    currentScreen === 6 ? <ShopCreated data={this.state.data} navigateToNewAccount={this.navigateToNewAccount} /> : <Text></Text>
                 }
                    
             </View>
@@ -210,7 +227,7 @@ class Welcome extends React.Component {
                         </Row>
                         <Row style={[Styles.strong, Styles.spacings.mTopXSmall]}>
                             <Button onPress={() => this.props.continue()} style={[Styles.alignments.full, LocalStyles.button, Styles.spacings.mTopMedium, Styles.typograhy.strong]}  size='giant' status='danger' accessoryRight={RightIcon}>
-                                Start Creating your Shop
+                                Start Setting your Business
                             </Button>
                         </Row>
                     </Grid>
@@ -564,6 +581,50 @@ class SavingShop extends React.Component {
         )
     }
 }
+class ShopCreated extends React.Component {
+    constructor(props) {
+        super(props);  
+        this.state = {
+        }
+    }
+
+    navigateToNewAccount = () => {
+        this.props.navigateToNewAccount()
+    }
+
+    render() {
+        const { data } = this.props;
+        return (
+            <React.Fragment>
+                <View>
+                    <View style={[Styles.alignments.horizontalCenter]}>
+                        <View>
+                            <Icon name="checkmark-circle-outline" fill="#27ca00" style={{width: 30, height: 30}}/>
+                        </View>
+                    </View>
+                    <View style={[Styles.alignments.horizontalCenter]}>    
+                        <View style={[Styles.spacings.mLeftSmall]}><Text style={{fontSize: 22, fontFamily: "nunito-bold", color: "#444"}}>New Account created</Text></View>
+                    </View>
+                </View>
+                <View>
+                <Grid style={[LocalStyles.container]}>
+                    <Row style={[Styles.alignments.horizontalCenter, Styles.spacings.mTopMedium]}>
+                        <View style={LocalStyles.imageCover}>
+                            <Image style={{width: 128, height: 128}} source={getProfilePictureShop(data.imageID)} />
+                        </View>
+                    </Row>
+                    <Row style={[Styles.alignments.horizontalCenter, Styles.spacings.mTopMedium]}>
+                        <Text style={[Styles.typograhy.strong, {fontSize: 25}]}>{data.name}</Text>
+                    </Row>
+                    <Row style={[Styles.alignments.horizontalCenter, Styles.spacings.mTopMedium]}>
+                        <Button onPress={() => this.navigateToNewAccount()} accessoryRight={RightIcon} size="giant" status="danger">Go to your New Account</Button>
+                    </Row>
+                </Grid>
+                </View>
+            </React.Fragment>
+        )
+    }
+}
 
 const LocalStyles = StyleSheet.create({
     icon: { width: 22, height: 22, },
@@ -646,6 +707,15 @@ const LocalStyles = StyleSheet.create({
         fontSize: 16,
         minHeight: 100,
         textAlignVertical : 'top'
+    },
+    imageCover: {
+        width: 150,
+        height: 150,
+        backgroundColor: "#FFF",
+        padding: 10,
+        borderWidth: 1,
+        borderColor: "#efefef",
+        borderRadius: 4
     }
 });
 const mapStateToProps = state => {

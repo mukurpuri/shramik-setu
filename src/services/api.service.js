@@ -407,3 +407,126 @@ export const getShop = params => {
     return status;
   })
 }
+export const AddReviewToShop = data => {
+  return axios.post( getBackendAPI() + '/shop/add-review', data)
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const EntityToSave = data => {
+  return axios.post( getBackendAPI() + '/user/save-node', data)
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const EntityToDelete = data => {
+  return axios.post( getBackendAPI() + '/user/delete-node', data)
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const HideShop = data => {
+  return axios.post( getBackendAPI() + '/shop/hide-shop', data)
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const DeactivateShop = data => {
+  return axios.post( getBackendAPI() + '/shop/deactivate-shop', data)
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const DeleteShop = data => {
+  return axios.post( getBackendAPI() + '/shop/delete-shop', data)
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+
+export const BlockShop = (data) => {
+  return axios.post( getBackendAPI() +'/shop/block',{ data })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const UnblockShop = (data) => {
+  return axios.post( getBackendAPI() +'/shop/unblock',{ data })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const ReportShop = (data) => {
+  return axios.post( getBackendAPI() +'/shop/report',{ data })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}

@@ -8,7 +8,7 @@ import { Text, Input, Button, Divider, Spinner, Icon, Card } from '@ui-kitten/co
 import _ from 'lodash';
 import  Wrapper from '../../component/Wrapper';
 import Language from '../../config/languages/Language';
-import { RightIcon, AwardIcon, Edit, CircularCheckIconFull } from '../../component/Icons';
+import { RightIcon, AwardIcon, Edit, CircularCheckIconFull, Gear } from '../../component/Icons';
 import Styles from '../../styles';
 import HeaderUser from '../../component/HeaderUser';
 
