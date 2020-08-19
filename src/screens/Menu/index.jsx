@@ -68,6 +68,11 @@ class Menu extends React.Component {
       })
     }
 
+    showList = () => {
+      EventRegister.emit("myLists");
+      this.props.navigation.navigate("MyList");
+    }
+
     render() {
         let currentLanguage = this.props.settings.language;
         let { user } = this.props;
@@ -131,6 +136,16 @@ class Menu extends React.Component {
                         </Col>
                       </Grid>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.showList()} style={LocalStyles.cardItem}>
+                      <Grid>
+                        <Col size={20} style={{justifyContent: "center", alignItems: "center", width: 10, height: 40}} >
+                          <Icon name="layers-outline" style={{width: 20, height: 20}} fill="#333"/>
+                        </Col>
+                        <Col style={{justifyContent: "center"}} size={90}>
+                          <Text style={LocalStyles.cardListItems}>My Lists</Text>
+                        </Col>
+                      </Grid>
+                    </TouchableOpacity>
                     {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("AccountSetting")} style={LocalStyles.cardItem}>
                       <Grid>
                         <Col size={20} style={{justifyContent: "center", alignItems: "center", width: 10, height: 40}} >
@@ -143,25 +158,28 @@ class Menu extends React.Component {
                     </TouchableOpacity> */}
                   </View>
                   {/* <View style={LocalStyles.divider}></View> */}
-                  <View style={[Styles.spacings.mTopSmall]}>
-                    <View>
-                        <Text style={LocalStyles.label}>OTHER ACCOUNTS</Text>
-                    </View>
-                    <View>
-                      {
-                        this.state.showShopLoaders ? 
-                        <View style={Styles.spacings.mTopSmall}>
-                        <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}>
-                          <Spinner size="medium" status="danger"/>
-                        </View></View> : 
-                        <Accounts navigation={this.props.navigation} data={this.state.otherAccounts} user={this.props.user} />
-                      }
-                    </View>
-                  </View>
+                  {
+                    this.state.otherAccounts.length > 0 ?
+                    <View style={[Styles.spacings.mTopSmall]}>
+                      <View>
+                          <Text style={LocalStyles.label}>OTHER ACCOUNTS</Text>
+                      </View>
+                      <View>
+                        {
+                          this.state.showShopLoaders ? 
+                          <View style={Styles.spacings.mTopSmall}>
+                          <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}>
+                            <Spinner size="medium" status="danger"/>
+                          </View></View> : 
+                          <Accounts navigation={this.props.navigation} data={this.state.otherAccounts} user={this.props.user} />
+                        }
+                      </View>
+                    </View> : null
+                  }
                   <View style={[Styles.spacings.mTopSmall]}>
                       <Text style={LocalStyles.label}>CHANGE LANGUAGE</Text>
                   </View>
-                  <View style={[Styles.spacings.mTopXSmall]}>
+                  {/* <View style={[Styles.spacings.mTopXSmall]}>
                     <Grid>
                       <Col size={46}>
                         <View style={[LocalStyles.card,{backgroundColor: "#09f", borderBottomWidth: 0}]}>
@@ -183,7 +201,7 @@ class Menu extends React.Component {
                       </View>
                       </Col>
                     </Grid>
-                  </View>
+                  </View> */}
                   <View style={[LocalStyles.card, Styles.spacings.mTopXSmall]}>
                     {/* <View style={LocalStyles.cardItem}>
                       <Grid>

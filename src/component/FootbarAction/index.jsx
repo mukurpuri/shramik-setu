@@ -17,15 +17,18 @@ class FootbarAction extends React.Component {
         let currentLanguage = this.props.settings.language;
         return (
          <View style={LocalStyles.FootbarAction}>
+          <View style={LocalStyles.addUpdate}>
+          
+          </View>
           <Grid>
             <Col>
               <TouchableOpacity onPress={() => this.props.navigation.navigate("Dashboard")}>
               <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}>
                 <View style={{marginTop: 8}}>
                   <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}><Icon fill={ this.props.active === "home" ? "#000" : "#6e6e6e"} name="home-outline" style={LocalStyles.icon} /></View>
-                  <View>
+                  {/* <View>
                     <Text style={[LocalStyles.iconText, { color: this.props.active === "home" ? "#000" : "#6e6e6e" }]}>Home</Text>
-                  </View>
+                  </View> */}
                 </View>
               </View>
               </TouchableOpacity>
@@ -35,25 +38,26 @@ class FootbarAction extends React.Component {
               <View style={[LocalStyles.centralFooterButton,Styles.alignments.row, Styles.alignments.horizontalCenter]}>
                 <View style={{marginTop: 8}}>
                   <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}><Icon fill={ this.props.active === "connect" ? "#000" : "#6e6e6e"} name="swap-outline" style={LocalStyles.icon} /></View>
-                  <View>
+                  {/* <View>
                     <Text style={[LocalStyles.iconText, { color: this.props.active === "connect" ? "#000" : "#6e6e6e" }]}>Connect</Text>
-                  </View>
+                  </View> */}
                 </View>
               </View>
               </TouchableOpacity>
             </Col>
             <Col>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate("Forums")}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate("Add")}>
               <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}>
                 <View style={{marginTop: 8}}>
-                  <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}><Icon fill={ this.props.active === "forum" ? "#000" : "#6e6e6e"} name="search-outline" style={LocalStyles.icon} /></View>
-                  <View>
-                    <Text style={[LocalStyles.iconText, { color: this.props.active === "forum" ? "#000" : "#6e6e6e" }]}>Search</Text>
-                  </View>
+                  <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}><Icon fill={ this.props.active === "add" ? "#000" : "#6e6e6e"} name="plus-circle-outline" style={LocalStyles.icon} /></View>
+                  {/* <View>
+                    <Text style={[LocalStyles.iconText, { color: this.props.active === "forum" ? "#000" : "#6e6e6e" }]}>Add</Text>
+                  </View> */}
                 </View>
               </View>
               </TouchableOpacity>
             </Col>
+            
           </Grid>
          </View>
         );   
@@ -75,8 +79,8 @@ const mapDispatchToProps = (dispatch) => {
        height: 52
     },
     icon: {
-      width: 20,
-      height: 20,
+      width: 28,
+      height: 28,
       marginTop: 3    },
     iconText: {
       fontFamily: "nunito",
@@ -92,5 +96,8 @@ const mapDispatchToProps = (dispatch) => {
         borderTopWidth: 1,
         borderTopColor: "#ecebeb"
     },
+    addUpdate: {
+
+    }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(FootbarAction);

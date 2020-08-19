@@ -4,7 +4,7 @@ import { SafeAreaView,StyleSheet, Image, Alert } from 'react-native';
 import { Text, Input, Button, Divider, Spinner, Icon } from '@ui-kitten/components';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { getProfilePictureShop, getProfilePicture } from '../../utilities/helpers';
-import { MessageIcon, AddCircular, UserIcon } from '../../component/Icons';
+import { MessageIcon, AddCircular, UserIcon, CircularCheckIconFull } from '../../component/Icons';
 import * as Linking from 'expo-linking';
 import _ from 'lodash';
 import Styles from '../../styles';
@@ -189,7 +189,15 @@ class Header extends React.Component {
 
              </Col>
              <Col size={70}>
-                <View><Text style={LocalStyles.title}>{data.name}</Text></View>
+                <View style={Styles.alignments.row}>
+                    <Text style={LocalStyles.title}>{data.name}</Text>
+                    {
+                        data.isVerified ?
+                        <View>
+                            <CircularCheckIconFull style={Styles.UI.ShopTick} fill="#09F" />
+                        </View> : null
+                    }
+                </View>
                 <View style={{marginTop: 0}}>
                     <Text style={LocalStyles.loc}>{data.range}</Text>
                 </View>

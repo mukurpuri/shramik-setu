@@ -5,3 +5,20 @@ export const setLanguage = language => ({
 export const toggleLoader = () => ({
     type: 'TOGGLE_LOADER'
 });
+
+export const SetTab = tabType => {
+    return ({
+        type: 'SET_CONNECT_TAB',
+        tabType
+    })
+    
+}
+
+export const SetSearchRange = range => {
+    return ({
+        type: 'SET_SEARCH_RANGE',
+        range
+    })
+    
+}
+

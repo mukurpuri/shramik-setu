@@ -29,6 +29,11 @@ import AccountSettingScreen from './src/screens/AccountSetting';
 import CreateShopScreen from './src/screens/Create/Shop';
 
 import ConsoleScreen from './src/screens/Console';
+import AddScreen from './src/screens/Add';
+
+import ProfileScreen from './src/screens/Profile';
+import MyListScreen from './src/screens/List/myLists';
+
 const AppNavigator = props => {
   
   let userIsLoggedIn = props.user && props.user.phoneNumber && props.user.phoneNumber.length > 0 ? true : false;
@@ -36,7 +41,7 @@ const AppNavigator = props => {
   let primaryScreen = "Home";
   if(userIsLoggedIn) {
     if(userIsRegistered) {
-      primaryScreen = "Dashboard";
+      primaryScreen = "Connect";
     } else {
       primaryScreen = "Register";
     }
@@ -71,7 +76,11 @@ let screens = [
 
   { name: "CreateShop", component: CreateShopScreen },
 
-  { name: "Console", component: ConsoleScreen }
+  { name: "Console", component: ConsoleScreen },
+  { name: "Add", component: AddScreen },
+
+  {name: "Profile", component: ProfileScreen},
+  {name: "MyList", component: MyListScreen}
 
 ];
 function getComponent(str) {

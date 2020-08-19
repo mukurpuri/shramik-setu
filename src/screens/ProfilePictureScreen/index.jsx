@@ -82,12 +82,12 @@ class ProfilePictureScreen extends React.Component {
         let { user } = this.props;
         return (
           <Wrapper>
-              <Row style={[Styles.spacings.mTopMedium, Styles.alignments.horizontalCenter]}><Text category="h3" style={[Styles.typograhy.strong, Styles.spacings.mTopSmall]}>{ this.props.route.params.notFirstTime ? "Change Profile Picture" : "Have a Profile Picture" }</Text></Row>
+              <Row style={[Styles.spacings.mTopMedium, Styles.alignments.horizontalCenter]}><Text category="h3" style={[Styles.typograhy.strong, Styles.spacings.mTopSmall]}>{ this.props.route && this.props.route.params && this.props.route.params.notFirstTime ? "Change Profile Picture" : "Have a Profile Picture" }</Text></Row>
               <Grid  style={{minHeight: 550}}>
                   {
                     this.state.spinner ?
                     <Grid><Row style={[Styles.alignments.row, Styles.spacings.mTopMedium,  Styles.alignments.horizontalCenter]}><Spinner status='danger' size='giant'/></Row></Grid> : <Row>
-                    <PhotoUpload notFirstTime={this.props.route.params.notFirstTime || false} skipLink={() => {this.props.navigation.navigate("Welcome")}} saveDisplayPicture={() => this.saveDisplayPicture()} uri={this.state.image.uri} setProfileImage={image => this.setProfileImage(image)} currentLanguage={currentLanguage}/>
+                    <PhotoUpload notFirstTime={this.props.route && this.props.route.params && this.props.route.params.notFirstTime || false} skipLink={() => {this.props.navigation.navigate("Welcome")}} saveDisplayPicture={() => this.saveDisplayPicture()} uri={this.state.image.uri} setProfileImage={image => this.setProfileImage(image)} currentLanguage={currentLanguage}/>
                   </Row>
                   }
               </Grid> 

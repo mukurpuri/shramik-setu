@@ -280,6 +280,21 @@ export const GetNotifications = (userId) => {
     return status;
   })
 }
+
+export const KillNotification = id => {
+  return axios.post( getBackendAPI() + '/user/kill-notification', {id})
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+
 export const GetUpdates = (userId) => {
   return axios.get( getBackendAPI() + '/user/getUpdates', {
     params: { userId }
@@ -309,7 +324,6 @@ export const GetQuestionsByType = (type) => {
 }
 
 export const GetProfile = id => {
-  console.log(id)
   return axios.get( getBackendAPI() + '/user/getProfile', { params: { id }})
   .then(function (response) {
     return response;
@@ -530,3 +544,261 @@ export const ReportShop = (data) => {
     return status;
   })
 }
+
+export const GetPeopleData = (data) => {
+  return axios.post( getBackendAPI() +'/user/connect/people',{ data })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const SetUpUserLocation = data => {
+  return axios.post( getBackendAPI() +'/user/set-location',{ data })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const GetShopData = (data) => {
+  return axios.post( getBackendAPI() +'/user/connect/shops',{ data })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const GetAllAccounts = (id) => {
+  return axios.post( getBackendAPI() +'/user/getAllAccounts',{ id })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const SaveToList = data => {
+  return axios.post( getBackendAPI() +'/user/save-to-list', {data})
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const GetSaveInfo = data => {
+  return axios.post( getBackendAPI() +'/user/get-save-info', data)
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+
+export const HideUser = data => {
+  return axios.post( getBackendAPI() +'/user/hide', data)
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const UnHideUser = id => {
+  return axios.post( getBackendAPI() +'/user/unHide', {id})
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const BlockUser = data => {
+  return axios.post( getBackendAPI() +'/user/block', data)
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const UnBlockUser = id => {
+  return axios.post( getBackendAPI() +'/user/unBlock', {id})
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const MuteUser = data => {
+  return axios.post( getBackendAPI() +'/user/mute', data)
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const UnMuteUser = data => {
+  return axios.post( getBackendAPI() +'/user/unMute', data)
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const ReportUser = data => {
+  return axios.post( getBackendAPI() +'/user/report', data)
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const GetMyList = id => {
+  return axios.post( getBackendAPI() +'/user/myList', { id })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const GetSaveData = id => {
+  return axios.post( getBackendAPI() +'/user/mySave', { id })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const RemoveSave = id => {
+  return axios.post( getBackendAPI() +'/user/remove-save', { id })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+
+export const SetSaveRequest = data => {
+  return axios.post( getBackendAPI() +'/user/set-save-request', { data })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+

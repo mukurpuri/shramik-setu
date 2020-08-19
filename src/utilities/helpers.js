@@ -42,3 +42,27 @@ export const createFormData = (photo, body, name) => {
       return DefaultPPShop;
     }
   };
+
+  export const optimizeName = (name) => {
+    let nameArray = name.split(" ");
+        switch(nameArray.length) {
+            case 1:
+            return name;
+
+            case 2:
+            if(nameArray[0].length > 10)  {
+                return nameArray[0]
+            }
+            return name;
+
+            case 3:
+            return nameArray[0]
+        }
+      return name;
+  };
+
+  export const HTMLizer = (str) => {
+      return str;
+  };
+
+  

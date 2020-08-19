@@ -29,7 +29,6 @@ class MyProfileScreen extends React.Component {
   }
 
   componentDidMount = () => {
-    console.log(this.props);
     this.myProfiledData();
     this.listener = EventRegister.addEventListener('loadMyProfile', (data) => {
       this.myProfiledData();

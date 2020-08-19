@@ -7,128 +7,121 @@ import { Slider } from 'react-native'
 import Styles from '../../../../styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Grid, Col, Row } from 'react-native-easy-grid';
-import { getProfilePicture } from '../../../../utilities/helpers';
+import { getProfilePicture, optimizeName } from '../../../../utilities/helpers';
 import { wrap } from 'lodash';
+import { GetPeopleData } from '../../../../services/api.service';
+import { EventRegister } from 'react-native-event-listeners'
+import { CircularCheckIconFull } from '../../../../component/Icons';
+
 class People extends React.Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
+        this.state = {
+            data: null,
+            spinner: true
+        }
+    }
+
+    componentDidMount() {
+        this.loadPeopleData();
+        this.listener = EventRegister.addEventListener('loadPeopleData', () => {
+          this.loadPeopleData();
+        });
+    }
+
+    componentWillUnmount() {
+        EventRegister.removeEventListener(this.listener)
+        this._isMounted = false;
+    }
+
+    loadPeopleData = async () => {
+        this._isMounted = true;
+        let data = {
+            range: this.props.settings.range,
+            id: this.props.user.id,
+            lat: this.props.location.lat,
+            lng: this.props.location.lng
+        }
+        await GetPeopleData(data).then( async res => {
+          if(res && res.status === 200) {
+            if (this._isMounted) {
+               this.setState({
+                spinner: false,
+                data: res.data.data
+               }, () => {
+                   this.props.setDataLength(this.state.data.length)
+               });
+            }
+          }
+        });
+    }
+
+    naviagateConsole = (id, name, imageID, isVerified, isPrivate) => {
+        this.props.navigation.navigate("Console", { node: {id, name, imageID, isVerified, type: 0, isPrivate} })
+    }
+
+    hasLeftMargin = index => {
+        if(index%3 === 0) {
+            return 0;
+        }
+        return 6;
+    }
+
+    getMinWidth = len => {
+        if(len === 1) {
+            return "60%";
+        }
+        if(len >= 3 ){
+            return "32.1%";
+        }
+        if(len === 2 ){
+            return "40.1%";
+        }
+        return 0;
     }
     
     render() {
         //let currentLanguage = this.props.settings.language;
         let People = [];
-        let peopleList = [
-            {
-                name: "Katrina Kaif",
-                source: "https://assets.mangalorean.com/2020/08/Katrina-Kaif.jpg",
-                hasStatus: true
-            },
-            {
-                name: "Mukur Puri",
-                source: "https://miro.medium.com/fit/c/336/336/0*uFf4Ve2RlzGVzpkk.",
-                hasStatus: false
-            },
-            {
-                name: "John Lenon",
-                source: "https://pbs.twimg.com/profile_images/1278980779842945025/b_Ym_8B__400x400.jpg",
-                hasStatus: false
-            },
-            {
-                name: "Rishmit Puri",
-                source: "https://i.pinimg.com/280x280_RS/da/da/b9/dadab90238677278c099d2b9c7caa17f.jpg",
-                hasStatus: false
-            },
-            {
-                name: "Steve Jobs",
-                source: "https://vignette.wikia.nocookie.net/disney/images/5/54/Steve_Jobs.jpg/revision/latest?cb=20190223220738",
-                hasStatus: true
-            },
-            {
-                name: "Prateek Kuhad",
-                source: "https://c8d8q6i8.stackpathcdn.com/wp-content/uploads/2019/12/Prateek-Kuhad-Contact-Information-1.jpg",
-                hasStatus: true
-            },
-            {
-                name: "Katrina Kaif",
-                source: "https://assets.mangalorean.com/2020/08/Katrina-Kaif.jpg",
-                hasStatus: true
-            },
-            {
-                name: "Mukur Puri",
-                source: "https://miro.medium.com/fit/c/336/336/0*uFf4Ve2RlzGVzpkk.",
-                hasStatus: false
-            },
-            {
-                name: "John Lenon",
-                source: "https://pbs.twimg.com/profile_images/1278980779842945025/b_Ym_8B__400x400.jpg",
-                hasStatus: false
-            },
-            {
-                name: "Rishmit Puri",
-                source: "https://i.pinimg.com/280x280_RS/da/da/b9/dadab90238677278c099d2b9c7caa17f.jpg",
-                hasStatus: false
-            },
-            {
-                name: "Steve Jobs",
-                source: "https://vignette.wikia.nocookie.net/disney/images/5/54/Steve_Jobs.jpg/revision/latest?cb=20190223220738",
-                hasStatus: true
-            },
-            {
-                name: "Prateek Kuhad",
-                source: "https://c8d8q6i8.stackpathcdn.com/wp-content/uploads/2019/12/Prateek-Kuhad-Contact-Information-1.jpg",
-                hasStatus: true
-            },
-            {
-                name: "Katrina Kaif",
-                source: "https://assets.mangalorean.com/2020/08/Katrina-Kaif.jpg",
-                hasStatus: true
-            },
-            {
-                name: "Mukur Puri",
-                source: "https://miro.medium.com/fit/c/336/336/0*uFf4Ve2RlzGVzpkk.",
-                hasStatus: false
-            },
-            {
-                name: "John Lenon",
-                source: "https://pbs.twimg.com/profile_images/1278980779842945025/b_Ym_8B__400x400.jpg",
-                hasStatus: false
-            },
-            {
-                name: "Rishmit Puri",
-                source: "https://i.pinimg.com/280x280_RS/da/da/b9/dadab90238677278c099d2b9c7caa17f.jpg",
-                hasStatus: false
-            },
-            {
-                name: "Steve Jobs",
-                source: "https://vignette.wikia.nocookie.net/disney/images/5/54/Steve_Jobs.jpg/revision/latest?cb=20190223220738",
-                hasStatus: true
-            },
-            {
-                name: "Prateek Kuhad",
-                source: "https://c8d8q6i8.stackpathcdn.com/wp-content/uploads/2019/12/Prateek-Kuhad-Contact-Information-1.jpg",
-                hasStatus: true
-            }
-        ]
-        _.each(peopleList, (p,e) => {
+        _.each(this.state.data, (p,e) => {
             People.push(
-                <View key={`prop-peope-${e}`} style={[LocalStyles.peopleCard]}>
+                <TouchableOpacity onPress={() => this.naviagateConsole(p.id, p.name, p.imageID, p.isVerified, p.isPrivate)} key={`prop-peope-${p.id}`} style={[LocalStyles.peopleCard, { minWidth: this.getMinWidth(this.state.data.length)}, {marginLeft: this.hasLeftMargin(e)}]}>
                     <View style={LocalStyles.avatar}>
                         <View>
-                            <Image style={[LocalStyles.peopleAv, p.hasStatus ? LocalStyles.statusAv: {}]} source={{uri: p.source }}/>
+                            <Image style={[LocalStyles.peopleAv]} source={getProfilePicture(p.imageID)}/>
                         </View>
                     </View>
                     <View style={LocalStyles.name}>
-                        <Text style={[Styles.typograhy.strong, Styles.typograhy.center]}>
-                            {p.name}
-                        </Text>
+                        <View style={Styles.alignments.row}>
+                            <Text style={[Styles.typograhy.strong, Styles.typograhy.center]}>{optimizeName(p.name)}</Text>
+                            {
+                                p.isVerified ?
+                                <CircularCheckIconFull style={Styles.UI.peopleTick} fill="#09F" /> : null
+                            }
+                        </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             )
-        })
+        });
+        const None = 
+            <View style={LocalStyles.noData}>
+            <View><Text style={[Styles.typograhy.strong, {fontSize: 19, color: "#aaa"}]}>Oh! No one is here</Text></View>
+            <TouchableOpacity onPress={() => this.props.toggleFilter()}>
+                <Text style={[Styles.typograhy.nunito, {fontSize: 18, color: "#09F"}]}>Increase the search range</Text>
+            </TouchableOpacity>
+            </View>
+        
         return (
-            <View style={{paddingBottom: 100, marginTop: 20}}>
+            <View style={{paddingBottom: 100, marginTop: 0}}>
                 <View style={LocalStyles.gridRow}>
-                    {People}
+                    {
+                        this.state.spinner ? 
+                        <View style={{width: "100%", height: 200, justifyContent: "center", alignItems: "center"}}><Spinner status="danger" size="giant" /></View> : 
+                        (
+                            People.length > 0 ? People : None
+                        )
+                    }
                 </View>
             </View>
         );   
@@ -136,14 +129,24 @@ class People extends React.Component {
 }
 const LocalStyles = StyleSheet.create({
     peopleCard: {
-        height: 100, width: "31.66%",
         justifyContent: "center",
         alignContent: "center",
         alignItems: "center",
-        marginBottom:60,
+        marginBottom: 6,
+        //backgroundColor: "#fff",
+        //borderWidth: 1,
+        //borderColor: "#e9e9e9",
+        borderRadius: 6,
+        paddingTop: 10,
     },
     gap: {
         width: "2.5%"
+    },
+    noData: {
+        minHeight: 300,
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%"
     },
     gridRow: {
         flexDirection: "row",
@@ -152,23 +155,22 @@ const LocalStyles = StyleSheet.create({
     avatar: {
         width: 85,
         height: 85,
-        borderRadius: 100,
+        borderRadius: 200,
         backgroundColor: "white",
-        borderColor: "#efefef",
-        borderWidth: 1,
     },
     name: {
-        marginTop: 10,
+        marginTop:0,
         alignItems: "center",
         justifyContent: "center",
-        width: "100%"
+        width: "100%",
+        height: 30
     },
     peopleAv: {
-        width: 75,
-        height: 75,
-        borderRadius: 100,
-        top: 4.1,
-        left: 4.1,
+        width: 85,
+        height: 85,
+        borderRadius: 10,
+        borderWidth: 0.5,
+        borderColor: "#e9e9e9"
     },
     statusAv: {
         borderWidth: 3,

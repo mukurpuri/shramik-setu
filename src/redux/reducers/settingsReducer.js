@@ -2,7 +2,9 @@ import _ from 'lodash';
 const initialState = {
     settings: {
         language: "en",
-        screenloading: false
+        screenloading: false,
+        range: 0,
+        connectTab: "people"
     }
 };
 const userReducer = (state = initialState, action) => {
@@ -21,6 +23,20 @@ const userReducer = (state = initialState, action) => {
             }
         }
 
+        case 'SET_CONNECT_TAB': {
+            return {
+              ...state,
+              settings: setTabType(state.settings, action.tabType),
+            }
+        }
+
+        case 'SET_SEARCH_RANGE': {
+            return {
+                ...state,
+                settings: setSearchRange(state.settings, action.range),
+              }
+        }
+
         default: {
             return state;
         }
@@ -31,9 +47,20 @@ function toggleLoeader(data, status) {
     newData.screenloading = !newData.screenloading;
     return newData;
 }
+function setTabType(data, type) {
+    const newData = Object.assign({}, data);
+    newData.connectTab = type;
+    return newData;
+}
 function setSelectErrorText(data, language) {
     const newData = Object.assign({}, data);
     newData.language = language;
     return newData;
 }
+function setSearchRange(data, range) {
+    const newData = Object.assign({}, data);
+    newData.range = range;
+    return newData;
+}
+
 export default userReducer;

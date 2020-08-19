@@ -109,7 +109,9 @@ class HeaderUser extends React.Component {
           this.props.showBack ? 
           <Icon onPress={() => this.props.leftIconCall()} style={LocalStyles.headerIcon} fill="#333" name="arrow-back-outline" /> : null
         }
-        <Image source={SetuTextLogo} style={{width: 45, height: 45}} />
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("Dashboard")}>
+          <Image source={SetuTextLogo} style={{width: 45, height: 45}} />
+        </TouchableOpacity>
       </View>);
     }
     render() {

@@ -143,7 +143,7 @@ class CreateShop extends React.Component {
         <View style={{flex: 1}}>
         <Wrapper bg="#f5f5f5">
           <HeaderUser
-            leftIconCall = { () => this.navigate()}
+            leftIconCall = { () => this.props.navigation.navigate("Menu")}
             showBack={true}
             hideHam={true}
             showMenu={false}

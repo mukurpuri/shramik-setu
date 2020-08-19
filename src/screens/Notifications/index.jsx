@@ -12,11 +12,12 @@ import HeaderUser from '../../component/HeaderUser';
 import Language from '../../config/languages/Language';
 import Styles from '../../styles';
 
-import { GetNotifications } from '../../services/api.service';
+import { GetNotifications, KillNotification } from '../../services/api.service';
 import { CardContainer } from '../../../src/component/customComponents';
 import FootbarAction from '../../component/FootbarAction';
-import { getProfilePicture } from '../../utilities/helpers'
+import { getProfilePicture, HTMLizer } from '../../utilities/helpers'
 import { EventRegister } from 'react-native-event-listeners'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class NotificationScreen extends React.Component {
   _isMounted = false;
@@ -48,6 +49,18 @@ class NotificationScreen extends React.Component {
         }
       })
     }
+
+    killNotification = id => {
+      let { notifications } = this.state;
+      let f = _.remove(notifications, function(n) {
+        return n.id === id;
+      });
+      this.setState({
+        notifications
+      }, async () => {
+        await KillNotification(id);
+      })
+    }
     
     componentWillUnmount() {
         EventRegister.removeEventListener(this.listener)
@@ -58,23 +71,9 @@ class NotificationScreen extends React.Component {
         let currentLanguage = this.props.settings.language;
         let notificationNodes = [];
         _.each(this.state.notifications, (notification, index) => {
-          console.log(notification)
-          const type = notification  ? notification.type : 0;
-          const title = notification.title;
-          const engager = notification.engager;
           const createdOn = notification.createdOn;
           const imageID = notification.imageID;
-          let textNode = <Text></Text>;
-          switch(type) {
-            case 1:
-              textNode = <Text style={LocalStyles.text}><Text style={Styles.typograhy.linkText}>{engager}</Text> gave an answer to your Question <Text style={Styles.typograhy.strong}>{title}</Text></Text>
-              break;
-            case 2:
-              textNode = <Text style={LocalStyles.text}><Text style={Styles.typograhy.linkText}>{engager}</Text> upvoted your Question <Text style={Styles.typograhy.strong}>{title}</Text></Text>
-            case 3:
-              textNode = <Text style={LocalStyles.text}><Text style={Styles.typograhy.linkText}>{engager}</Text> upvoted your Answer <Text style={Styles.typograhy.strong}>{title}</Text></Text>
-              break;
-          }
+          let formatedText = HTMLizer(notification.textNode);
           notificationNodes.push(
               <CardContainer key={`${index}-notification`} paddLeft={15} paddRight={15} MarginTop={5} MarginBottom={5}>
                   <View style={Styles.UI.card}>
@@ -84,16 +83,18 @@ class NotificationScreen extends React.Component {
                       </Col>
                       <Col size={74}>
                         <View>
-                          { textNode }
+                          <Text style={Styles.typograhy.strong}>{formatedText}</Text>
                         </View>
                         <View>
                           <Text style={Styles.typograhy.nunito}>
-                            <Text style={{fontSize: 11, color: "#666"}}>{createdOn}</Text>
+                            <Text style={[ Styles.typograhy.strong, {fontSize: 11, color: "#666"}]}>{createdOn}</Text>
                           </Text>
                         </View>
                       </Col>
                       <Col size={18}>
-                        <Icon style={{width: 22, height: 22, marginLeft: 25}} name="close" fill="#979797"/>
+                        <TouchableOpacity onPress={() => this.killNotification(notification.id)}>
+                          <Icon style={{width: 22, height: 22, marginLeft: 25}} name="close" fill="#979797"/>
+                        </TouchableOpacity>
                       </Col>
                     </Grid>
                   </View>

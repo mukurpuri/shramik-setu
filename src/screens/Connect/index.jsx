@@ -8,6 +8,8 @@ import  Wrapper from '../../component/Wrapper';
 import HeaderUser from '../../component/HeaderUser';
 import FootbarAction from '../../component/FootbarAction';
 import { SetUserLocation } from '../../redux/actions/user';
+import { SetTab, SetSearchRange } from '../../redux/actions/settings';
+import { SetUpUserLocation } from '../../services/api.service';
 import * as Location from 'expo-location';
 
 import Categories from './categories';
@@ -20,6 +22,7 @@ class Connect extends React.Component {
         super(props);
         this.state = {
           spinner: false,
+          showSearch: false,
         }
     }
 
@@ -30,9 +33,11 @@ class Connect extends React.Component {
 
     setUserLoc = async () => {
       //ask for location
+      
       let { status } = await Location.requestPermissionsAsync();
       if (status !== 'granted') {
         alert('Permission to access location was denied');
+        this.setUserLoc()
       } else {
         let locationData = await Location.getCurrentPositionAsync({});
         let location = {
@@ -40,21 +45,33 @@ class Connect extends React.Component {
           lng: locationData.coords.longitude
         }
         this.props.SetUserLocation(location);
+        location.userID = this.props.user.id;
+        await SetUpUserLocation({location});
       }
     }
     
+    setSearchRange = val => {
+      this.props.SetSearchRange(val);
+    }
+
+    showSearch = () => {
+      this.setState({
+        showSearch: !this.state.showSearch
+      })
+    }
+
     render() {
         let currentLanguage = this.props.settings.language;
         let { user } = this.props;
         return (
           <View style={{flex: 1}}>
             <HeaderUser title="Connect" paddBottom={0} navigation={this.props.navigation} />
-            <Categories/>
+            <Categories showSearch={this.state.showSearch} />
             <Wrapper bg="#f5f5f5">
                 {
                    !this.state.spinner ? 
                      <View style={{flex: 1, paddingBottom: 100}}>
-                       <Content navigation={this.props.navigation}>
+                       <Content showSearch={this.showSearch} {...this.props} settings={this.props.settings} user={this.props.user} location={{lat: this.props.user.lat, lng: this.props.user.lng}} searchRange={this.props.settings.range} setSearchRange={this.setSearchRange} tabType={this.props.settings.connectTab}>
                        </Content>
                      </View> :
                      <LoadingSetu />
@@ -101,6 +118,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
     return {
       SetUserLocation: (location) => dispatch(SetUserLocation(location)),
+      SetSearchRange: range => dispatch(SetSearchRange(range))
     };
 };
   

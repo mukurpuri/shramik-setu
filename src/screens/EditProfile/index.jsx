@@ -36,8 +36,6 @@ class EditProfile extends React.Component {
                     this.setState({
                         data: res.data.requests,
                         spinner: false
-                    }, () => {
-                        console.log("MOT",this.state.data);
                     })
                 }
             })

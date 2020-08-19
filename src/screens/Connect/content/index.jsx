@@ -12,12 +12,17 @@ import Filter from './filter';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import _ from 'lodash';
 import People from './people';
+import Shop from './shop';
+import Saved from './saved';
+import { EventRegister } from 'react-native-event-listeners'
+
 class Content extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             active: "shops",
-            showFilter: false
+            showFilter: false,
+            resultLength: 0
         }
     }
 
@@ -25,115 +30,73 @@ class Content extends React.Component {
 
     }
 
-    setRange = () => {
+    toggleFilter = () => {
         this.setState({
             showFilter: !this.state.showFilter
         })
     }
+
+    setSearchRange = val => {
+        this.props.setSearchRange(val);
+    }
+
+    setDataLength = i => {
+        this.setState({
+            resultLength: i
+        })
+    }
+
+    refresh = () => {
+        switch(this.props.settings.connectTab) {
+          case "people":
+          EventRegister.emit("loadPeopleData");
+          break;
+  
+          case "shops":
+          EventRegister.emit("loadShopData");
+          break;
+        }
+      }
     
     render() {
-        let shops = [
-            {
-                name: "Masala Chowk",
-                image: "https://i.ytimg.com/vi/5qTuQPMHg2Q/maxresdefault.jpg",
-                stars: 3,
-                distance: "1 Km",
-                status: "open",
-                type: "Food Court"
-            },
-            {
-                name: "सदा शिव दाल भंडार",
-                image: "https://images.jdmagicbox.com/comp/jaipur/p8/0141px141.x141.121116165407.x8p8/catalogue/sada-shiv-daal-bhandar-mansarovar-jaipur-general-stores-qm5bq.jpg",
-                stars: 1,
-                distance: "200 Meters",
-                status: "close",
-                type: "Departmental Store"
-            },
-            {
-                name: "Abhishek Enterprises",
-                image: "https://images.jdmagicbox.com/comp/kanpur/s7/0512px512.x512.180327171728.l2s7/catalogue/hari-om-enterprises-barra-ii-kanpur-electronic-goods-showrooms-ck566.jpg",
-                stars: 4,
-                distance: "2 Km",
-                status: "open",
-                type: "Electronics"
-            },
-            {
-                name: "Balaji Mishthan Bhandar",
-                image: "https://img4.nbstatic.in/tr:w-500/5b29e3934cedfd000caacfa6.jpg",
-                stars: 4,
-                distance: "13 Meters",
-                status: "close",
-                type: "Sweet Shop"
-            }
-        ];
-        shops = [];
-        let ShopNodes = [];
-        _.each(shops, (shop,index) => {
-            let tags = [];
-            for(var i = 1; i <= shop.stars; i++) {
-                tags.push(<Icon key={`${i}-star-b`} name="star" style={{width: 15, height: 15}} fill="gold"/>);
-            }
-            for(var i = 1; i <= (5 - (shop.stars)); i++) {
-                tags.push(<Icon key={`${i}-star-c`} name="star-outline" style={{width: 15, height: 15}} fill="#ccc"/>);
-            }
-            ShopNodes.push(
-                <React.Fragment key={`${index}-shop`}>
-                <View style={LocalStyles.shop} key={`${index}-shop`}>
-                    <Grid>
-                        <Col>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate("Shop")}>
-                            <View style={[LocalStyles.inner,{ height: 45, justifyContent: "center" }]}>
-                                <Text style={[Styles.typograhy.strong, { fontSize: 14.5,}]}>
-                                    {shop.name}
-                                </Text>
-                            </View>
-                            <View style={[LocalStyles.inner]}>
-                                <Image style={{width: "100%", height: 86, borderRadius: 4}} source={{uri: `${shop.image}`}} />
-                            </View>
-                            <View style={[LocalStyles.inner, Styles.alignments.horizontalCenter]}>
-                                <Text style={[Styles.typograhy.nunito, {fontSize: 10}]}>{shop.distance} Away</Text>
-                            </View>
-                            <View style={LocalStyles.inner}>
-                                <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}>
-                                   {tags}
-                                </View>
-                            </View>
-                            <View style={LocalStyles.inner}>
-                                <View>
-                                    <Text style={LocalStyles.shopType}>{shop.type}</Text>
-                                </View>
-                            </View>
-                            </TouchableOpacity>
-                        </Col>
-                    </Grid>
-                </View>
-                <View style={LocalStyles.divider}></View>
-                </React.Fragment>
-            )
-        })
         return (
             <View style={LocalStyles.container}>
-                {/* <View style={[Styles.spacings.mBottomSmall, Styles.alignments.row, {alignItems: "center", justifyContent: "space-between"}]}>
-                    <View>
-                        <Text style={[Styles.typograhy.strong, {paddingTop: 0}]}>21 Found</Text>
-                        <Text style={[Styles.typograhy.nunito, {fontSize: 10}]}>within 1 Km</Text>
-                    </View>
-                    <View style={LocalStyles.searchFilter}>
-                        <TouchableOpacity onPress={()=>this.setRange()} style={LocalStyles.filterButton}>
+                {
+                    this.props.tabType !== "saved" ?
+                    <Grid style={[Styles.spacings.mBottomSmall, Styles.alignments.row, {alignItems: "center", justifyContent: "space-between"}]}>
+                    <Col size={40}>
+                        <Text style={[Styles.typograhy.strong, {paddingTop: 0}]}>{this.state.resultLength} Found</Text>
+                        <Text style={[Styles.typograhy.nunito, {fontSize: 14}]}>within <Text style={Styles.typograhy.strong}>{this.props.settings.range < 1000 ? `${this.props.settings.range} Meters` : `1 Km`}</Text></Text>
+                    </Col>
+                    <Col size={5}></Col>
+                    <Col size={15} style={LocalStyles.searchFilter}>
+                        <TouchableOpacity onPress={()=>this.toggleFilter()} style={LocalStyles.filterButton}>
                             <View style={{flexDirection: "row"}}>
-                                <View><Icon name="funnel-outline" style={{width: 20, height: 20, marginRight: 5}} fill="#333"/></View>
-                                <Text style={[Styles.typograhy.strong]}>Filter</Text>
+                                <Icon name="funnel-outline" style={{width: 20, height: 20}} fill="#333"/>
                             </View>
                         </TouchableOpacity>
-                    </View>
-                </View> */}
+                    </Col>
+                    <Col size={2}></Col>
+                    <Col size={15} style={LocalStyles.searchFilter}>
+                        <TouchableOpacity onPress={()=>this.props.showSearch()} style={LocalStyles.filterButton}>
+                            <View style={{flexDirection: "row"}}>
+                                <Icon name="search-outline" style={{width: 20, height: 20}} fill="#333"/>
+                            </View>
+                        </TouchableOpacity>
+                    </Col>
+                    </Grid> : null
+                }
                 <View>
-                    <Filter active={this.state.showFilter}/>
+                    <Filter settings={this.props.settings} tabType={this.props.tabType} toggleFilter={this.toggleFilter} searchRange={this.props.searchRange} setSearchRange={this.setSearchRange} active={this.state.showFilter}/>
                 </View>
-                <View style={LocalStyles.wrap}>
-                    {/* {ShopNodes} */}
-                    <People/>
-                </View>
+                {
+                    !this.state.showFilter ?
+                    <View style={LocalStyles.wrap}>
+                        { this.props.tabType === "people" ? <People  {...this.props} toggleFilter={this.toggleFilter} setDataLength={this.setDataLength} settings={this.props.settings} user={this.props.user} location={this.props.location}/> : null }
+                        { this.props.tabType === "shops" ? <Shop  {...this.props} toggleFilter={this.toggleFilter} setDataLength={this.setDataLength} settings={this.props.settings} user={this.props.user} location={this.props.location}/> : null }
+                        { this.props.tabType === "saved" ? <Saved  {...this.props} setDataLength={this.setDataLength} settings={this.props.settings} user={this.props.user} location={this.props.location}/> : null }
+                    </View> : null
+                }
             </View>
         );   
     }
@@ -141,7 +104,6 @@ class Content extends React.Component {
 const LocalStyles = StyleSheet.create({
     container: {
         padding: 10,
-        minHeight: 700,
     },
     filterButton: {
         width: "100%",
@@ -163,23 +125,12 @@ const LocalStyles = StyleSheet.create({
         backgroundColor: "#ffe30b",
     },
     searchFilter: {
-        width: 120,
         borderRadius: 4,
         height: 40,
         backgroundColor: "white",
         borderWidth: 1,
         borderColor: "#efefef",
         overflow: "hidden"
-    },
-    shop: {
-        width: "31%",
-        marginRight: "1%",
-        backgroundColor: "white",
-        borderWidth: 1,
-        borderColor: "#efefef",
-        borderRadius: 4,
-        marginBottom: 10,
-        paddingBottom: 10
     },
     button: {
         marginTop: 0,
