@@ -26,9 +26,9 @@ class FootbarAction extends React.Component {
               <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}>
                 <View style={{marginTop: 8}}>
                   <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}><Icon fill={ this.props.active === "home" ? "#000" : "#6e6e6e"} name="home-outline" style={LocalStyles.icon} /></View>
-                  {/* <View>
+                  <View>
                     <Text style={[LocalStyles.iconText, { color: this.props.active === "home" ? "#000" : "#6e6e6e" }]}>Home</Text>
-                  </View> */}
+                  </View>
                 </View>
               </View>
               </TouchableOpacity>
@@ -38,9 +38,9 @@ class FootbarAction extends React.Component {
               <View style={[LocalStyles.centralFooterButton,Styles.alignments.row, Styles.alignments.horizontalCenter]}>
                 <View style={{marginTop: 8}}>
                   <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}><Icon fill={ this.props.active === "connect" ? "#000" : "#6e6e6e"} name="swap-outline" style={LocalStyles.icon} /></View>
-                  {/* <View>
+                  <View>
                     <Text style={[LocalStyles.iconText, { color: this.props.active === "connect" ? "#000" : "#6e6e6e" }]}>Connect</Text>
-                  </View> */}
+                  </View>
                 </View>
               </View>
               </TouchableOpacity>
@@ -50,9 +50,9 @@ class FootbarAction extends React.Component {
               <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}>
                 <View style={{marginTop: 8}}>
                   <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}><Icon fill={ this.props.active === "add" ? "#000" : "#6e6e6e"} name="plus-circle-outline" style={LocalStyles.icon} /></View>
-                  {/* <View>
-                    <Text style={[LocalStyles.iconText, { color: this.props.active === "forum" ? "#000" : "#6e6e6e" }]}>Add</Text>
-                  </View> */}
+                  <View>
+                    <Text style={[LocalStyles.iconText, { color: this.props.active === "forum" ? "#000" : "#6e6e6e" }]}>Add New</Text>
+                  </View>
                 </View>
               </View>
               </TouchableOpacity>
@@ -79,8 +79,8 @@ const mapDispatchToProps = (dispatch) => {
        height: 52
     },
     icon: {
-      width: 28,
-      height: 28,
+      width: 23,
+      height: 23,
       marginTop: 3    },
     iconText: {
       fontFamily: "nunito",
@@ -90,7 +90,7 @@ const mapDispatchToProps = (dispatch) => {
         width: "100%",
         position: "absolute",
         backgroundColor: "white",
-        height: 52,
+        height: 58,
         bottom: 0,
         left: 0,
         borderTopWidth: 1,

@@ -1,5 +1,5 @@
 const pipes = {
-    local: "http://192.168.1.101:8080",
+    local: "http://192.168.1.100:8080",
     production: "https://boiling-temple-64575.herokuapp.com"
 }
 
@@ -11,3 +11,6 @@ export const getBackendAPI =    () => {
     return url;
 }
 
+export const EXPO_PUSH_API = () => {
+    return `https://exp.host/--/api/v2/push/send`;
+}

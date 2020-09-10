@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { SafeAreaView, Layout, View, StyleSheet, Image } from 'react-native';
+import { SafeAreaView, Layout, View, StyleSheet, Image, Platform } from 'react-native';
+import Constants from 'expo-constants';
 
+import * as Permissions from 'expo-permissions';
 
 import { Text, Icon, MenuItem, OverflowMenu, TopNavigation, TopNavigationAction, Divider, Spinner } from '@ui-kitten/components';
 
@@ -19,6 +21,8 @@ import { GetDashboardData } from '../../services/api.service';
 import { CardContainer } from '../../../src/component/customComponents';
 import FootbarAction from '../../component/FootbarAction';
 import { EventRegister } from 'react-native-event-listeners'
+import { SetExpoToken } from '../../redux/actions/settings';
+import * as Notifications from 'expo-notifications';
 
 class DashboardScreen extends React.Component {
     _isMounted = false;
@@ -30,7 +34,10 @@ class DashboardScreen extends React.Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount = async () => {
+      if(!this.props.settings.expoToken) {
+        await this.registerForPushNotificationsAsync();
+      }
       this.loadDashboardData();
       this.listener = EventRegister.addEventListener('loadDashboard', (data) => {
         this.loadDashboardData();
@@ -42,12 +49,33 @@ class DashboardScreen extends React.Component {
       this._isMounted = false;
     }
 
+    registerForPushNotificationsAsync = async () => {
+      if (Constants.isDevice) {
+        const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+        let finalStatus = existingStatus;
+        if (existingStatus !== 'granted') {
+          const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+          finalStatus = status;
+        }
+        if (finalStatus !== 'granted') {
+          alert('Failed to get push token for push notification!');
+          return;
+        }
+        const token = await Notifications.getExpoPushTokenAsync();
+        //this.setState({ expoPushToken: token });
+        this.props.SetExpoToken(token);
+      } else {
+        alert('Must use physical device for Push Notifications');
+      }
+      };
+
     loadDashboardData = async () => {
       this._isMounted = true;
       if(this.props.user.phoneNumber) {
       let data = {
         state: "RJ",
         city: "Jaipur",
+        expoPushToken: this.props.settings.expoToken ? this.props.settings.expoToken : null,
         id: this.props.user.id
       }
       await GetDashboardData(data).then( async res => {
@@ -113,7 +141,7 @@ const mapStateToProps = state => {
   
 const mapDispatchToProps = (dispatch) => {
     return {
-
+      SetExpoToken: token => dispatch(SetExpoToken(token))
     };
 };
   

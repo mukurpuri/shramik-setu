@@ -90,7 +90,7 @@ class Add extends React.Component {
                 {
                     this.state.step === 0 ? (
                         <View style={[Styles.alignments.horizontalCenter, Styles.alignments.verticalCenter, {minHeight: 500, flexDirection: "column"}]}>
-                            <View style={[Styles.UI.card, {width: "60%",backgroundColor: "#E91E62"}]}>
+                            {/* <View style={[Styles.UI.card, {width: "60%",backgroundColor: "#E91E62"}]}>
                                 <TouchableOpacity onPress={() => this.steper(1)} style={[Styles.alignments.row, Styles.alignments.horizontalCenter]}>
                                         <Text style={[Styles.typograhy.strong, {fontSize: 20, color: "#fff"}]}>Add an Update</Text>
                                         <Icon name="plus-circle-outline" style={{width: 20, height: 20, marginLeft: 10, marginTop: 5}} fill="#fff"/>
@@ -98,7 +98,7 @@ class Add extends React.Component {
                             </View>
                             <View style={[Styles.spacings.mTopMedium, Styles.spacings.mBottomMedium]}>
                                 <Text style={Styles.typograhy.strong}>OR</Text>
-                            </View>
+                            </View> */}
                             <View style={[Styles.UI.card, {width: "60%", backgroundColor: "#09F"}]}>
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate("CreateQuestion")} style={[Styles.alignments.row, Styles.alignments.horizontalCenter]}>
                                         <Text style={[Styles.typograhy.strong, {fontSize: 20, color: "#fff"}]}>Ask a Question</Text>

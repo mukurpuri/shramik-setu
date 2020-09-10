@@ -22,7 +22,8 @@
     ],
     "android": {
       "package": "com.pugos.setu",
-      "versionCode": 10
+      "versionCode": 10,
+      "useNextNotificationsApi": true
     }
   }
 }

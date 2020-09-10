@@ -89,8 +89,8 @@ class Shop extends React.Component {
         return "49%";
     }
 
-    naviagateConsole = (id, name, imageID, isVerified, isPrivate) => {
-        this.props.navigation.navigate("Console", { node: {id, name, imageID, isVerified, type: 1, isPrivate} })
+    naviagateConsole = (id, name, imageID, isVerified, isPrivate, uid, ownerId, banner, isBannerActive) => {
+        this.props.navigation.navigate("Console", { node: {id, name, imageID, isVerified, type: 1, isPrivate, uid, ownerId, banner, isBannerActive} })
     }
 
     
@@ -108,7 +108,7 @@ class Shop extends React.Component {
                 <React.Fragment key={`${index}-shop`}>
                 {/* { width: this.getMinWidth(this.state.data.length)}, {marginLeft: this.hasLeftMargin(index)} */}
                 <View style={[LocalStyles.shop]} key={`${index}-shop`}>
-                            <TouchableOpacity onPress={() => this.naviagateConsole(shop.id, shop.name, shop.imageID, shop.isVerified, shop.isPrivate)}>
+                            <TouchableOpacity onPress={() => this.naviagateConsole(shop.id, shop.name, shop.imageID, shop.isVerified, shop.isPrivate, shop.uid, shop.ownerId, shop.banner, shop.isBannerActive)}>
                                 <Grid>
                                     <Col size={28} style={ Styles.alignments.row, Styles.alignments.horizontalCenter}>
                                         <View style={[LocalStyles.inner]}>

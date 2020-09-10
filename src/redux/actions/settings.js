@@ -22,3 +22,11 @@ export const SetSearchRange = range => {
     
 }
 
+export const SetExpoToken = token => {
+    return ({
+        type: 'SET_EXPO_TOKEN',
+        token
+    })
+    
+}
+

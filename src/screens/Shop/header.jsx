@@ -139,7 +139,11 @@ class Header extends React.Component {
 
     blockAccount = () => {
         this.props.blockAccount();
-      }
+    }
+
+    navigateMyBanners = () => {
+        this.props.navigation.navigate("MyBanners", { shopId: this.props.shopId });
+    }
 
     render() {
         //let currentLanguage = this.props.settings.language;
@@ -204,9 +208,9 @@ class Header extends React.Component {
                 <View style={{marginTop: 3}}>
                     <View style={Styles.alignments.row}>
                         {shopStars}
-                        <View>
+                        {/* <View>
                             <Text style={LocalStyles.ratings}>({data.noOfReviews} Ratings)</Text>
-                        </View>
+                        </View> */}
                     </View>
                 </View>
              </Col>
@@ -214,19 +218,12 @@ class Header extends React.Component {
          <View style={Styles.spacings.mTopXSmall}>
             {
                 !data.isOwner ? <Grid>
-                <Col size={10}>
-                    <TouchableOpacity onPress={() => this.toggleFlag()} style={[Styles.UI.card, Styles.alignments.horizontalCenter, {borderRadius: 8}]}>
-                        <Icon name="flag" style={{width: 18, height: 18, marginTop: 3}} fill={"#ff5a5a"}/>
-                    </TouchableOpacity>
-                </Col>
-                <Col size={2}>
-                </Col>
                 <Col size={35}>
                     <TouchableOpacity onPress={() => this.toggleEnitity()} style={[Styles.UI.card, Styles.alignments.horizontalCenter, {borderRadius: 8}]}>
-                        <Text style={[Styles.typograhy.strong, {color: data.isSaved ? "#09F" : "#000"}]}>{ data.isSaved ? "Saved" : "Save"}</Text>
+                        <Text style={[Styles.typograhy.strong, {color: data.isSaved ? "#09F" : "#000"}]}>{ data.isSaved ? "Saved" : "Add to Save"}</Text>
                         {
                             !data.isSaved ?
-                            <Icon name="arrow-downward-outline" style={{width: 18, height: 18, marginTop: 3, marginLeft: 10}} fill="#000"/>: null
+                            <Icon name="plus-outline" style={{width: 18, height: 18, marginTop: 3, marginLeft: 10}} fill="#000"/>: null
                         }
                         {
                             data.isSaved ?
@@ -272,10 +269,33 @@ class Header extends React.Component {
             
          </View>
 
+
+
+         { 
+             data.isOwner ? 
+             <Grid style={Styles.spacings.mTopXSmall}>
+                 <Col size={50}>
+                    <TouchableOpacity onPress={() => this.navigateMyBanners()} style={[Styles.UI.card, Styles.alignments.horizontalCenter, {borderRadius: 8}]}>
+                        <Text style={[Styles.typograhy.strong]}>My Banners</Text>
+                        <Icon name="loader-outline" style={{width: 18, height: 18, marginTop: 3, marginLeft: 10}} fill={"#000"}/>
+                    </TouchableOpacity>
+                 </Col>
+                 <Col size={2}></Col>
+                 <Col size={50}>
+                    <TouchableOpacity onPress={() => this.toggleAccountSettings()} style={[Styles.UI.card, Styles.alignments.horizontalCenter, {borderRadius: 8}]}>
+                            <Text style={[Styles.typograhy.strong]}>My Updates</Text>
+                            <Icon name="color-palette-outline" style={{width: 18, height: 18, marginTop: 3, marginLeft: 10}} fill={"#000"}/>
+                        </TouchableOpacity>
+                    </Col>
+             </Grid> 
+            : null
+         }
+         
+
          {
             !data.isOwner && this.state.flagship ?
                 <View style={Styles.spacings.mTopXSmall}>
-                        <View style={[Styles.UI.card, {borderRadius: 10, minHeight: 200, position: "relative"}]}>
+                        <View style={[Styles.UI.card, {borderRadius: 10, position: "relative"}]}>
                             <View style={{ flexDirection: "row" ,justifyContent: "space-between"}}>
                                 <View><Text style={[Styles.typograhy.strong, {fontSize: 19}]}>Flag Account</Text></View>
                                 <TouchableOpacity onPress={() => this.toggleFlag()} style={LocalStyles.closeButton}>
@@ -303,7 +323,6 @@ class Header extends React.Component {
              : <Text></Text>
          }
 
-         {/* ZXZCZC */}
          { 
              data.isOwner ?
              <View>
@@ -386,7 +405,7 @@ class Header extends React.Component {
                     </Col>
                     <Col size={50}>
                         <TouchableOpacity onPress={() => this.setTab(1)} style={[LocalStyles.tabButton, this.state.tabActive === 1 ? LocalStyles.active: {}]}>
-                            <Text style={Styles.typograhy.strong}>Reviews</Text>
+                            <Text style={Styles.typograhy.strong}>Reviews ({data.noOfReviews})</Text>
                         </TouchableOpacity>
                     </Col>
                 </Grid>

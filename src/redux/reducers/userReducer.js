@@ -84,6 +84,7 @@ function setUser(user, data) {
   newUser.isRegistered = data?.isRegistered;
   newUser.lat = null;
   newUser.lng = null;
+  newUser.imageID = data?.imageID;
   newUser.isVerified = data?.isVerified;
   return newUser;
 }

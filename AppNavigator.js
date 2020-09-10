@@ -34,6 +34,11 @@ import AddScreen from './src/screens/Add';
 import ProfileScreen from './src/screens/Profile';
 import MyListScreen from './src/screens/List/myLists';
 
+import PhotoModalScreen from './src/screens/PhotoModal';
+
+import MyBannersScreen from './src/screens/Banners';
+import AddBannersScreen from './src/screens/Banners/addNew';
+
 const AppNavigator = props => {
   
   let userIsLoggedIn = props.user && props.user.phoneNumber && props.user.phoneNumber.length > 0 ? true : false;
@@ -80,8 +85,11 @@ let screens = [
   { name: "Add", component: AddScreen },
 
   {name: "Profile", component: ProfileScreen},
-  {name: "MyList", component: MyListScreen}
+  {name: "MyList", component: MyListScreen},
+  {name: "PhotoModal", component: PhotoModalScreen},
 
+  {name: "MyBanners", component: MyBannersScreen},
+  {name: "AddBanners", component: AddBannersScreen}
 ];
 function getComponent(str) {
   let com = _.find(screens, s => {

@@ -20,14 +20,14 @@ import { SetuTextLogo } from '../../config/Images';
 
 import { getProfilePicture } from '../../utilities/helpers';
 import Story from './story';
-
+import MessageContainer from './MessageContainer';
 
 class Content extends React.Component {
     _isMounted = false;
     constructor(props) {
       super(props);
         this.state = {
-          
+          messages: ""
         }
     }
 
@@ -42,18 +42,18 @@ class Content extends React.Component {
         let currentLanguage = this.props.settings.language;
         let { isStoryOpen } = this.props;
         return (
-          <View style={[!isStoryOpen ? LocalStyles.content: {}]}>
-            {/* { isStoryOpen ?  <Story toggleStory={this.props.toggleStory} isStoryOpen={isStoryOpen} closeStory={this.closeStory} /> : null } */}
-            {/* <View><Text>fwe</Text></View> */}
+          <View style={LocalStyles.messageContainer}>
           </View>
         );   
     }
 }
 
 const LocalStyles = StyleSheet.create({
-    content: {
-        paddingLeft: 15,
-        paddingRight: 15,
+    messageContainer: {
+      width: "100%",
+      height: 414,
+      backgroundColor: "red",
+      position: "absolute"
     }
 });
 

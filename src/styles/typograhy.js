@@ -36,6 +36,15 @@ const Typography = StyleSheet.create({
       fontSize: 10,
       color: "#757474",
       fontFamily: "nunito"
+    },
+    textLeft: {
+      textAlign: "left"
+    },
+    textRight: {
+      textAlign: "right"
+    },
+    textCenter: {
+      textAlign: "center"
     }
 });
 export default Typography

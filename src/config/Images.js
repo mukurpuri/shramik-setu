@@ -16,3 +16,4 @@ export const MadeInIndia = require('../../assets/images/madeinindia.png')
 export const ECommerce = require('../../assets/images/ecommerce.png');
 export const PaperNote = require('../../assets/images/paper.png');
 export const LocationShop = require('../../assets/images/search.png');
+export const SendIcon = require('../../assets/images/send.png');

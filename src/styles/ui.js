@@ -18,14 +18,34 @@ const UI = StyleSheet.create({
     headerTick: {
       width: 17,
       height: 17,
-      marginLeft: 5,
-      marginTop : 7
+      position: "absolute",
+      top: -30,
+      left: -7
+
     },
     ShopTick: {
       width: 15,
       height: 15,
       marginTop : 6,
       marginLeft: 5
+    },
+    redBulb: {
+        backgroundColor: "red",
+        width: 20,
+        height: 20,
+        borderRadius: 100,
+        position: "absolute",
+        justifyContent: "center",
+        alignContent: "center",
+        alignItems: "center",
+        right: 30,
+        top: 11,
+        zIndex: 1
+    },
+    bulbText: {
+        color: "white",
+        fontSize: 11,
+        fontFamily: "nunito-bold",
     }
 });
 export default UI

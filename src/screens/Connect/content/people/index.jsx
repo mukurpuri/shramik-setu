@@ -57,8 +57,8 @@ class People extends React.Component {
         });
     }
 
-    naviagateConsole = (id, name, imageID, isVerified, isPrivate) => {
-        this.props.navigation.navigate("Console", { node: {id, name, imageID, isVerified, type: 0, isPrivate} })
+    naviagateConsole = (id, name, imageID, isVerified, isPrivate, uid, isRequested) => {
+        this.props.navigation.navigate("Console", { node: {id, name, imageID, isVerified, type: 0, isPrivate, uid, isRequested} })
     }
 
     hasLeftMargin = index => {
@@ -86,7 +86,7 @@ class People extends React.Component {
         let People = [];
         _.each(this.state.data, (p,e) => {
             People.push(
-                <TouchableOpacity onPress={() => this.naviagateConsole(p.id, p.name, p.imageID, p.isVerified, p.isPrivate)} key={`prop-peope-${p.id}`} style={[LocalStyles.peopleCard, { minWidth: this.getMinWidth(this.state.data.length)}, {marginLeft: this.hasLeftMargin(e)}]}>
+                <TouchableOpacity onPress={() => this.naviagateConsole(p.id, p.name, p.imageID, p.isVerified, p.isPrivate, p.uid, p.isRequested)} key={`prop-peope-${p.id}`} style={[LocalStyles.peopleCard, { minWidth: this.getMinWidth(this.state.data.length)}, {marginLeft: this.hasLeftMargin(e)}]}>
                     <View style={LocalStyles.avatar}>
                         <View>
                             <Image style={[LocalStyles.peopleAv]} source={getProfilePicture(p.imageID)}/>
@@ -168,7 +168,7 @@ const LocalStyles = StyleSheet.create({
     peopleAv: {
         width: 85,
         height: 85,
-        borderRadius: 10,
+        borderRadius: 100,
         borderWidth: 0.5,
         borderColor: "#e9e9e9"
     },

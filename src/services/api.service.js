@@ -1,6 +1,18 @@
 import axios from 'axios';
-import { getBackendAPI } from '../config/config';
+import { getBackendAPI, EXPO_PUSH_API } from '../config/config';
 import { userService } from '../config/authentications';
+
+export const SEND_NOTIFICATIOIN = async data => {
+        return await fetch(EXPO_PUSH_API(), {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Accept-encoding': 'gzip, deflate',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+}
 
 export const SendOTPToLogin = phoneNumber => {
     return axios.post( getBackendAPI() +'/user/login',{ 
@@ -789,6 +801,195 @@ export const RemoveSave = id => {
 
 export const SetSaveRequest = data => {
   return axios.post( getBackendAPI() +'/user/set-save-request', { data })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+
+
+export const GetAllMessages = id => {
+  return axios.post( getBackendAPI() +'/user/messages', { id })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const AllowSave = id => {
+  return axios.post( getBackendAPI() +'/user/allow-save', { id })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const CancelSave = id => {
+  return axios.post( getBackendAPI() +'/user/remove-save', { id })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const SendMessage = data => {
+  return axios.post( getBackendAPI() +'/user/create-message', { data })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const GetMessages = data => {
+  return axios.post( getBackendAPI() +'/user/get-messages', { data })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const GetLatestMessage = data => {
+  return axios.post( getBackendAPI() +'/user/get-latest-message', { data })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const SeenMessage = id => {
+  return axios.post( getBackendAPI() +'/user/seen-message', {id})
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const UploadImage = (formData) => {
+  return axios.post( 
+      getBackendAPI() + '/user/upload-image', 
+      formData,
+      { 
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+        }
+      }
+  )
+  .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const CreateBanner = data => {
+  return axios.post( getBackendAPI() +'/shop/create-banner', {data})
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const GetMyBanners = data => {
+  return axios.post( getBackendAPI() +'/shop/get-banners', {data})
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const RemoveBanner = id => {
+  return axios.post( getBackendAPI() +'/shop/remove-banner', { id })
+  .then(function (response) {
+    // handle success
+    return response;
+  })
+  .catch(function (error) {
+    // handle error
+    return error;
+  })
+  .then(function (status) {
+    return status;
+  })
+}
+
+export const HideBanner = data => {
+  return axios.post( getBackendAPI() +'/shop/hide-banner', { data })
   .then(function (response) {
     // handle success
     return response;

@@ -70,7 +70,8 @@ class HeaderUser extends React.Component {
             this.setState({
               requests: res.data.requests || {
                 messages: 0,
-                notifications: 0
+                notifications: 0,
+                saves: 0
               }
             })
           }
@@ -84,6 +85,7 @@ class HeaderUser extends React.Component {
     };
 
     showMessageScreen = () => {
+      EventRegister.emit('loadAllMessages');
       this.props.navigation.navigate("Messages");
     }
 
@@ -122,8 +124,8 @@ class HeaderUser extends React.Component {
           <View  style={LocalStyles.headerIcons}>
             <TouchableOpacity style={LocalStyles.headerTouch} onPress={() => this.showMessageScreen()}>
               {
-                this.state.requests.messages > 0 ?
-                <Text style={LocalStyles.notificationBubble}>{this.state.requests.messages}</Text> : 
+                this.state.requests.messages > 0 || this.state.requests.saves > 0 ?
+                <Text style={LocalStyles.notificationBubble}>{parseInt(this.state.requests.messages) + parseInt(this.state.requests.saves)}</Text> : 
                 null
               }
               <TopNavigationAction icon={MessageIcon} />

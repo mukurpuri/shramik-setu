@@ -3,8 +3,9 @@ const initialState = {
     settings: {
         language: "en",
         screenloading: false,
-        range: 0,
-        connectTab: "people"
+        range: 100,
+        connectTab: "people",
+        expoToken: null,
     }
 };
 const userReducer = (state = initialState, action) => {
@@ -37,6 +38,13 @@ const userReducer = (state = initialState, action) => {
               }
         }
 
+        case 'SET_EXPO_TOKEN': {
+            return {
+                ...state,
+                settings: setExpoToken(state.settings, action.token),
+              }
+        }
+
         default: {
             return state;
         }
@@ -60,6 +68,12 @@ function setSelectErrorText(data, language) {
 function setSearchRange(data, range) {
     const newData = Object.assign({}, data);
     newData.range = range;
+    return newData;
+}
+
+function setExpoToken(data, token) {
+    const newData = Object.assign({}, data);
+    newData.expoToken = token;
     return newData;
 }
 

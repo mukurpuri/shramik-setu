@@ -8,7 +8,7 @@ import _ from 'lodash';
 import  Wrapper from '../../component/Wrapper';
 import HeaderUser from '../../component/HeaderUser';
 import FootbarAction from '../../component/FootbarAction';
-import { SetUserLocation } from '../../redux/actions/user';
+import { SetUserLocation , setUserImage} from '../../redux/actions/user';
 import { getProfilePicture } from '../../utilities/helpers';
 import { VerifiedTick, Gear, EyeOutline, Edit, PictureIcon, AddCircular, Briefcase, Shop, Logout  } from '../../component/Icons';
 import { SetuLogo } from '../../config/Images';
@@ -60,8 +60,9 @@ class Menu extends React.Component {
             this._isMounted = true;
             this.setState({
               showShopLoaders: false,
-              otherAccounts: res.data,
+              otherAccounts: res.data.businesses,
             }, () => {
+              //console.log("SSSS", res.data.myAccount.imageID);
             })
           }
         })
@@ -159,22 +160,23 @@ class Menu extends React.Component {
                   </View>
                   {/* <View style={LocalStyles.divider}></View> */}
                   {
-                    this.state.otherAccounts.length > 0 ?
-                    <View style={[Styles.spacings.mTopSmall]}>
-                      <View>
-                          <Text style={LocalStyles.label}>OTHER ACCOUNTS</Text>
-                      </View>
-                      <View>
-                        {
-                          this.state.showShopLoaders ? 
-                          <View style={Styles.spacings.mTopSmall}>
-                          <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}>
-                            <Spinner size="medium" status="danger"/>
-                          </View></View> : 
-                          <Accounts navigation={this.props.navigation} data={this.state.otherAccounts} user={this.props.user} />
-                        }
-                      </View>
-                    </View> : null
+                    this.state.showShopLoaders ? 
+                        <View style={[Styles.spacings.mTopSmall]}>
+                            <View style={Styles.alignments.row, Styles.alignments.horizontalCenter}>
+                              <Spinner size="medium" status="danger"/>
+                            </View>
+                        </View> :
+                        (
+                          this.state.otherAccounts.length > 0 ?
+                          <View style={[Styles.spacings.mTopSmall]}>
+                            <View>
+                                <Text style={LocalStyles.label}>OTHER ACCOUNTS</Text>
+                            </View>
+                            <View>
+                              <Accounts navigation={this.props.navigation} data={this.state.otherAccounts} user={this.props.user} />
+                            </View>
+                          </View> : null
+                        )
                   }
                   <View style={[Styles.spacings.mTopSmall]}>
                       <Text style={LocalStyles.label}>CHANGE LANGUAGE</Text>
@@ -253,12 +255,17 @@ class Accounts extends React.Component {
   componentDidMount = async () => {
   }
 
+  openShop = id => {
+    this.props.navigation.navigate("Shop", {id});
+    EventRegister.emit("loadShop", {id});
+  }
+
   render() {
       let accounts = [];
       _.each(this.props.data, (account, index) => {
         accounts.push(
           <View key={account.id}  style={[Styles.alignments.rel,LocalStyles.shopCard, Styles.spacings.pBottomXSmall]}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("Shop", {id: account.id})} style={LocalStyles.cardItem, Styles.spacings.pTopXSmall}>
+            <TouchableOpacity onPress={() => this.openShop(account.id)} style={LocalStyles.cardItem, Styles.spacings.pTopXSmall}>
               {
                 account.deactivate ? 
                   <React.Fragment>
@@ -416,6 +423,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
     return {
       UserLogout: () => dispatch(UserLogout()),
+      setUserImage: (id) => dispatch(setUserImage(id))
     };
 };
   

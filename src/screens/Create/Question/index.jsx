@@ -243,7 +243,8 @@ const LocalStyles = StyleSheet.create({
     innerTextStyle: {
         backgroundColor: "white",
         fontFamily: "nunito-bold",
-        justifyContent: "center"
+        justifyContent: "center",
+        textAlignVertical : 'top'
     },
     pillContainer: {
         marginTop: 5,
@@ -253,7 +254,7 @@ const LocalStyles = StyleSheet.create({
     radioText: { fontSize: 16 },
     iputText: {
         backgroundColor: "white",
-        marginTop: 5
+        marginTop: 5,
     },
     radio: { margin: 12 },
     image: {
